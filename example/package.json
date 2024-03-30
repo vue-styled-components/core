@@ -1,12 +1,12 @@
 {
-  "name": "examples",
+  "name": "example",
   "version": "1.0.0",
   "description": "",
   "scripts": {
     "dev": "vite",
     "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "@vue3-styled-components/package": "workspace:^0.0.1"
+  }
 }

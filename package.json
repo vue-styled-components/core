@@ -1,10 +1,14 @@
 {
-  "name": "vue3-styled-components",
+  "name": "@vue3-styled-components",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "workspaces": [
+    "package/*",
+    "example/*"
+  ],
   "scripts": {
-    "build": "vite build",
+    "dev": "cd example && pnpm run dev",
     "lint": "eslint . -c .eslintrc.cjs --fix --ext .ts,.vue,.tsx,.d.ts"
   },
   "dependencies": {

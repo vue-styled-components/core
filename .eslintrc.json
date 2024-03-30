@@ -6,10 +6,11 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:vue/vue3-essential"
+    "plugin:vue/vue3-essential",
+    "@vue/eslint-config-prettier"
   ],
   "parserOptions": {
-    "ecmaVersion": "latest",
+    "ecmaVersion": 2021,
     "parser": "@typescript-eslint/parser",
     "sourceType": "module"
   },
@@ -18,5 +19,46 @@
     "vue"
   ],
   "rules": {
+    // 可以根据需要添加规则
+    "indent": [
+      "error",
+      2
+    ],
+    // 缩进2个空格
+    "quotes": [
+      "error",
+      "single"
+    ],
+    // 使用单引号
+    "semi": [
+      "error",
+      "never"
+    ],
+    // 总是使用分号
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    // 不允许行末逗号
+    "no-console": "warn",
+    // 警告：不允许使用 console
+    "no-debugger": "error",
+    // 错误：不允许使用 debugger
+    "vue/html-indent": [
+      "error",
+      2
+    ],
+    // Vue模板缩进2个空格
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    // 允许函数返回类型不明确
+    "@typescript-eslint/no-explicit-any": "off",
+    // 允许使用 any 类型
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ]
+    // 忽略未使用的参数以 _ 开头
   }
 }

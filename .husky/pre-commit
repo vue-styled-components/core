@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+. "${0%/*}/h"
+
+pnpm run lint

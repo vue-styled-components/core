@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    // 目标 ECMAScript 版本
+    "module": "esnext",
+    // 模块解析策略
+    "strict": true,
+    // 启用所有严格类型检查选项
+    "esModuleInterop": true,
+    // 启用默认导出的 esModuleInterop
+    "forceConsistentCasingInFileNames": true,
+    // 在文件名中强制使用一致的大小写
+    "moduleResolution": "node",
+    // 模块解析策略
+    "resolveJsonModule": true,
+    // 允许导入 JSON 模块
+    "isolatedModules": true,
+    // 每个文件都作为单独的模块进行处理
+    "jsx": "preserve",
+    // 处理 .tsx 文件时的 JSX 选项
+    "lib": [
+      "dom",
+      "esnext"
+    ]
+    // 使用的库文件
+  },
+  "include": [
+    "src/**/*",
+    "example/**/*"
+  ],
+  // 需要编译的文件或目录
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+  // 排除的文件或目录
+}

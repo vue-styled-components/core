@@ -1,7 +1,7 @@
 import { defineComponent, DefineSetupFnComponent, h, PropType, PublicProps, ref, SlotsType } from 'vue'
 import domElements, { type SupportedHTMLElements } from '@/constants/domElements'
 import generateClassName from '@/utils/generateClassName'
-import parseCSS from '@/utils/parser'
+import { insertExpressionFns, applyExpressions } from '@/utils'
 
 interface IProps {
   as?: SupportedHTMLElements
@@ -16,24 +16,25 @@ type StyledComponent = StyledFactory & {
   attrs: <T extends Record<string, any>>(attrs: T) => StyledFactory
 }
 
-function baseStyled(tag: string, props?: Record<string, any>): StyledComponent {
-  let cssString = ''
+function baseStyled(tag: string, props: Record<string, any> = {}): StyledComponent {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let attributes: Attrs = {}
-  const styledComponent: StyledComponent = function (styles: TemplateStringsArray, ...interpolations) {
-    console.log(styles, interpolations)
-    return createStyledComponent(styles)
+  const styledComponent: StyledComponent = function (styles: TemplateStringsArray, ...expressions) {
+    const cssStringsWithExpression = insertExpressionFns(styles, expressions)
+
+    const appliedCss = applyExpressions(cssStringsWithExpression, { ...props, ...attributes })
+
+    return createStyledComponent(appliedCss.join(''))
   }
   styledComponent.attrs = function <T extends Record<string, any>>(attrs: T): StyledFactory {
     attributes = attrs
     return styledComponent
   }
 
-  function createStyledComponent(styles: TemplateStringsArray) {
+  function createStyledComponent(cssString: string) {
     return defineComponent(
       (props, { slots }) => {
         const { as } = props
-        console.log(props)
         const styledComponent = ref(as)
         // 生成一个随机的类名W
         const className = generateClassName()
@@ -43,9 +44,7 @@ function baseStyled(tag: string, props?: Record<string, any>): StyledComponent {
           attributes.class = className
         }
 
-        cssString = styles?.join(' ')
-
-        parseCSS(cssString)
+        // parseCSS(cssString)
 
         // 创建一个 style 标签并插入到 head 中
         const styleTag = document.createElement('style')

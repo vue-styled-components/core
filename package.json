@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "cd example && pnpm run dev",
     "typecheck": "vue-tsc --noEmit",
-    "lint": "eslint . -c .eslintrc.cjs --fix --ext .ts,.vue,.tsx,.d.ts",
+    "lint": "eslint . -c .eslintrc.json --fix --ext .ts,.vue,.tsx,.d.ts",
     "prepare": "husky install"
   },
   "dependencies": {

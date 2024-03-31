@@ -1,4 +1,4 @@
-const elements =  [
+const elements = [
   'a',
   'abbr',
   'address',
@@ -135,5 +135,5 @@ const elements =  [
   'tspan'
 ] as const
 
-export default new Set(elements);
-export type SupportedHTMLElements = (typeof elements)[number];
+export default new Set(elements)
+export type SupportedHTMLElements = (typeof elements)[number]

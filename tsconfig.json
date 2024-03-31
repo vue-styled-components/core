@@ -10,7 +10,7 @@
     // 启用默认导出的 esModuleInterop
     "forceConsistentCasingInFileNames": true,
     // 在文件名中强制使用一致的大小写
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     // 模块解析策略
     "resolveJsonModule": true,
     // 允许导入 JSON 模块
@@ -21,12 +21,15 @@
     "lib": [
       "dom",
       "esnext"
-    ]
-    // 使用的库文件
+    ],
+    "paths": {
+      "@/*": ["./package/*"]
+    }
   },
   "include": [
     "package/**/*",
-    "example/**/*"
+    "example/**/*",
+    "vite.config.ts"
   ],
   // 需要编译的文件或目录
   "exclude": [

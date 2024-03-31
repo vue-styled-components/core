@@ -1,52 +1,56 @@
-import { defineComponent, DefineSetupFnComponent, h, PropType, PublicProps, ref, SlotsType } from 'vue';
-import domElements, { SupportedHTMLElements } from './domElements';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type StyledFactory = (
-  styles: TemplateStringsArray
-) => DefineSetupFnComponent<IProps, any, SlotsType<Record<string, any>>, any, PublicProps>;
-type StyledComponent = StyledFactory & {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  attrs: <T>(attrs: T) => StyledFactory;
-};
+import { defineComponent, DefineSetupFnComponent, h, PropType, PublicProps, ref, SlotsType } from 'vue'
+import domElements, { type SupportedHTMLElements } from '@/constants/domElements'
+import generateClassName from '@/utils/generateClassName'
+import parseCSS from '@/utils/parser'
 
 interface IProps {
-  as?: SupportedHTMLElements;
+  as?: SupportedHTMLElements
 }
 
-function baseStyled(tag: string): StyledComponent {
-  let cssString = '';
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let attributes: any = {};
+type Attrs = Record<string, any>
 
-  const styledComponent: StyledComponent = function (styles: TemplateStringsArray) {
-    return createStyledComponent(styles);
-  };
-  styledComponent.attrs = function <T>(attrs: T): StyledFactory {
-    attributes = attrs;
-    return styledComponent;
-  };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type StyledFactory = (styles: TemplateStringsArray) => DefineSetupFnComponent<IProps, any, SlotsType<Record<string, any>>, any, PublicProps>
+type StyledComponent = StyledFactory & {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  attrs: <T extends Record<string, any>>(attrs: T) => StyledFactory
+}
+
+function baseStyled(tag: string, props?: Record<string, any>): StyledComponent {
+  let cssString = ''
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let attributes: Attrs = {}
+  const styledComponent: StyledComponent = function (styles: TemplateStringsArray, ...interpolations) {
+    console.log(styles, interpolations)
+    return createStyledComponent(styles)
+  }
+  styledComponent.attrs = function <T extends Record<string, any>>(attrs: T): StyledFactory {
+    attributes = attrs
+    return styledComponent
+  }
 
   function createStyledComponent(styles: TemplateStringsArray) {
     return defineComponent(
       (props, { slots }) => {
-        // 定义 props 对象来接收传入的属性
-        const { as } = props;
-        // 使用 ref 创建响应式的组件标签名
-        const styledComponent = ref(as ?? tag);
-        // 生成一个随机的类名
-        const className = `styled-${Math.random().toString(36).substring(4)}`;
+        const { as } = props
+        console.log(props)
+        const styledComponent = ref(as)
+        // 生成一个随机的类名W
+        const className = generateClassName()
         if (attributes?.class) {
-          attributes.class += ` ${className}`;
+          attributes.class += ` ${className}`
         } else {
-          attributes.class = className;
+          attributes.class = className
         }
 
-        cssString = styles?.join(' ');
+        cssString = styles?.join(' ')
+
+        parseCSS(cssString)
+
         // 创建一个 style 标签并插入到 head 中
-        const styleTag = document.createElement('style');
-        styleTag.innerHTML = `.${className} { ${cssString} }`;
-        document.head.appendChild(styleTag);
+        const styleTag = document.createElement('style')
+        styleTag.innerHTML = `.${className} { ${cssString} }`
+        document.head.appendChild(styleTag)
 
         // 返回渲染函数
         return () => {
@@ -56,8 +60,8 @@ function baseStyled(tag: string): StyledComponent {
               ...attributes
             },
             slots.default?.()
-          );
-        };
+          )
+        }
       },
       {
         props: {
@@ -67,18 +71,18 @@ function baseStyled(tag: string): StyledComponent {
           }
         }
       }
-    );
+    )
   }
 
-  return styledComponent;
+  return styledComponent
 }
 
 const styled = baseStyled as typeof baseStyled & {
-  [E in SupportedHTMLElements]: StyledComponent;
-};
+  [E in SupportedHTMLElements]: StyledComponent
+}
 
 domElements.forEach((domElement: SupportedHTMLElements) => {
-  styled[domElement] = baseStyled(domElement);
-});
+  styled[domElement] = baseStyled(domElement)
+})
 
-export { styled };
+export { styled }

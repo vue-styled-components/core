@@ -2,11 +2,6 @@
   "name": "@vue3-styled-components/package",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsc index.ts"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "type": "module",
+  "scripts": {}
 }

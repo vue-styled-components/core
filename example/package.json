@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --config ../vite.config.ts",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -1,16 +1,22 @@
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
+  resolve: {
+    alias: {
+      '@': new URL('./package', import.meta.url).pathname
+    },
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.less']
+  },
   plugins: [
     vue({
       script: {
-        defineModel: true,
-      },
+        defineModel: true
+      }
     }),
-    vueJsx(),
-  ],
+    vueJsx()
+  ]
 })

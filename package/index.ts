@@ -1,1 +1,2 @@
-export { styled } from './styled'
+export * from './styled'
+export * from './providers'

@@ -5,7 +5,6 @@ export function isTag(target: any) {
 }
 
 export function isStyledComponent(target: any) {
-  console.log(target)
   return typeof target === 'object' && 'styled' in target
 }
 

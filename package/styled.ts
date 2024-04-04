@@ -1,7 +1,15 @@
-import { defineComponent, DefineSetupFnComponent, h, PropType, PublicProps, SlotsType, useSlots } from 'vue'
+import { defineComponent, DefineSetupFnComponent, h, inject, onMounted, PropType, PublicProps, SlotsType, useSlots, watch } from 'vue'
 import domElements, { type SupportedHTMLElements } from '@/constants/domElements'
-import { insertExpressionFns, applyExpressions, generateClassName, type ExpressionType, isVueComponent } from '@/utils'
+import {
+  type ExpressionType,
+  generateClassName,
+  generateComponentName,
+  insertExpressionFns,
+  isStyledComponent,
+  isVueComponent
+} from '@/utils'
 import { isValidElementType } from '@/utils/validate'
+import injectStyle from '@/injectStyle'
 
 interface IProps {
   as?: SupportedHTMLElements
@@ -11,18 +19,15 @@ type ComponentCustomProps = PublicProps & {
   styled: boolean
 }
 
-export type StyledComponentType = DefineSetupFnComponent<IProps, any, SlotsType<Record<string, any>>, any, ComponentCustomProps>
+export type StyledComponentType = DefineSetupFnComponent<IProps, any, SlotsType, any, ComponentCustomProps>
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type StyledFactory = (styles: TemplateStringsArray, ...expressions: ExpressionType[]) => StyledComponentType
 type StyledComponent = StyledFactory & {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  attrs: <T extends Record<string, any>>(attrs: T) => StyledFactory
+  attrs: <T extends Record<string, unknown>>(attrs: T) => StyledFactory
 }
-type Attrs = Record<string, any>
+type Attrs = Record<string, unknown>
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function baseStyled(target: string | InstanceType<any>, props: Record<string, any> = {}): StyledComponent {
+function baseStyled(target: string | InstanceType<any>, propsFromFactory: Record<string, unknown> = {}): StyledComponent {
   if (!isValidElementType(target)) {
     throw Error('The element is invalid.')
   }
@@ -32,19 +37,32 @@ function baseStyled(target: string | InstanceType<any>, props: Record<string, an
     ...expressions: ExpressionType[]
   ): StyledComponentType {
     const cssStringsWithExpression = insertExpressionFns(styles, expressions)
-
-    const appliedCss = applyExpressions(cssStringsWithExpression, { ...props, ...attributes })
-
-    return createStyledComponent(appliedCss.join(''))
+    return createStyledComponent(cssStringsWithExpression)
   }
-  styledComponent.attrs = function <T extends Record<string, any>>(attrs: T): StyledComponent {
+  styledComponent.attrs = function <T extends Record<string, unknown>>(attrs: T): StyledComponent {
     attributes = attrs
     return styledComponent
   }
 
-  function createStyledComponent(cssString: string): StyledComponentType {
+  function createStyledComponent(cssWithExpression: (string | ExpressionType)[]): StyledComponentType {
+    let type: string = target
+    if (isVueComponent(target)) {
+      type = 'vue-component'
+    }
+    if (isStyledComponent(target)) {
+      type = 'styled-component'
+    }
+
+    const componentName = generateComponentName(type)
     return defineComponent(
       (props) => {
+        const theme = inject<Record<string, string | number>>('$theme') || {}
+        const context = {
+          ...propsFromFactory,
+          theme,
+          ...attributes
+        }
+
         // Generate a unique class name
         const className = generateClassName()
         if (attributes?.class) {
@@ -53,10 +71,13 @@ function baseStyled(target: string | InstanceType<any>, props: Record<string, an
           attributes.class = className
         }
 
-        // Create a style tag and append it to the head
-        const styleTag = document.createElement('style')
-        styleTag.innerHTML = `.${className} { ${cssString} }`
-        document.head.appendChild(styleTag)
+        watch(theme, () => {
+          injectStyle(className, cssWithExpression, context)
+        })
+
+        onMounted(() => {
+          injectStyle(className, cssWithExpression, context)
+        })
 
         // Return the render function
         return () => {
@@ -71,11 +92,13 @@ function baseStyled(target: string | InstanceType<any>, props: Record<string, an
         }
       },
       {
+        name: componentName,
         props: {
           as: {
             type: String as PropType<SupportedHTMLElements>
           }
         },
+        inheritAttrs: true,
         styled: true
       } as any
     )

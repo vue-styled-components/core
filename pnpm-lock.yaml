@@ -64,7 +64,7 @@ importers:
   example:
     dependencies:
       '@vue3-styled-components/package':
-        specifier: workspace:^0.0.1
+        specifier: workspace:^0.0.2
         version: link:../package
 
   package: {}

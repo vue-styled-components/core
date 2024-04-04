@@ -1,4 +1,5 @@
 export function applyExpressions(chunks: any[], executionContext: Record<string, any>): string[] {
+  // console.log('applyExpressions', chunks, executionContext)
   return chunks.reduce((ruleSet, chunk) => {
     if (chunk === undefined || chunk === null || chunk === false || chunk === '') return ruleSet
     if (Array.isArray(chunk)) return [...ruleSet, ...applyExpressions(chunk, executionContext)]

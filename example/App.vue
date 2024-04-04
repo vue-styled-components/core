@@ -1,29 +1,35 @@
 <script setup lang="tsx">
-import { styled } from '@vue3-styled-components/package'
+import { styled, ThemeProvider } from '@vue3-styled-components/package'
 import Component from './Component.vue'
+import { ref } from 'vue'
 
-const StyledComp = styled('div').attrs({
-  primary: true
-})`
-  background: ${(props) => (props.primary ? ' red ' : 'blue')};
+const theme = ref({ primary: 'green', error: 'red' })
+
+const update = () => {
+  theme.value.primary = theme.value.primary === 'red' ? 'green' : 'red'
+}
+
+const StyledComp3 = styled(Component)`
+  background: ${(props) => props.theme.primary};
 `
-const StyledComp3 = styled(StyledComp).attrs({
-  primary: false
-})`
-  background: ${(props) => (props.primary ? ' red ' : 'blue')};
+const StyledComp4 = styled.div`
+  background: ${(props) => props.theme.error};
 `
-const StyledComp2 = styled(Component).attrs({
-  primary: false
-})`
-  color: white;
-  background: ${(props) => (props.primary ? ' red ' : 'blue')};
+const StyledComp5 = styled(StyledComp4)`
+  background: ${(props) => props.theme.error};
 `
 </script>
 
 <template>
-  <StyledComp>12345</StyledComp>
-  <StyledComp3>
-    <div>永远永远</div>
-  </StyledComp3>
-  <StyledComp2>哇哈哈</StyledComp2>
+  <ThemeProvider :theme="theme">
+    <StyledComp3 @click="update">12345</StyledComp3>
+    <StyledComp4>12345</StyledComp4>
+    <StyledComp5>12345</StyledComp5>
+  </ThemeProvider>
 </template>
+
+<style>
+body {
+  background: #222;
+}
+</style>

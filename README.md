@@ -12,4 +12,4 @@
 
 ✅ Style vue component or styled component
 
-❌ Theme provider
+✅ Theme provider

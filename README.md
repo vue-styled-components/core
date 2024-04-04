@@ -10,6 +10,6 @@
 
 ✅ Control dynamic style by props
 
-❌ Style vue component or styled component
+✅ Style vue component or styled component
 
 ❌ Theme provider

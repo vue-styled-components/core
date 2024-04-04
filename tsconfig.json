@@ -1,40 +1,43 @@
 {
   "compilerOptions": {
-    "target": "esnext",
     // 目标 ECMAScript 版本
+    "target": "esnext",
+    // 模块解析策略
     "module": "esnext",
-    // 模块解析策略
-    "strict": true,
     // 启用所有严格类型检查选项
-    "esModuleInterop": true,
+    "strict": true,
     // 启用默认导出的 esModuleInterop
-    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
     // 在文件名中强制使用一致的大小写
-    "moduleResolution": "Node",
+    "forceConsistentCasingInFileNames": true,
     // 模块解析策略
-    "resolveJsonModule": true,
+    "moduleResolution": "Bundler",
     // 允许导入 JSON 模块
-    "isolatedModules": true,
+    "resolveJsonModule": true,
     // 每个文件都作为单独的模块进行处理
-    "jsx": "preserve",
+    "isolatedModules": true,
     // 处理 .tsx 文件时的 JSX 选项
+    "jsx": "preserve",
     "lib": [
       "dom",
       "esnext"
     ],
     "paths": {
-      "@/*": ["./package/*"]
-    }
+      "@/*": [
+        "./package/*"
+      ]
+    },
+    "skipLibCheck": true
   },
+  // 需要编译的文件或目录
   "include": [
     "package/**/*",
     "example/**/*",
     "vite.config.ts"
   ],
-  // 需要编译的文件或目录
+  // 排除的文件或目录
   "exclude": [
-    "node_modules",
+    "node_modules/**/*",
     "dist"
   ]
-  // 排除的文件或目录
 }

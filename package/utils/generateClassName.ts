@@ -1,7 +1,5 @@
-import { CLASS_PREFIX } from '../constants/constants'
+import { CLASS_PREFIX } from '@/constants/constants'
 
-const generateClassName = () => {
+export function generateClassName() {
   return `${CLASS_PREFIX}-${Math.random().toString(36).substring(4)}`
 }
-
-export default generateClassName

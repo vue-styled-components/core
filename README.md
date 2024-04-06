@@ -14,28 +14,35 @@
 
 ✅ Theme provider
 
+❌ Keyframes
+
+❌ Global style
+
+❌ The css selector of `&` support
+
 ## Usage
 
 ### Styled component
 
 ```vue
-<script setup lang="ts">
-import { styled } from 'vue3-styled-components'
-import OtherComponent from './VueComponent.vue'
 
-const StyledDiv = styled('div')`
+<script setup lang="ts">
+  import { styled } from 'vue3-styled-components'
+  import OtherComponent from './VueComponent.vue'
+
+  const StyledDiv = styled('div')`
     width: 100px;
     height: 100px;
     background-color: #ccc;
     color: #000;
 `
-const StyledStyledDiv = styled(StyledDiv)`
+  const StyledStyledDiv = styled(StyledDiv)`
     width: 100px;
     height: 100px;
     background-color: #000;
     color: #fff;
 `
-const StyledOtherComponent = styled(OtherComponent)`
+  const StyledOtherComponent = styled(OtherComponent)`
     width: 100px;
     height: 100px;
     background-color: red;
@@ -44,21 +51,22 @@ const StyledOtherComponent = styled(OtherComponent)`
 </script>
 
 <template>
-    <StyledDiv>Styled Div</StyledDiv>
-    <StyledStyledDiv>Styled Styled Div</StyledStyledDiv>
-    <StyledOtherComponent>Styled Other Vue Component</StyledOtherComponent>
+  <StyledDiv>Styled Div</StyledDiv>
+  <StyledStyledDiv>Styled Styled Div</StyledStyledDiv>
+  <StyledOtherComponent>Styled Other Vue Component</StyledOtherComponent>
 </template>
 ```
 
 ### Attrs
 
 ```vue
-<script setup lang="ts">
-import { styled } from 'vue3-styled-components'
 
-const StyledDiv = styled.div.attrs({
+<script setup lang="ts">
+  import { styled } from 'vue3-styled-components'
+
+  const StyledDiv = styled.div.attrs({
     class: 'styled-div',
-})`
+  })`
     width: 100px;
     height: 100px;
     background-color: #ccc;
@@ -67,20 +75,21 @@ const StyledDiv = styled.div.attrs({
 </script>
 
 <template>
-    <StyledDiv>Styled Div</StyledDiv>
-    <!-- <div class="styled-div">Styled Div</div> -->
+  <StyledDiv>Styled Div</StyledDiv>
+  <!-- <div class="styled-div">Styled Div</div> -->
 </template>
 ```
 
 ### Control Dynamic Style by Props
 
 ```vue
-<script setup lang="ts">
-import { styled } from 'vue3-styled-components'
 
-const StyledDiv = styled('div', {
+<script setup lang="ts">
+  import { styled } from 'vue3-styled-components'
+
+  const StyledDiv = styled('div', {
     color: '#fff'
-})`
+  })`
     width: 100px;
     height: 100px;
     background-color: #ccc;
@@ -89,17 +98,18 @@ const StyledDiv = styled('div', {
 </script>
 
 <template>
-    <StyledDiv>Styled Div</StyledDiv>
+  <StyledDiv>Styled Div</StyledDiv>
 </template>
 ```
 
 ### Theme Provider
 
 ```vue
-<script setup lang="ts">
-import { styled, ThemeProvider } from 'vue3-styled-components'
 
-const StyledDiv = styled.div`
+<script setup lang="ts">
+  import { styled, ThemeProvider } from 'vue3-styled-components'
+
+  const StyledDiv = styled.div`
     width: 100px;
     height: 100px;
     background-color: #ccc;
@@ -108,8 +118,8 @@ const StyledDiv = styled.div`
 </script>
 
 <template>
-    <ThemeProvider :theme="{ color: '#fff' }">
-        <StyledDiv>Styled Div</StyledDiv>
-    </ThemeProvider>
+  <ThemeProvider :theme="{ color: '#fff' }">
+    <StyledDiv>Styled Div</StyledDiv>
+  </ThemeProvider>
 </template>
 ```

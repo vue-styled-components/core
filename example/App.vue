@@ -1,22 +1,39 @@
 <script setup lang="tsx">
-import { styled, ThemeProvider } from '@vue3-styled-components/package'
+import { styled, ThemeProvider, keyframes } from '@vue3-styled-components/package'
 import Component from './Component.vue'
 import { ref } from 'vue'
 
 const theme = ref({ primary: 'green', error: 'red' })
+
+const kf = keyframes`
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+`
 
 const update = () => {
   theme.value.primary = theme.value.primary === 'red' ? 'green' : 'red'
 }
 
 const StyledComp3 = styled(Component)`
-  background: ${(props) => props.theme.primary};
+  background: ${(props: any) => props.theme.primary};
 `
 const StyledComp4 = styled.div`
-  background: ${(props) => props.theme.error};
+  background: ${(props: any) => props.theme.error};
 `
-const StyledComp5 = styled(StyledComp4)`
-  background: ${(props) => props.theme.error};
+const StyledComp5 = styled.div`
+  width: 40px;
+  height: 40px;
+  background: ${(props: any) => props.theme.error};
+  animation-duration: 3s;
+  animation-name: ${kf};
+  animation-iteration-count: infinite;
 `
 </script>
 

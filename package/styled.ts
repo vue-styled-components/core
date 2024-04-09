@@ -1,15 +1,15 @@
 import { defineComponent, DefineSetupFnComponent, h, inject, onMounted, PropType, PublicProps, SlotsType, useSlots, watch } from 'vue'
 import domElements, { type SupportedHTMLElements } from '@/constants/domElements'
 import {
-  type ExpressionType,
+  type ExpressionsType,
   generateClassName,
   generateComponentName,
-  insertExpressionFns,
+  insertExpressions,
   isStyledComponent,
   isVueComponent
 } from '@/utils'
 import { isValidElementType } from '@/utils/validate'
-import injectStyle from '@/injectStyle'
+import { injectStyle } from '@/injectStyle'
 
 interface IProps {
   as?: SupportedHTMLElements
@@ -21,7 +21,7 @@ type ComponentCustomProps = PublicProps & {
 
 export type StyledComponentType = DefineSetupFnComponent<IProps, any, SlotsType, any, ComponentCustomProps>
 
-type StyledFactory = (styles: TemplateStringsArray, ...expressions: ExpressionType[]) => StyledComponentType
+type StyledFactory = (styles: TemplateStringsArray, ...expressions: ExpressionsType) => StyledComponentType
 type StyledComponent = StyledFactory & {
   attrs: <T extends Record<string, unknown>>(attrs: T) => StyledFactory
 }
@@ -34,9 +34,9 @@ function baseStyled(target: string | InstanceType<any>, propsFromFactory: Record
   let attributes: Attrs = {}
   const styledComponent: StyledComponent = function styledComponent(
     styles: TemplateStringsArray,
-    ...expressions: ExpressionType[]
+    ...expressions: ExpressionsType
   ): StyledComponentType {
-    const cssStringsWithExpression = insertExpressionFns(styles, expressions)
+    const cssStringsWithExpression = insertExpressions(styles, expressions)
     return createStyledComponent(cssStringsWithExpression)
   }
   styledComponent.attrs = function <T extends Record<string, unknown>>(attrs: T): StyledComponent {
@@ -44,7 +44,7 @@ function baseStyled(target: string | InstanceType<any>, propsFromFactory: Record
     return styledComponent
   }
 
-  function createStyledComponent(cssWithExpression: (string | ExpressionType)[]): StyledComponentType {
+  function createStyledComponent(cssWithExpression: ExpressionsType): StyledComponentType {
     let type: string = target
     if (isVueComponent(target)) {
       type = 'vue-component'

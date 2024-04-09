@@ -56,6 +56,7 @@ function baseStyled(target: string | InstanceType<any>, propsFromFactory: Record
     const componentName = generateComponentName(type)
     return defineComponent(
       (props) => {
+        const myAttrs = { ...attributes }
         const theme = inject<Record<string, string | number>>('$theme') || {}
         const context = {
           ...propsFromFactory,
@@ -65,11 +66,7 @@ function baseStyled(target: string | InstanceType<any>, propsFromFactory: Record
 
         // Generate a unique class name
         const className = generateClassName()
-        if (attributes?.class) {
-          attributes.class += ` ${className}`
-        } else {
-          attributes.class = className
-        }
+        myAttrs.class = className
 
         watch(theme, () => {
           injectStyle(className, cssWithExpression, context)
@@ -81,13 +78,13 @@ function baseStyled(target: string | InstanceType<any>, propsFromFactory: Record
 
         // Return the render function
         return () => {
-          const slot = useSlots()
+          const slots = useSlots()
           return h(
             isVueComponent(target) ? target : props?.as || target,
             {
-              ...attributes
+              ...myAttrs
             },
-            slot
+            slots
           )
         }
       },

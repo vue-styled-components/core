@@ -14,9 +14,9 @@
 
 ✅ Theme provider
 
-❌ Keyframes
+✅ Keyframes
 
-❌ Global style
+✅ Global style
 
 ❌ The css selector of `&` support
 

@@ -8,7 +8,7 @@
 
 ✅ Add attrs
 
-✅ Control dynamic style by props
+✅ Passed props
 
 ✅ Style vue component or styled component
 

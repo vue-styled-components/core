@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "dev": "cd example && pnpm run dev",
+    "docs:dev": "cd docs && pnpm run docs:dev",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint . -c .eslintrc.json --fix --ext .ts,.vue,.tsx,.d.ts",
     "prepare": "husky install"

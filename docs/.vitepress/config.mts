@@ -24,8 +24,8 @@ export default defineConfig({
         'edit-on-github': '在 Github 中编辑',
         'copy-code': '复制代码',
         'copy-success': '复制成功',
-        'copy-error': '复制失败'
-      }
+        'copy-error': '复制失败',
+      },
     },
 
     // https://vitepress.dev/reference/default-theme-config
@@ -51,10 +51,17 @@ export default defineConfig({
   markdown: {
     config: (md) => {
       md.use(demoblockPlugin)
-    }
+    },
   },
   vite: {
-    plugins: [demoblockVitePlugin()]
+
+    resolve: {
+      alias: {
+        '@': new URL('../../package', import.meta.url).pathname,
+      },
+      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.less'],
+    },
+    plugins: [demoblockVitePlugin()],
   },
-  vue: {}
+  vue: {},
 })

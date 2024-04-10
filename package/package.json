@@ -3,5 +3,6 @@
   "version": "0.0.2",
   "description": "",
   "type": "module",
+  "main": "index.ts",
   "scripts": {}
 }

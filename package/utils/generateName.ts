@@ -4,7 +4,7 @@ const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 const generatedNamesSet = new Set<string>()
 
-const generateUniqueName = (): string => {
+export const generateUniqueName = (): string => {
   let uniqueName
   do {
     const timestamp = new Date().getTime()

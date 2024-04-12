@@ -9,7 +9,7 @@ export function injectStyle(className: string, cssWithExpression: (string | Expr
   document.head.appendChild(styleTag)
 }
 
-export function createGlobalStyle(css: TemplateStringsArray, expressions: string[]) {
+export function createGlobalStyle(css: TemplateStringsArray, ...expressions: string[]) {
   // Create a style tag and append it to the head
   const styleTag = document.createElement('style')
   styleTag.innerHTML = insertExpressions(css, expressions).join('')

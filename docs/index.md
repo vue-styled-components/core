@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "Styled Components"
-  text: "A tool for css in js."
+  name: 'Styled Components'
+  text: 'A tool for css in js.'
   tagline: Help you to develop your apps fastly!
   actions:
     - theme: brand
@@ -15,11 +15,13 @@ hero:
       link: https://github.com/vue-styled-components/vue3-styled-components
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - icon: 🗃
+    title: Encapsulation
+    details: Styles are encapsulated within components, preventing style leakage and namespace conflicts.
+  - icon: 🧣
+    title: Reusability
+    details: Styled components can be reused across different parts of your application or even in other projects.
+  - icon: 🚁
+    title: Flexibility
+    details: You can style any component, whether it's a third-party UI library component, a native HTML element, or a custom component.
 ---
-

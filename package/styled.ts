@@ -1,4 +1,16 @@
-import { defineComponent, DefineSetupFnComponent, h, inject, onMounted, PropType, PublicProps, SlotsType, useSlots, watch } from 'vue'
+import {
+  defineComponent,
+  DefineSetupFnComponent,
+  h,
+  inject,
+  onMounted,
+  PropType,
+  PublicProps,
+  reactive,
+  SlotsType,
+  useSlots,
+  watchEffect
+} from 'vue'
 import domElements, { type SupportedHTMLElements } from '@/constants/domElements'
 import {
   type ExpressionsType,
@@ -57,18 +69,21 @@ function baseStyled(target: string | InstanceType<any>, propsFromFactory: Record
     return defineComponent(
       (props) => {
         const myAttrs = { ...attributes }
-        const theme = inject<Record<string, string | number>>('$theme') || {}
-        const context = {
-          ...propsFromFactory,
+        const theme = reactive(inject<Record<string, string | number>>('$theme', {}) || {})
+        let context = {
           theme,
-          ...attributes
+          ...props
         }
 
         // Generate a unique class name
         const className = generateClassName()
         myAttrs.class = className
 
-        watch(theme, () => {
+        watchEffect(() => {
+          context = {
+            theme,
+            ...props
+          }
           injectStyle(className, cssWithExpression, context)
         })
 
@@ -93,7 +108,8 @@ function baseStyled(target: string | InstanceType<any>, propsFromFactory: Record
         props: {
           as: {
             type: String as PropType<SupportedHTMLElements>
-          }
+          },
+          ...propsFromFactory
         },
         inheritAttrs: true,
         styled: true

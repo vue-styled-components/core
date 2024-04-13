@@ -34,7 +34,7 @@ const StyledLink = styled(Link)`
 </script>
 
 <template>
-  <StyledLink />
+  <StyledLink>This is a dark red link</StyledLink>
 </template>
 ```
 
@@ -49,15 +49,20 @@ You can also style styled components. For example, with `StyledLink`, using `sty
 ```vue
 <script setup lang="ts">
 import { styled } from '@vue3-styled-components/package'
-import StyledLink from '/demo/StyledLink.vue'
+
+const StyledLink = styled.a`
+  color: darkred !important;
+`
 
 const StyledBlueLink = styled(StyledLink)`
   color: blue !important;
 `
+
+console.log(StyledLink, StyledBlueLink)
 </script>
 
 <template>
-  <StyledBlueLink />
+  <StyledBlueLink>This is a blue link</StyledBlueLink>
 </template>
 ```
 

@@ -1,3 +1,3 @@
 <template>
-  <a href="#">This is a link</a>
+  <a href="#"><slot /></a>
 </template>

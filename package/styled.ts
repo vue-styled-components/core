@@ -65,6 +65,8 @@ function baseStyled(target: string | InstanceType<any>, propsFromFactory: Record
       type = 'styled-component'
     }
 
+    // Generate a unique class name
+    const className = generateClassName()
     const componentName = generateComponentName(type)
     return defineComponent(
       (props) => {
@@ -75,8 +77,6 @@ function baseStyled(target: string | InstanceType<any>, propsFromFactory: Record
           ...props
         }
 
-        // Generate a unique class name
-        const className = generateClassName()
         myAttrs.class = className
 
         watchEffect(() => {
@@ -120,6 +120,23 @@ function baseStyled(target: string | InstanceType<any>, propsFromFactory: Record
   return styledComponent
 }
 
+const createGlobalStyle = (styles: TemplateStringsArray, ...expressions: ExpressionsType) => {
+  return defineComponent(
+    (_, { attrs }) => {
+      const cssStringsWithExpression = insertExpressions(styles, expressions)
+      injectStyle('global', cssStringsWithExpression, attrs)
+      return () => {
+        return h('div', { style: 'display: none' })
+      }
+    },
+    {
+      name: 'global-style',
+      inheritAttrs: true,
+      styled: true
+    } as any
+  )
+}
+
 /** Append all the supported HTML elements to the styled properties */
 const styled = baseStyled as typeof baseStyled & {
   [E in SupportedHTMLElements]: StyledComponent
@@ -129,4 +146,4 @@ domElements.forEach((domElement: SupportedHTMLElements) => {
   styled[domElement] = baseStyled(domElement)
 })
 
-export { styled }
+export { styled, createGlobalStyle }

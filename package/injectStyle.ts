@@ -1,17 +1,46 @@
 import { applyExpressions, ExpressionType, insertExpressions } from '@/utils'
 
+const MAX_SIZE = 65536
+
+let ctx: number = 0
+const insertedRuleMap: Record<string, Text> = {}
+const tags: HTMLStyleElement[] = []
+
+function createStyleTag(): HTMLStyleElement {
+  const style = document.createElement('style')
+  document.head.appendChild(style)
+  tags.push(style)
+  return style
+}
+
+function insert(className: string, cssString: string) {
+  ctx++
+
+  let styleTag = tags[tags.length - 1]
+
+  if (!styleTag || ctx >= MAX_SIZE) {
+    styleTag = createStyleTag()
+    ctx = 0
+  }
+
+  const ruleNode = insertedRuleMap[className]
+  let rule = `.${className} { ${cssString} }`
+
+  if (className === 'global' || className === 'keyframes') {
+    rule = cssString
+  }
+
+  if (ruleNode) {
+    ruleNode.data = rule
+    return
+  }
+  const cssTextNode = document.createTextNode(rule)
+  styleTag.appendChild(cssTextNode)
+  insertedRuleMap[className] = cssTextNode
+}
+
 export function injectStyle(className: string, cssWithExpression: (string | ExpressionType)[], context: Record<string, any>) {
   const appliedCss = applyExpressions(cssWithExpression, context).join('')
 
-  // Create a style tag and append it to the head
-  const styleTag = document.createElement('style')
-  styleTag.innerHTML = `.${className} { ${appliedCss} }`
-  document.head.appendChild(styleTag)
-}
-
-export function createGlobalStyle(css: TemplateStringsArray, ...expressions: string[]) {
-  // Create a style tag and append it to the head
-  const styleTag = document.createElement('style')
-  styleTag.innerHTML = insertExpressions(css, expressions).join('')
-  document.head.appendChild(styleTag)
+  insert(className, appliedCss)
 }

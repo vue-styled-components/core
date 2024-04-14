@@ -6,6 +6,9 @@ hero:
   name: 'Styled Components'
   text: 'A tool for css in js.'
   tagline: Help you to develop your apps fastly!
+  image:
+    src: /logo.png
+    alt: Vue3 Styled Components
   actions:
     - theme: brand
       text: Get started

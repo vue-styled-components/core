@@ -6,7 +6,9 @@ export default defineConfig({
   base: '/vue3-styled-components/',
   title: 'Vue3 Styled Components',
   description: 'A tool for css in js.',
+  head: [['link', { rel: 'icon', href: '/vue3-styled-components/logo.png' }]],
   themeConfig: {
+    logo: '/logo.png',
     demoblock: {
       root: {
         'view-source': 'View source',

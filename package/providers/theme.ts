@@ -2,13 +2,7 @@ import { defineComponent, h, PropType, provide, ref, useSlots, watch } from 'vue
 
 export const ThemeProvider = defineComponent(
   (props) => {
-    const theme = ref(props.theme)
-
-    watch(props.theme, (newTheme) => {
-      theme.value = newTheme
-    })
-
-    provide('$theme', theme.value)
+    provide('$theme', props.theme)
 
     return () => {
       const slot = useSlots()
@@ -21,7 +15,7 @@ export const ThemeProvider = defineComponent(
       theme: {
         type: Object as PropType<Record<string, string | number>>,
         required: true,
-        default: {}
+        default: () => {}
       }
     }
   }

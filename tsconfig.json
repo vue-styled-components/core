@@ -27,6 +27,9 @@
         "./package/*"
       ]
     },
+    "types": [
+      "@vue/test-utils"
+    ],
     "skipLibCheck": true
   },
   // 需要编译的文件或目录

@@ -39,7 +39,7 @@ type StyledComponent = StyledFactory & {
 }
 type Attrs = Record<string, unknown>
 
-function baseStyled(target: string | InstanceType<any>, propsFromFactory: Record<string, unknown> = {}): StyledComponent {
+function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<string, unknown> = {}): StyledComponent {
   if (!isValidElementType(target)) {
     throw Error('The element is invalid.')
   }
@@ -109,7 +109,7 @@ function baseStyled(target: string | InstanceType<any>, propsFromFactory: Record
           as: {
             type: String as PropType<SupportedHTMLElements>
           },
-          ...propsFromFactory
+          ...propsDefinition
         },
         inheritAttrs: true,
         styled: true

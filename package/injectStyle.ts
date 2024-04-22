@@ -1,4 +1,4 @@
-import { applyExpressions, ExpressionType, insertExpressions } from '@/utils'
+import { applyExpressions, ExpressionType } from '@/utils'
 
 const MAX_SIZE = 65536
 
@@ -41,6 +41,6 @@ function insert(className: string, cssString: string) {
 
 export function injectStyle(className: string, cssWithExpression: (string | ExpressionType)[], context: Record<string, any>) {
   const appliedCss = applyExpressions(cssWithExpression, context).join('')
-
+  console.log(appliedCss)
   insert(className, appliedCss)
 }

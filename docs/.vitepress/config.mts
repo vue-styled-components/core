@@ -29,13 +29,13 @@ export default defineConfig({
         'copy-error': '复制失败',
       },
     },
-
+    
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/basic/quick-start' },
     ],
-
+    
     sidebar: [
       {
         text: 'Basic',
@@ -51,8 +51,15 @@ export default defineConfig({
         text: 'Advances',
         items: [{ text: 'Theming', link: '/guide/advances/theming' }],
       },
+      {
+        text: 'API',
+        items: [
+          { text: 'Core', link: '/guide/api/core' },
+          { text: 'Utils', link: '/guide/api/utils' },
+        ],
+      },
     ],
-
+    
     socialLinks: [{ icon: 'github', link: 'https://github.com/vue-styled-components/vue3-styled-components' }],
   },
   markdown: {

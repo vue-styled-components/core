@@ -1,4 +1,4 @@
-import { applyExpressions, ExpressionType } from '@/utils'
+import { applyExpressions, ExpressionType } from '@/utils/index'
 
 const MAX_SIZE = 65536
 

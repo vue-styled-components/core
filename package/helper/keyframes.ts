@@ -1,4 +1,4 @@
-import { injectStyle } from '@/injectStyle'
+import { injectStyle } from '@/utils/injectStyle'
 import { generateUniqueName } from '@/utils'
 
 export function keyframes(kfString: TemplateStringsArray) {

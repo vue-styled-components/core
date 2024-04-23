@@ -1,5 +1,17 @@
 declare module '@vue3-styled-components/package' {
-  export { styled, keyframes, ThemeProvider, createGlobalStyle } from './index'
+  export {
+    styled,
+    keyframes,
+    ThemeProvider,
+    createGlobalStyle,
+    withAttrs,
+    isStyledComponent,
+    isVueComponent,
+    isTag,
+    isValidElementType,
+    useStyledClassName,
+    css
+  } from './index'
 }
 
 declare module '@vue/test-utils' {

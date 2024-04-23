@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: Get started
-      link: /markdown-examples
+      link: /guide/basic/quick-start
     - theme: alt
       text: View on Github
       link: https://github.com/vue-styled-components/vue3-styled-components

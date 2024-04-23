@@ -5,6 +5,7 @@
   "type": "module",
   "main": "index.ts",
   "scripts": {
+    "typecheck": "vue-tsc --noEmit",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },

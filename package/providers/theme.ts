@@ -1,12 +1,10 @@
-import { defineComponent, h, PropType, provide, ref, useSlots, watch } from 'vue'
+import { defineComponent, h, PropType, provide } from 'vue'
 
 export const ThemeProvider = defineComponent(
-  (props) => {
+  (props, { slots }) => {
     provide('$theme', props.theme)
-
     return () => {
-      const slot = useSlots()
-      return h('div', {}, slot)
+      return h('div', null, slots)
     }
   },
   {

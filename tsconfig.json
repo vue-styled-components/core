@@ -41,6 +41,8 @@
   // 排除的文件或目录
   "exclude": [
     "node_modules/**/*",
-    "dist"
-  ]
+    "dist",
+    "**/__tests__/**"
+  ],
+  "compileOnSave": false
 }

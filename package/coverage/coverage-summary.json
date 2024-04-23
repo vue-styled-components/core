@@ -1,28 +1,28 @@
 {
   "total": {
     "lines": {
-      "total": 832,
-      "covered": 322,
+      "total": 453,
+      "covered": 453,
       "skipped": 0,
-      "pct": 38.7
+      "pct": 100
     },
     "statements": {
-      "total": 832,
-      "covered": 322,
+      "total": 453,
+      "covered": 453,
       "skipped": 0,
-      "pct": 38.7
+      "pct": 100
     },
     "functions": {
-      "total": 40,
-      "covered": 20,
+      "total": 23,
+      "covered": 22,
       "skipped": 0,
-      "pct": 50
+      "pct": 95.65
     },
     "branches": {
-      "total": 69,
-      "covered": 46,
+      "total": 57,
+      "covered": 55,
       "skipped": 0,
-      "pct": 66.66
+      "pct": 96.49
     },
     "branchesTrue": {
       "total": 0,
@@ -31,62 +31,36 @@
       "pct": 100
     }
   },
-  "E:\\projects\\vue3-styled-components\\package\\index.js": {
-    "lines": {
-      "total": 3,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 3,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    }
-  },
   "E:\\projects\\vue3-styled-components\\package\\index.ts": {
     "lines": {
       "total": 3,
-      "covered": 0,
+      "covered": 3,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "functions": {
-      "total": 1,
+      "total": 0,
       "covered": 0,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "statements": {
       "total": 3,
-      "covered": 0,
+      "covered": 3,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "branches": {
-      "total": 1,
+      "total": 0,
       "covered": 0,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     }
   },
-  "E:\\projects\\vue3-styled-components\\package\\injectStyle.js": {
+  "E:\\projects\\vue3-styled-components\\package\\injectStyle.ts": {
     "lines": {
-      "total": 36,
-      "covered": 36,
+      "total": 45,
+      "covered": 45,
       "skipped": 0,
       "pct": 100
     },
@@ -97,8 +71,8 @@
       "pct": 100
     },
     "statements": {
-      "total": 36,
-      "covered": 36,
+      "total": 45,
+      "covered": 45,
       "skipped": 0,
       "pct": 100
     },
@@ -109,88 +83,36 @@
       "pct": 100
     }
   },
-  "E:\\projects\\vue3-styled-components\\package\\injectStyle.ts": {
-    "lines": {
-      "total": 46,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 46,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\keyframes.js": {
-    "lines": {
-      "total": 13,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 13,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    }
-  },
   "E:\\projects\\vue3-styled-components\\package\\keyframes.ts": {
     "lines": {
       "total": 18,
-      "covered": 0,
+      "covered": 18,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "functions": {
       "total": 1,
-      "covered": 0,
+      "covered": 1,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "statements": {
       "total": 18,
-      "covered": 0,
+      "covered": 18,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "branches": {
       "total": 1,
-      "covered": 0,
+      "covered": 1,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     }
   },
-  "E:\\projects\\vue3-styled-components\\package\\styled.js": {
+  "E:\\projects\\vue3-styled-components\\package\\styled.ts": {
     "lines": {
-      "total": 87,
-      "covered": 87,
+      "total": 149,
+      "covered": 149,
       "skipped": 0,
       "pct": 100
     },
@@ -201,66 +123,14 @@
       "pct": 100
     },
     "statements": {
-      "total": 87,
-      "covered": 87,
+      "total": 149,
+      "covered": 149,
       "skipped": 0,
       "pct": 100
     },
     "branches": {
-      "total": 19,
+      "total": 18,
       "covered": 18,
-      "skipped": 0,
-      "pct": 94.73
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\styled.ts": {
-    "lines": {
-      "total": 149,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 149,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\constants\\constants.js": {
-    "lines": {
-      "total": 2,
-      "covered": 2,
-      "skipped": 0,
-      "pct": 100
-    },
-    "functions": {
-      "total": 0,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 100
-    },
-    "statements": {
-      "total": 2,
-      "covered": 2,
-      "skipped": 0,
-      "pct": 100
-    },
-    "branches": {
-      "total": 0,
-      "covered": 0,
       "skipped": 0,
       "pct": 100
     }
@@ -268,33 +138,7 @@
   "E:\\projects\\vue3-styled-components\\package\\constants\\constants.ts": {
     "lines": {
       "total": 2,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 2,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\constants\\domElements.js": {
-    "lines": {
-      "total": 136,
-      "covered": 136,
+      "covered": 2,
       "skipped": 0,
       "pct": 100
     },
@@ -305,8 +149,8 @@
       "pct": 100
     },
     "statements": {
-      "total": 136,
-      "covered": 136,
+      "total": 2,
+      "covered": 2,
       "skipped": 0,
       "pct": 100
     },
@@ -320,305 +164,71 @@
   "E:\\projects\\vue3-styled-components\\package\\constants\\domElements.ts": {
     "lines": {
       "total": 139,
-      "covered": 0,
+      "covered": 139,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "functions": {
-      "total": 1,
+      "total": 0,
       "covered": 0,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "statements": {
       "total": 139,
-      "covered": 0,
+      "covered": 139,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "branches": {
-      "total": 1,
+      "total": 0,
       "covered": 0,
       "skipped": 0,
-      "pct": 0
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\providers\\index.js": {
-    "lines": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
+      "pct": 100
     }
   },
   "E:\\projects\\vue3-styled-components\\package\\providers\\index.ts": {
     "lines": {
       "total": 1,
-      "covered": 0,
+      "covered": 1,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "functions": {
-      "total": 1,
+      "total": 0,
       "covered": 0,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "statements": {
       "total": 1,
-      "covered": 0,
+      "covered": 1,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "branches": {
-      "total": 1,
+      "total": 0,
       "covered": 0,
       "skipped": 0,
-      "pct": 0
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\providers\\theme.js": {
-    "lines": {
-      "total": 17,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 17,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
+      "pct": 100
     }
   },
   "E:\\projects\\vue3-styled-components\\package\\providers\\theme.ts": {
     "lines": {
-      "total": 22,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 22,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\applyExpressions.js": {
-    "lines": {
-      "total": 12,
-      "covered": 12,
+      "total": 20,
+      "covered": 20,
       "skipped": 0,
       "pct": 100
     },
     "functions": {
-      "total": 1,
+      "total": 2,
       "covered": 1,
       "skipped": 0,
-      "pct": 100
+      "pct": 50
     },
     "statements": {
-      "total": 12,
-      "covered": 12,
-      "skipped": 0,
-      "pct": 100
-    },
-    "branches": {
-      "total": 7,
-      "covered": 4,
-      "skipped": 0,
-      "pct": 57.14
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\applyExpressions.ts": {
-    "lines": {
-      "total": 10,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 10,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\generateName.js": {
-    "lines": {
-      "total": 24,
-      "covered": 24,
-      "skipped": 0,
-      "pct": 100
-    },
-    "functions": {
-      "total": 4,
-      "covered": 4,
-      "skipped": 0,
-      "pct": 100
-    },
-    "statements": {
-      "total": 24,
-      "covered": 24,
-      "skipped": 0,
-      "pct": 100
-    },
-    "branches": {
-      "total": 6,
-      "covered": 6,
-      "skipped": 0,
-      "pct": 100
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\generateName.ts": {
-    "lines": {
-      "total": 32,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 32,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\index.js": {
-    "lines": {
-      "total": 5,
-      "covered": 5,
-      "skipped": 0,
-      "pct": 100
-    },
-    "functions": {
-      "total": 0,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 100
-    },
-    "statements": {
-      "total": 5,
-      "covered": 5,
-      "skipped": 0,
-      "pct": 100
-    },
-    "branches": {
-      "total": 0,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 100
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\index.ts": {
-    "lines": {
-      "total": 5,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 5,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\insertExpressions.js": {
-    "lines": {
-      "total": 5,
-      "covered": 5,
-      "skipped": 0,
-      "pct": 100
-    },
-    "functions": {
-      "total": 1,
-      "covered": 1,
-      "skipped": 0,
-      "pct": 100
-    },
-    "statements": {
-      "total": 5,
-      "covered": 5,
+      "total": 20,
+      "covered": 20,
       "skipped": 0,
       "pct": 100
     },
@@ -629,36 +239,114 @@
       "pct": 100
     }
   },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\insertExpressions.ts": {
-    "lines": {
-      "total": 12,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 12,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\is.js": {
+  "E:\\projects\\vue3-styled-components\\package\\utils\\applyExpressions.ts": {
     "lines": {
       "total": 10,
       "covered": 10,
+      "skipped": 0,
+      "pct": 100
+    },
+    "functions": {
+      "total": 1,
+      "covered": 1,
+      "skipped": 0,
+      "pct": 100
+    },
+    "statements": {
+      "total": 10,
+      "covered": 10,
+      "skipped": 0,
+      "pct": 100
+    },
+    "branches": {
+      "total": 12,
+      "covered": 10,
+      "skipped": 0,
+      "pct": 83.33
+    }
+  },
+  "E:\\projects\\vue3-styled-components\\package\\utils\\generateName.ts": {
+    "lines": {
+      "total": 32,
+      "covered": 32,
+      "skipped": 0,
+      "pct": 100
+    },
+    "functions": {
+      "total": 4,
+      "covered": 4,
+      "skipped": 0,
+      "pct": 100
+    },
+    "statements": {
+      "total": 32,
+      "covered": 32,
+      "skipped": 0,
+      "pct": 100
+    },
+    "branches": {
+      "total": 6,
+      "covered": 6,
+      "skipped": 0,
+      "pct": 100
+    }
+  },
+  "E:\\projects\\vue3-styled-components\\package\\utils\\index.ts": {
+    "lines": {
+      "total": 4,
+      "covered": 4,
+      "skipped": 0,
+      "pct": 100
+    },
+    "functions": {
+      "total": 0,
+      "covered": 0,
+      "skipped": 0,
+      "pct": 100
+    },
+    "statements": {
+      "total": 4,
+      "covered": 4,
+      "skipped": 0,
+      "pct": 100
+    },
+    "branches": {
+      "total": 0,
+      "covered": 0,
+      "skipped": 0,
+      "pct": 100
+    }
+  },
+  "E:\\projects\\vue3-styled-components\\package\\utils\\insertExpressions.ts": {
+    "lines": {
+      "total": 12,
+      "covered": 12,
+      "skipped": 0,
+      "pct": 100
+    },
+    "functions": {
+      "total": 1,
+      "covered": 1,
+      "skipped": 0,
+      "pct": 100
+    },
+    "statements": {
+      "total": 12,
+      "covered": 12,
+      "skipped": 0,
+      "pct": 100
+    },
+    "branches": {
+      "total": 2,
+      "covered": 2,
+      "skipped": 0,
+      "pct": 100
+    }
+  },
+  "E:\\projects\\vue3-styled-components\\package\\utils\\is.ts": {
+    "lines": {
+      "total": 13,
+      "covered": 13,
       "skipped": 0,
       "pct": 100
     },
@@ -669,8 +357,8 @@
       "pct": 100
     },
     "statements": {
-      "total": 10,
-      "covered": 10,
+      "total": 13,
+      "covered": 13,
       "skipped": 0,
       "pct": 100
     },
@@ -681,88 +369,10 @@
       "pct": 100
     }
   },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\is.ts": {
+  "E:\\projects\\vue3-styled-components\\package\\utils\\validate.ts": {
     "lines": {
-      "total": 13,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 13,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\parser.js": {
-    "lines": {
-      "total": 10,
-      "covered": 1,
-      "skipped": 0,
-      "pct": 10
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 10,
-      "covered": 1,
-      "skipped": 0,
-      "pct": 10
-    },
-    "branches": {
-      "total": 0,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 100
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\parser.ts": {
-    "lines": {
-      "total": 10,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 10,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\validate.js": {
-    "lines": {
-      "total": 4,
-      "covered": 4,
+      "total": 5,
+      "covered": 5,
       "skipped": 0,
       "pct": 100
     },
@@ -773,8 +383,8 @@
       "pct": 100
     },
     "statements": {
-      "total": 4,
-      "covered": 4,
+      "total": 5,
+      "covered": 5,
       "skipped": 0,
       "pct": 100
     },
@@ -783,32 +393,6 @@
       "covered": 3,
       "skipped": 0,
       "pct": 100
-    }
-  },
-  "E:\\projects\\vue3-styled-components\\package\\utils\\validate.ts": {
-    "lines": {
-      "total": 5,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "functions": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "statements": {
-      "total": 5,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
-    },
-    "branches": {
-      "total": 1,
-      "covered": 0,
-      "skipped": 0,
-      "pct": 0
     }
   }
 }

@@ -71,7 +71,7 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
     return defineComponent(
       (props) => {
         const myAttrs = { ...attributes }
-        const theme = reactive(inject<Record<string, string | number>>('$theme', {}) || {})
+        const theme = reactive(inject<Record<string, string | number>>('$theme', {}))
         let context = {
           theme,
           ...props

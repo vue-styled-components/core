@@ -6,7 +6,7 @@ export default defineConfig({
     alias: {
       '@': new URL('./', import.meta.url).pathname
     },
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.less']
+    extensions: ['.ts', '.jsx', '.tsx', '.json', '.vue', '.less']
   },
   test: {
     clearMocks: true,

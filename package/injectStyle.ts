@@ -41,6 +41,5 @@ function insert(className: string, cssString: string) {
 
 export function injectStyle(className: string, cssWithExpression: (string | ExpressionType)[], context: Record<string, any>) {
   const appliedCss = applyExpressions(cssWithExpression, context).join('')
-  console.log(appliedCss)
   insert(className, appliedCss)
 }

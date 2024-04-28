@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { styled, ThemeProvider, keyframes } from '@vue3-styled-components/package'
+import { styled, ThemeProvider, keyframes, useStyledClassName, withAttrs, css } from '@vue3-styled-components/package'
 import Component from './Component.vue'
 import { ref } from 'vue'
 
@@ -35,6 +35,23 @@ const StyledComp5 = styled.div`
   animation-name: ${kf};
   animation-iteration-count: infinite;
 `
+
+const StyledComp6 = styled('button', { color: String })`
+  width: 40px;
+  height: 40px;
+  color: ${(props: any) => props.color};
+`
+
+const WithAttrsComp = withAttrs(StyledComp6, { disabled: true })
+
+console.log(useStyledClassName().getStyledClassName(StyledComp6))
+
+const mixin = css`
+  color: ${(props) => props.color};
+`
+const StyledComp7 = styled('button', { color: String })`
+  ${mixin}
+`
 </script>
 
 <template>
@@ -42,6 +59,8 @@ const StyledComp5 = styled.div`
     <StyledComp3 @click="update">12345</StyledComp3>
     <StyledComp4>12345</StyledComp4>
     <StyledComp5>12345</StyledComp5>
+    <WithAttrsComp color="red">123</WithAttrsComp>
+    <StyledComp7 color="blue">123</StyledComp7>
   </ThemeProvider>
 </template>
 

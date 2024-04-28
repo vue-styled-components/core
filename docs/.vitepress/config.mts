@@ -55,7 +55,7 @@ export default defineConfig({
         text: 'API',
         items: [
           { text: 'Core', link: '/guide/api/core' },
-          { text: 'Utils', link: '/guide/api/utils' },
+          { text: 'Helper', link: '/guide/api/helper' },
         ],
       },
     ],

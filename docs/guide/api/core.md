@@ -4,65 +4,90 @@ outline: deep
 
 # Core
 
-### `styled`
+## `styled`
 
 It is a factory function.
 
-#### Properties
+**Augments**
 
-| Properties | Description                                                                                                                              |
-|------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| HTML Tag   | See [Supported HTML Tags](https://github.com/vue-styled-components/vue3-styled-components/blob/master/package/constants/domElements.ts). |
-| attrs      | Pass attrs for styled component.                                                                                                         |
+- Tag Name, `SupportedHTMLElements | Vue Component`, `required`
+- Props Definition, `Record<string, any>`
 
-#### Arguments
+**Return**
 
-| Params           | Type                    |
-|------------------|-------------------------|
-| Tag Name         | `SupportedHTMLElements` |
-| Props Definition | `Record<string, any>`   |
+- Tag Function, used to create a styled component.
 
-#### Return
-
-- `Tag Function`, used to create a styled component.
-
-#### Usage
-
-:::demo
+**Usage**
 
 ```vue
+<script setup lang="ts">
+import { styled } from '@vue3-styled-components/package'
 
-<script setup>
-  import { styled } from '@vue3-styled-components/package'
-
-  const StyledDiv = styled('div', { color: String })`
-    width: 100%;
-    height: 100px;
-    border-radius: 4px;
-    background-color: #6a488f;
-    text-align: center;
-    line-height: 100px;
-    color: ${props => props.color};
-  `
+const StyledDiv = styled('div', { color: String })`
+  width: 100%;
+  padding: 0 10px;
+  border-radius: 4px;
+  text-align: center;
+`
 </script>
 
 <template>
-  <StyledDiv color="#fff">Hi, I'm styled component.🥺</StyledDiv>
+  <StyledDiv>Styled Div</StyledDiv>
 </template>
 ```
 
-:::
+### `.[HTML Tag]`
+
+**Augments**
+
+- Tagged Template Literal, `TemplateStringsArray`, `required`
+
+**Return**
+
+- Vue Component, `DefineSetupFnComponent`
+
+**Usage**
+
+```vue
+<script setup lang="ts">
+import { styled } from '@vue3-styled-components/package'
+
+const StyledDiv = styled.div`
+  width: 40px;
+  height: 40px;
+`
+</script>
+
+<template>
+  <StyledDiv>Styled Component</StyledDiv>
+</template>
+```
 
 ### `.arrts`
 
 It is used for passing attributes to styled component.
 
-#### Arguments
+**Augments**
 
-| Params       | Type                               |
-|--------------|------------------------------------|
-| Attrs Object | `Record<string, number \| string>` |
+- Attrs Object, `Record<string, number | string | boolean>`, `required`
 
-#### Return
+**Return**
 
-- `Tag Function`, used to create a styled component.
+- Tag Function, used to create a styled component.
+
+**Usage**
+
+```vue
+<script setup lang="ts">
+import { styled } from '@vue3-styled-components/package'
+
+const InputWithValue = styled.input.attrs({ value: "I'm input with default value. 🥺" })`
+  width: 100%;
+  height: 40px;
+`
+</script>
+
+<template>
+  <InputWithValue type="text" />
+</template>
+```

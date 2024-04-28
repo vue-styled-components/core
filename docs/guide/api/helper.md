@@ -19,10 +19,11 @@ A function to create a `style component` that can be used to handle global style
 **Usage**
 
 ```vue
-<script setup>
-import { createGlobalStyle } from '@vue3-styled-components/package'
 
-const GlobalStyle = createGlobalStyle`
+<script setup>
+  import { createGlobalStyle } from '@vue3-styled-components/package'
+
+  const GlobalStyle = createGlobalStyle`
     body {
       color: ${(props) => props.color};
     }
@@ -48,10 +49,11 @@ A function to generate keyframes. It takes a template literal as an argument and
 **Usage**
 
 ```vue
-<script setup lang="ts">
-import { styled, keyframes } from '@vue3-styled-components/package'
 
-const animation = keyframes`
+<script setup lang="ts">
+  import { styled, keyframes } from '@vue3-styled-components/package'
+
+  const animation = keyframes`
     from {
       opacity: 0;
     }
@@ -59,7 +61,7 @@ const animation = keyframes`
       opacity: 1;
     }
   `
-const DivWithAnimation = styled('div')`
+  const DivWithAnimation = styled('div')`
   width: 100%;
   height: 40px;
   animation: ${animation} 2s ease-in infinite;
@@ -70,9 +72,43 @@ const DivWithAnimation = styled('div')`
 </template>
 ```
 
+## `css`
+
+A function to generate CSS from a template literal with interpolations.
+
+**Augments**
+
+- Tagged Template Literal, `TemplateStringsArray`, `required`
+
+**Return**
+
+- Interpolations, `(string | function)[]`
+
+**Usage**
+
+```vue
+
+<script setup lang="ts">
+  import { styled, css } from '@vue3-styled-components/package'
+
+  const mixin = css`
+    color: red;
+    background-color: blue;
+  `
+  const DivWithStyles = styled('div')`
+    ${mixin}
+  `
+</script>
+
+<template>
+  <DivWithStyles>Div with mixin</DivWithStyles>
+</template>
+```
+
 ## `withAttrs`
 
 A function to add attributes to a `ComponentInstance` or `HTMLElements`.
+
 **Augments**
 
 - Component or Html Tag, `ComponentInstance | SupportedHTMLElements`, `required`
@@ -85,16 +121,17 @@ A function to add attributes to a `ComponentInstance` or `HTMLElements`.
 **Usage**
 
 ```vue
+
 <script setup lang="ts">
-import { withAttrs } from '@vue3-styled-components/package'
+  import { withAttrs } from '@vue3-styled-components/package'
 
-const DivWithAttrs = withAttrs('div', {
-  class: 'div-with-attrs'
-})
+  const DivWithAttrs = withAttrs('div', {
+    class: 'div-with-attrs'
+  })
 
-const DivWithAttrs2 = withAttrs(DivWithAttrs, {
-  class: 'div-with-attrs-2'
-})
+  const DivWithAttrs2 = withAttrs(DivWithAttrs, {
+    class: 'div-with-attrs-2'
+  })
 </script>
 
 <template>
@@ -103,12 +140,12 @@ const DivWithAttrs2 = withAttrs(DivWithAttrs, {
 </template>
 
 <style scope>
-.div-with-attrs {
-  color: red;
-}
+  .div-with-attrs {
+    color: red;
+  }
 
-.div-with-attrs-2 {
-  color: blue;
-}
+  .div-with-attrs-2 {
+    color: blue;
+  }
 </style>
 ```

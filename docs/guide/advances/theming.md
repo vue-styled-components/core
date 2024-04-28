@@ -16,16 +16,15 @@ the `ThemeProvider`'s scope can access this theme object.
 :::demo
 
 ```vue
-
 <script setup lang="ts">
-  import { styled, ThemeProvider } from '@vue3-styled-components/package'
+import { styled, ThemeProvider } from '@vue3-styled-components/package'
 
-  const StyledWrapper = styled.div`
-    display: flex;
-    justify-content: space-around;
-  `
+const StyledWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+`
 
-  const StyledLink = styled.a`
+const StyledLink = styled.a`
   margin-right: 8px;
   color: ${(props) => props.theme.primary} !important;
   font-weight: bold;
@@ -54,42 +53,40 @@ and see the updates reflected in your styled components.
 :::demo
 
 ```vue
-
 <script setup lang="ts">
-  import { styled, ThemeProvider } from '@vue3-styled-components/package'
-  import { ref } from 'vue'
+import { styled, ThemeProvider } from '@vue3-styled-components/package'
+import { ref } from 'vue'
 
-  const theme = ref<Record<string, string>>({ primary: 'blue' })
+const theme = ref<Record<string, string>>({ primary: 'blue' })
 
-  const StyledWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  `
+const StyledWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
 
-  const StyledLink = styled.a`
-    color: ${(props) => props.theme.primary} !important;
-  `
+const StyledLink = styled.a`
+  color: ${(props) => props.theme.primary} !important;
+`
 
-  const StyledButton = styled.button`
-    width: 140px;
-    height: 36px;
-    margin-left: 20px;
-    padding: 4px 12px;
-    border-radius: 9999px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-    background-color: skyblue;
-    font-weight: bold;
-  `
+const StyledButton = styled.button`
+  width: 140px;
+  height: 36px;
+  margin-left: 20px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  background-color: skyblue;
+  font-weight: bold;
+`
 
-  const changeTheme = () => {
-    if (theme.value.primary === 'red') {
-      theme.value.primary = 'blue'
-    } else {
-      theme.value.primary = 'red'
-    }
+const changeTheme = () => {
+  if (theme.value.primary === 'red') {
+    theme.value.primary = 'blue'
+  } else {
+    theme.value.primary = 'red'
   }
-
+}
 </script>
 
 <template>
@@ -114,16 +111,14 @@ and use properties defined in the theme for their styles.
 :::demo
 
 ```vue
-
 <script setup lang="ts">
-  import { ThemeProvider } from '@vue3-styled-components/package'
-  import { defineComponent, h, inject } from 'vue'
+import { ThemeProvider } from '@vue3-styled-components/package'
+import { defineComponent, h, inject } from 'vue'
 
-  const Link = defineComponent(() => {
-    const theme = inject('$theme')
-    return () => h('a', { style: { color: theme.primary } }, 'This is a link')
-  })
-
+const Link = defineComponent(() => {
+  const theme = inject('$theme')
+  return () => h('a', { style: { color: theme.primary } }, 'This is a link')
+})
 </script>
 
 <template>

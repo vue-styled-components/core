@@ -42,7 +42,8 @@ const StyledLink = styled(Link)`
 
 ## Styling Styled Component
 
-You can also style styled components. For example, with `StyledLink`, using `styled` and passing styles, you can get a `blue link`.
+You can also style styled components. For example, with `StyledLink`, using `styled` and passing styles, you can get
+a `blue link`.
 
 :::demo
 

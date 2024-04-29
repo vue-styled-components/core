@@ -1,0 +1,22 @@
+name: Auto Reply
+
+on:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened, closed]
+
+jobs:
+  auto-reply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-reply
+        uses: wow-actions/auto-comment@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          issuesOpened: |
+            👋 @{{ author }}, Thanks for submitting your issue. We'll look into it and keep you updated on our progress. Let us know if you have any questions.
+          pullRequestOpened: |
+            👋 @{{ author }}, Thanks for opening the PR. We'll review your PR as soon as possible.
+          pullRequestMerged: |
+            🎉 @{{ author }}, The PR is merged. Thanks for your contribution.

@@ -1,0 +1,29 @@
+name: Issue Helper
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  reply-helper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: help wanted
+        if: github.event.label.name == 'help wanted'
+        uses: actions-cool/issues-helper@v2.0.0
+        with:
+          actions: 'create-comment'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            👋 @${{ github.event.issue.user.login }}. We totally like your proposal/feedback, welcome PR。
+
+      - name: need reproduce
+        if: github.event.label.name == 'need reproduce'
+        uses: actions-cool/issues-helper@v2.0.0
+        with:
+          actions: 'create-comment'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            👋 @${{ github.event.issue.user.login }}. Thank you for reporting this issue. In order for us to address it effectively, could you please provide a minimal reproducible demo or step? This will help us better understand the problem and work towards a solution. Thank you!

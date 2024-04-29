@@ -1,9 +1,5 @@
 name: Release
-on:
-  pull_request:
-    branches:
-      - main
-      - beta
+on: workflow_dispatch
 
 permissions:
   contents: read

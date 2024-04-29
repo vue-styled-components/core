@@ -2,7 +2,7 @@ name: Deploy docs site to Pages
 
 on:
   push:
-    branches: [master]
+    branches: [main, beta]
 
   # workflow_dispatch:
 

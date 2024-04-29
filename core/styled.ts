@@ -1,16 +1,4 @@
-import {
-  defineComponent,
-  DefineSetupFnComponent,
-  h,
-  inject,
-  onMounted,
-  PropType,
-  PublicProps,
-  reactive,
-  SlotsType,
-  useSlots,
-  watchEffect
-} from 'vue'
+import { defineComponent, DefineSetupFnComponent, h, inject, onMounted, PropType, PublicProps, reactive, SlotsType, watchEffect } from 'vue'
 import domElements, { type SupportedHTMLElements } from '@/constants/domElements'
 import { type ExpressionsType, generateClassName, generateComponentName, insertExpressions } from '@/utils'
 import { injectStyle } from '@/utils/injectStyle'
@@ -68,14 +56,13 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
     styledClassNameMap[componentName] = className
 
     return defineComponent(
-      (props) => {
+      (props, { slots }) => {
         const myAttrs = { ...attributes }
         const theme = reactive(inject<Record<string, string | number>>('$theme', {}))
         let context = {
           theme,
           ...props
         }
-
         myAttrs.class = className
 
         watchEffect(() => {
@@ -92,9 +79,8 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
 
         // Return the render function
         return () => {
-          const slots = useSlots()
           return h(
-            isVueComponent(target) ? target : props?.as || target,
+            isVueComponent(target) ? h(target, { as: props.as }) : props.as ?? target,
             {
               ...myAttrs
             },
@@ -110,9 +96,8 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
           },
           ...propsDefinition
         },
-        inheritAttrs: true,
-        styled: true
-      } as any
+        inheritAttrs: true
+      }
     )
   }
 

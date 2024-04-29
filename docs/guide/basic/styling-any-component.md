@@ -25,7 +25,7 @@ Using the `styled` function to style the `Link` component, you can achieve a `da
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vue-styled-components/core'
+import { styled } from '@vvibe/vue-styled-components'
 import Link from '/demo/Link.vue'
 
 const StyledLink = styled(Link)`
@@ -49,7 +49,7 @@ a `blue link`.
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vue-styled-components/core'
+import { styled } from '@vvibe/vue-styled-components'
 
 const StyledLink = styled.a`
   color: darkred !important;

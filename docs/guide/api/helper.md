@@ -21,7 +21,7 @@ A function to create a `style component` that can be used to handle global style
 ```vue
 
 <script setup>
-  import { createGlobalStyle } from '@vue-styled-components/core'
+  import { createGlobalStyle } from '@vvibe/vue-styled-components'
 
   const GlobalStyle = createGlobalStyle`
     body {
@@ -51,7 +51,7 @@ A function to generate keyframes. It takes a template literal as an argument and
 ```vue
 
 <script setup lang="ts">
-  import { styled, keyframes } from '@vue-styled-components/core'
+  import { styled, keyframes } from '@vvibe/vue-styled-components'
 
   const animation = keyframes`
     from {
@@ -89,7 +89,7 @@ A function to generate CSS from a template literal with interpolations.
 ```vue
 
 <script setup lang="ts">
-  import { styled, css } from '@vue-styled-components/core'
+  import { styled, css } from '@vvibe/vue-styled-components'
 
   const mixin = css`
     color: red;
@@ -123,7 +123,7 @@ A function to add attributes to a `ComponentInstance` or `HTMLElements`.
 ```vue
 
 <script setup lang="ts">
-  import { withAttrs } from '@vue-styled-components/core'
+  import { withAttrs } from '@vvibe/vue-styled-components'
 
   const DivWithAttrs = withAttrs('div', {
     class: 'div-with-attrs'

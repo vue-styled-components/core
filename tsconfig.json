@@ -24,7 +24,7 @@
     ],
     "paths": {
       "@/*": [
-        "./package/*"
+        "./core/*"
       ]
     },
     "types": [
@@ -34,8 +34,8 @@
   },
   // 需要编译的文件或目录
   "include": [
-    "package/**/*",
-    "example/**/*",
+    "core/**/*",
+    "commitlint.config.ts",
     "vite.config.ts"
   ],
   // 排除的文件或目录

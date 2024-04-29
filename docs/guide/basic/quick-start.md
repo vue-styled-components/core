@@ -9,19 +9,19 @@ outline: deep
 Npm
 
 ```shell
-npm i vue3-styled-components
+npm i vue-styled-components
 ```
 
 Yarn
 
 ```shell
-yarn add vue3-styled-components
+yarn add vue-styled-components
 ```
 
 Pnpm
 
 ```shell
-pnpm i vue3-styled-components
+pnpm i vue-styled-components
 ```
 
 ## Getting Started
@@ -30,7 +30,7 @@ pnpm i vue3-styled-components
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vue3-styled-components/package'
+import { styled } from '@vue-styled-components/core'
 
 const StyledDiv = styled.div`
   display: flex;

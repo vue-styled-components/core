@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/vue3-styled-components.iml" filepath="$PROJECT_DIR$/.idea/vue3-styled-components.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/vue-styled-components.iml" filepath="$PROJECT_DIR$/.idea/vue-styled-components.iml" />
     </modules>
   </component>
 </project>

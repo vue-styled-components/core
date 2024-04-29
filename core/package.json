@@ -1,0 +1,8 @@
+{
+  "name": "@vue-styled-components/core",
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "main": "index.ts",
+  "types": "index.d.ts"
+}

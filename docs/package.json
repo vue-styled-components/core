@@ -17,6 +17,6 @@
     "vitepress-theme-demoblock": "^3.0.7"
   },
   "dependencies": {
-    "@vue3-styled-components/package": "workspace:^"
+    "@vue-styled-components/core": "workspace:^"
   }
 }

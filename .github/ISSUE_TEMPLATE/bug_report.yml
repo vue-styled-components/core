@@ -1,0 +1,76 @@
+name: Bug report
+description: Create a report to help us improve.
+title: "[Function Name] A title for the problem"
+labels: ["bug report"]
+body:
+
+  - type: input
+    id: describe
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+      placeholder: Please input
+    validations:
+      required: true
+
+  - type: input
+    id: reproduceLink
+    attributes:
+      label: Reproduce link
+      description: Provide CodePen, CodeSandbox or GitHub repo link. Don't offer unrelated link!
+      placeholder: Please input
+
+  - type: textarea
+    id: reproduceSteps
+    attributes:
+      label: To reproduce
+      description: Steps to reproduce the behavior. If not, the issue will not be fixed and be closed.
+      placeholder: Please input
+
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      placeholder: Please input
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: Please input
+
+  - type: input
+    id: packageVersion
+    attributes:
+      label: Package version
+      placeholder: 1.0.0
+
+  - type: input
+    id: frameworkVersion
+    attributes:
+      label: Framework version
+      placeholder: Vue(3.2.0)
+
+  - type: input
+    id: nodeVersion
+    attributes:
+      label: Node version
+      placeholder: Node(20.0.0)
+
+  - type: input
+    id: browsersVersion
+    attributes:
+      label: Browsers version
+      placeholder: Chrome(8.213.231.123)
+
+  - type: input
+    id: systemVersion
+    attributes:
+      label: OS version
+      placeholder: MacOS(11.2.3)
+
+  - type: textarea
+    id: remarks
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here, like screenshot or video record.
+      placeholder: Please input

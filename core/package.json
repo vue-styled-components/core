@@ -1,6 +1,6 @@
 {
-  "name": "vue-styled-components",
-  "version": "0.0.2",
+  "name": "@vue-styled-components/core",
+  "version": "0.0.1",
   "description": "",
   "type": "module",
   "main": "index.ts",

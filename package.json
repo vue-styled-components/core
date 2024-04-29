@@ -5,14 +5,19 @@
   "type": "module",
   "workspaces": [
     "package/*",
-    "example/*"
+    "example/*",
+    "docs/*"
   ],
   "scripts": {
-    "dev": "cd example && pnpm run dev",
-    "docs:dev": "cd docs && pnpm run docs:dev",
+    "dev": "pnpm -C example dev",
+    "build": "tsc && vite build",
+    "docs:dev": "pnpm -C docs docs:dev",
+    "docs:build": "pnpm -C docs docs:build",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "typecheck": "vue-tsc --noEmit",
-    "lint": "eslint . -c .eslintrc.json --fix --ext .ts,.vue,.tsx,.d.ts",
-    "prepare": "husky install"
+    "commit": "cz",
+    "prepare": "husky install",
+    "release": "semantic-release"
   },
   "dependencies": {
     "vue": "^3.4.21"
@@ -20,19 +25,32 @@
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
     "@commitlint/config-conventional": "^19.1.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vue/eslint-config-prettier": "^9.0.0",
     "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.57.0",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-vue": "^9.24.0",
     "husky": "^9.0.11",
     "prettier": "^3.2.5",
+    "semantic-release": "^23.0.8",
     "typescript": "^5.4.3",
     "vite": "^5.2.0",
     "vue-tsc": "^2.0.7"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

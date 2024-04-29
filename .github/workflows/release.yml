@@ -1,0 +1,50 @@
+name: Release
+on:
+  pull_request:
+    branches:
+      - main
+      - beta
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    permissions:
+      contents: write
+      id-token: write
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Using pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8.15.4
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Check and fix vulnerabilities
+        run: pnpm audit --fix
+
+      - name: Publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_AUTHOR_EMAIL: materialgithubbot@gmail.com
+          GIT_AUTHOR_NAME: release-bot
+          GIT_COMMITTER_EMAIL: materialgithubbot@gmail.com
+          GIT_COMMITTER_NAME: release-bot
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm release

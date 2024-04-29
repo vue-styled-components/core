@@ -8,7 +8,7 @@ a styled component.
 
 ```vue
 <script setup lang="ts">
-import { styled, keyframes } from '@vue-styled-components/core'
+import { styled, keyframes } from '@vvibe/vue-styled-components'
 
 const rotate = keyframes`
   from {

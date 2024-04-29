@@ -13,7 +13,7 @@ code reusability and maintainability.
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vue-styled-components/core'
+import { styled } from '@vvibe/vue-styled-components';
 
 const BlueButton = styled.button`
   width: 120px;
@@ -24,11 +24,11 @@ const BlueButton = styled.button`
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
   background-color: skyblue;
   font-weight: bold;
-`
+`;
 const RedButton = styled(BlueButton)`
   background-color: darkred;
   color: white;
-`
+`;
 </script>
 
 <template>
@@ -52,7 +52,7 @@ For more advanced use cases, you can pass the `as` props to the styled component
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vue-styled-components/core'
+import { styled } from '@vvibe/vue-styled-components';
 
 const BlueButton = styled.button`
   width: 120px;
@@ -63,15 +63,16 @@ const BlueButton = styled.button`
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
   background-color: skyblue;
   font-weight: bold;
-`
+`;
 const RedButton = styled(BlueButton)`
   background-color: darkred;
   color: white;
-`
+`;
 const LinkButton = styled(BlueButton)`
   border: none;
-  color: blue;
-`
+  background-color: transparent;
+  box-shadow: none;
+`;
 </script>
 
 <template>

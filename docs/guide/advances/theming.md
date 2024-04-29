@@ -17,7 +17,7 @@ the `ThemeProvider`'s scope can access this theme object.
 
 ```vue
 <script setup lang="ts">
-import { styled, ThemeProvider } from '@vue-styled-components/core'
+import { styled, ThemeProvider } from '@vvibe/vue-styled-components'
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -54,7 +54,7 @@ and see the updates reflected in your styled components.
 
 ```vue
 <script setup lang="ts">
-import { styled, ThemeProvider } from '@vue-styled-components/core'
+import { styled, ThemeProvider } from '@vvibe/vue-styled-components'
 import { ref } from 'vue'
 
 const theme = ref<Record<string, string>>({ primary: 'blue' })
@@ -112,7 +112,7 @@ and use properties defined in the theme for their styles.
 
 ```vue
 <script setup lang="ts">
-import { ThemeProvider } from '@vue-styled-components/core'
+import { ThemeProvider } from '@vvibe/vue-styled-components'
 import { defineComponent, h, inject } from 'vue'
 
 const Link = defineComponent(() => {

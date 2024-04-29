@@ -30,7 +30,7 @@ pnpm i vue-styled-components
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vue-styled-components/core'
+import { styled } from '@vvibe/vue-styled-components'
 
 const StyledDiv = styled.div`
   display: flex;

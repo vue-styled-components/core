@@ -52,6 +52,20 @@ const mixin = css`
 const StyledComp7 = styled('button', { color: String })`
   ${mixin}
 `
+const BlueButton = styled.button`
+  width: 120px;
+  height: 40px;
+  margin-right: 8px;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  background-color: skyblue;
+  font-weight: bold;
+  color: #fff;
+`
+const LinkButton = styled(BlueButton)`
+  border: none;
+`
 </script>
 
 <template>
@@ -61,6 +75,7 @@ const StyledComp7 = styled('button', { color: String })`
     <StyledComp5>12345</StyledComp5>
     <WithAttrsComp color="red">123</WithAttrsComp>
     <StyledComp7 color="blue">123</StyledComp7>
+    <LinkButton as="a" href="#">Link Button</LinkButton>
   </ThemeProvider>
 </template>
 

@@ -5,7 +5,7 @@ export function isTag(target: any) {
 }
 
 export function isStyledComponent(target: any) {
-  return typeof target === 'object' && 'styled' in target
+  return typeof target === 'object' && target?.name?.includes('styled')
 }
 
 export function isVueComponent(target: any) {

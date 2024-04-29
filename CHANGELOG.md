@@ -1,3 +1,10 @@
+# [1.0.0-beta.2](https://github.com/v-vibe/vue-styled-components/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2024-04-29)
+
+
+### Bug Fixes
+
+* **core:** [styled] `as` does not take effect ([9f143b2](https://github.com/v-vibe/vue-styled-components/commit/9f143b2e534e4155d5593f450a1bb01287d82cdc))
+
 # 1.0.0-beta.1 (2024-04-29)
 
 

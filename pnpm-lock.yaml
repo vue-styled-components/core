@@ -92,9 +92,9 @@ importers:
 
   docs:
     dependencies:
-      '@vue-styled-components/core':
-        specifier: workspace:^
-        version: link:../core
+      '@vvibe/vue-styled-components':
+        specifier: 1.0.0-beta.1
+        version: 1.0.0-beta.1(typescript@5.4.5)
     devDependencies:
       vitepress:
         specifier: ^1.0.2
@@ -2289,6 +2289,14 @@ packages:
       - '@vue/composition-api'
       - vue
     dev: true
+
+  /@vvibe/vue-styled-components@1.0.0-beta.1(typescript@5.4.5):
+    resolution: {integrity: sha512-Rp6XqRi4zoev3sinrUOXHYdWo1ev9KI42kI7m7eSVOFzTdg4/HdFYxKK5To2V0c0AXP5JMi4bhjmxuNjxkB0ew==}
+    dependencies:
+      vue: 3.4.21(typescript@5.4.5)
+    transitivePeerDependencies:
+      - typescript
+    dev: false
 
   /JSONStream@1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}

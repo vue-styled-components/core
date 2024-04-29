@@ -1,6 +1,6 @@
 name: Release
 on:
-  pull_request:
+  push:
     branches:
       - main
       - beta
@@ -22,22 +22,25 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Using pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8.15.4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
 
-      - name: Using pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 8.15.4
-
       - name: Install dependencies
         run: pnpm install
 
       - name: Check and fix vulnerabilities
         run: pnpm audit --fix
+
+      - name: Build
+        run: pnpm build
 
       - name: Publish
         env:

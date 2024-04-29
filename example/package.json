@@ -7,6 +7,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vue3-styled-components/package": "workspace:^0.0.2"
+    "@vue-styled-components/core": "workspace:^0.0.2"
   }
 }

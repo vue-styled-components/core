@@ -3,10 +3,10 @@ import { demoblockPlugin, demoblockVitePlugin } from 'vitepress-theme-demoblock'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: '/vue3-styled-components/',
-  title: 'Vue3 Styled Components',
+  base: '/vue-styled-components/',
+  title: 'Vue Styled Components',
   description: 'A tool for css in js.',
-  head: [['link', { rel: 'icon', href: '/vue3-styled-components/logo.png ' }]],
+  head: [['link', { rel: 'icon', href: '/vue-styled-components/logo.png ' }]],
   themeConfig: {
     logo: '/logo.png',
     demoblock: {
@@ -60,7 +60,7 @@ export default defineConfig({
       },
     ],
     
-    socialLinks: [{ icon: 'github', link: 'https://github.com/vue-styled-components/vue3-styled-components' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/vue-styled-components/vue-styled-components' }],
   },
   markdown: {
     config: (md) => {
@@ -70,7 +70,7 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        '@': new URL('../../package', import.meta.url).pathname,
+        '@': new URL('../../core', import.meta.url).pathname,
       },
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.less'],
     },

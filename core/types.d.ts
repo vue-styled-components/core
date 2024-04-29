@@ -1,4 +1,4 @@
-declare module '@vue3-styled-components/package' {
+declare module '@vue-styled-components/core' {
   export {
     styled,
     keyframes,

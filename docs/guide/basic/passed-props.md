@@ -12,7 +12,7 @@ styled input.
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
-import { styled } from '@vue3-styled-components/package'
+import { styled } from '@vue-styled-components/core'
 
 const borderColor = ref('darkred')
 const inputProps = { borderColor: String }

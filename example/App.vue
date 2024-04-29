@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { styled, ThemeProvider, keyframes, useStyledClassName, withAttrs, css } from '@vue3-styled-components/package'
+import { styled, ThemeProvider, keyframes, useStyledClassName, withAttrs, css } from '@vue-styled-components/core'
 import Component from './Component.vue'
 import { ref } from 'vue'
 

@@ -21,7 +21,7 @@ It is a factory function.
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vue3-styled-components/package'
+import { styled } from '@vue-styled-components/core'
 
 const StyledDiv = styled('div', { color: String })`
   width: 100%;
@@ -50,7 +50,7 @@ const StyledDiv = styled('div', { color: String })`
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vue3-styled-components/package'
+import { styled } from '@vue-styled-components/core'
 
 const StyledDiv = styled.div`
   width: 40px;
@@ -79,7 +79,7 @@ It is used for passing attributes to styled component.
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vue3-styled-components/package'
+import { styled } from '@vue-styled-components/core'
 
 const InputWithValue = styled.input.attrs({ value: "I'm input with default value. 🥺" })`
   width: 100%;

@@ -27,7 +27,7 @@
 ```vue
 
 <script setup lang="ts">
-  import { styled } from 'vue3-styled-components'
+  import { styled } from 'vue-styled-components'
   import OtherComponent from './VueComponent.vue'
 
   const StyledDiv = styled('div')`
@@ -62,7 +62,7 @@
 ```vue
 
 <script setup lang="ts">
-  import { styled } from 'vue3-styled-components'
+  import { styled } from 'vue-styled-components'
 
   const StyledDiv = styled.div.attrs({
     class: 'styled-div',
@@ -85,7 +85,7 @@
 ```vue
 
 <script setup lang="ts">
-  import { styled } from 'vue3-styled-components'
+  import { styled } from 'vue-styled-components'
 
   const StyledDiv = styled('div', {
     color: '#fff'
@@ -107,7 +107,7 @@
 ```vue
 
 <script setup lang="ts">
-  import { styled, ThemeProvider } from 'vue3-styled-components'
+  import { styled, ThemeProvider } from 'vue-styled-components'
 
   const StyledDiv = styled.div`
     width: 100px;

@@ -4,7 +4,7 @@ outline: deep
 
 # Theming
 
-`vue3-styled-components` provides a `ThemeProvider` component for theming your components. This component passes a theme
+`vue-styled-components` provides a `ThemeProvider` component for theming your components. This component passes a theme
 to all its descendant Vue components via props. All styled components within the render tree will have access to the
 provided theme.
 
@@ -17,7 +17,7 @@ the `ThemeProvider`'s scope can access this theme object.
 
 ```vue
 <script setup lang="ts">
-import { styled, ThemeProvider } from '@vue3-styled-components/package'
+import { styled, ThemeProvider } from '@vue-styled-components/core'
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -54,7 +54,7 @@ and see the updates reflected in your styled components.
 
 ```vue
 <script setup lang="ts">
-import { styled, ThemeProvider } from '@vue3-styled-components/package'
+import { styled, ThemeProvider } from '@vue-styled-components/core'
 import { ref } from 'vue'
 
 const theme = ref<Record<string, string>>({ primary: 'blue' })
@@ -112,7 +112,7 @@ and use properties defined in the theme for their styles.
 
 ```vue
 <script setup lang="ts">
-import { ThemeProvider } from '@vue3-styled-components/package'
+import { ThemeProvider } from '@vue-styled-components/core'
 import { defineComponent, h, inject } from 'vue'
 
 const Link = defineComponent(() => {

@@ -73,26 +73,7 @@ importers:
         specifier: ^2.0.7
         version: 2.0.13(typescript@5.4.5)
 
-  docs:
-    dependencies:
-      '@vue3-styled-components/package':
-        specifier: workspace:^
-        version: link:../package
-    devDependencies:
-      vitepress:
-        specifier: ^1.0.2
-        version: 1.1.0(@algolia/client-search@4.23.3)(@types/node@20.12.7)(search-insights@2.13.0)(typescript@5.4.5)
-      vitepress-theme-demoblock:
-        specifier: ^3.0.7
-        version: 3.0.7(@algolia/client-search@4.23.3)(@types/node@20.12.7)(search-insights@2.13.0)(typescript@5.4.5)
-
-  example:
-    dependencies:
-      '@vue3-styled-components/package':
-        specifier: workspace:^0.0.2
-        version: link:../package
-
-  package:
+  core:
     devDependencies:
       '@vitest/coverage-v8':
         specifier: ^1.5.0
@@ -106,6 +87,25 @@ importers:
       vitest:
         specifier: ^1.5.0
         version: 1.5.0(@types/node@20.12.7)(jsdom@24.0.0)
+
+  docs:
+    dependencies:
+      '@vue-styled-components/core':
+        specifier: workspace:^
+        version: link:../core
+    devDependencies:
+      vitepress:
+        specifier: ^1.0.2
+        version: 1.1.0(@algolia/client-search@4.23.3)(@types/node@20.12.7)(search-insights@2.13.0)(typescript@5.4.5)
+      vitepress-theme-demoblock:
+        specifier: ^3.0.7
+        version: 3.0.7(@algolia/client-search@4.23.3)(@types/node@20.12.7)(search-insights@2.13.0)(typescript@5.4.5)
+
+  example:
+    dependencies:
+      '@vue-styled-components/core':
+        specifier: workspace:^0.0.2
+        version: link:../core
 
 packages:
 

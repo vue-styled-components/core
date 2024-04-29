@@ -13,7 +13,7 @@ code reusability and maintainability.
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vue3-styled-components/package'
+import { styled } from '@vue-styled-components/core'
 
 const BlueButton = styled.button`
   width: 120px;
@@ -52,7 +52,7 @@ For more advanced use cases, you can pass the `as` props to the styled component
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vue3-styled-components/package'
+import { styled } from '@vue-styled-components/core'
 
 const BlueButton = styled.button`
   width: 120px;

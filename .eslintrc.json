@@ -35,9 +35,9 @@
       "never"
     ],
     // 不允许行末逗号
-    "comma-dangle": "error",
+    "comma-dangle": "off",
     // 警告：不允许使用 console
-    "no-console": "off",
+    "no-console": "warn",
     // 错误：不允许使用 debugger
     "no-debugger": "error",
     // Vue模板缩进2个空格
@@ -46,7 +46,7 @@
       2
     ],
     // 允许函数返回类型不明确
-    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "error",
     // 允许使用 any 类型
     "@typescript-eslint/no-explicit-any": "off",
     // 忽略未使用的参数以 _ 开头

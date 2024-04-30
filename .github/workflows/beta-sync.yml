@@ -1,11 +1,10 @@
-name: Release
+name: Beat Sync
 
 on:
   push:
     branches: [main]
 
 permissions:
-  contents: read
   contents: write
 
 jobs:

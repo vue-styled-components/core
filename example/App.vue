@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { styled, ThemeProvider, keyframes, useStyledClassName, withAttrs, css } from '@vue-styled-components/core'
+import { styled, ThemeProvider, keyframes, useStyledClassName, withAttrs, css } from '../core'
 import Component from './Component.vue'
 import { ref } from 'vue'
 
@@ -62,6 +62,10 @@ const BlueButton = styled.button`
   background-color: skyblue;
   font-weight: bold;
   color: #fff;
+
+  .abc {
+    color: red;
+  }
 `
 const LinkButton = styled(BlueButton)`
   border: none;

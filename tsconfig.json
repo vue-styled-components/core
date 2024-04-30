@@ -22,11 +22,7 @@
       "dom",
       "esnext"
     ],
-    "paths": {
-      "@/*": [
-        "./core/*"
-      ]
-    },
+    "paths": {},
     "types": [
       "@vue/test-utils"
     ],

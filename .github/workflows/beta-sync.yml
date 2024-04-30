@@ -1,0 +1,26 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Sync
+        env:
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        run: |
+          git checkout beta
+          git pull --rebase origin main
+          git push -f

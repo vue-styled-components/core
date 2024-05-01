@@ -28,7 +28,7 @@
 ## Install
 
 ```sh
-npm install @vvibe/vue-styled-components
+npm i @vvibe/vue-styled-components
 ```
 
 ```sh

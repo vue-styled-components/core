@@ -22,7 +22,11 @@
       "dom",
       "esnext"
     ],
-    "paths": {},
+    "paths": {
+      "@/*": [
+        "./core/*"
+      ]
+    },
     "types": [
       "@vue/test-utils"
     ],
@@ -30,7 +34,7 @@
   },
   // 需要编译的文件或目录
   "include": [
-    "core/**/*",
+    "core",
     "commitlint.config.ts",
     "vite.config.ts"
   ],

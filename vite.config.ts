@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import { resolve } from "path";
+import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import dts from 'vite-plugin-dts'
@@ -10,7 +10,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'core/index.ts'),
       name: 'Bundle',
-      fileName: 'index'
+      fileName: 'index',
     },
     rollupOptions: {
       external: ['vue'],
@@ -24,17 +24,25 @@ export default defineConfig({
   base: './',
   resolve: {
     alias: {
-      '@': new URL('./core', import.meta.url).pathname
+      '@': new URL('./core', import.meta.url).pathname,
     },
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.less']
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.less'],
   },
   plugins: [
     vue({
       script: {
-        defineModel: true
-      }
+        defineModel: true,
+      },
     }),
     vueJsx(),
-    dts()
-  ]
+    dts(),
+  ],
+  test: {
+    clearMocks: true,
+    environment: 'jsdom',
+    reporters: ['default'],
+    coverage: {
+      reporter: ['text', 'json-summary', 'json'],
+    },
+  },
 })

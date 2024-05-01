@@ -34,9 +34,7 @@
   },
   // 需要编译的文件或目录
   "include": [
-    "core",
-    "commitlint.config.ts",
-    "vite.config.ts"
+    "core"
   ],
   // 排除的文件或目录
   "exclude": [

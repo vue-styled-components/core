@@ -22,7 +22,9 @@
       {
         "assets": [
           "package.json",
-          "CHANGELOG.md"
+          "CHANGELOG.md",
+          "dist",
+          "core"
         ],
         "message": "chore(release): v${nextRelease.version} \n\n${nextRelease.notes}"
       }
@@ -31,8 +33,11 @@
       "@semantic-release/github",
       {
         "addReleases": "top",
-        "successComment": ":tada: This issue has been resolved in version ${nextRelease.version} :tada:\n\nThe release is available on [GitHub release](<github_release_url>)"
-      }
+        "successComment": ":tada: This issue has been resolved in version ${nextRelease.version} :tada:\n\nThe release is available on [GitHub release](<github_release_url>)",
+        "assets": [
+                { "path": "dist", "label": "Package" },
+                { "path": "core", "label": "Source" }
+         ]}
     ]
   ]
 }

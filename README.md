@@ -1,6 +1,9 @@
-# Vue Styled Components
+<div style="display: flex; align-items: center">
+  <img alt="Owner avatar" src="https://avatars.githubusercontent.com/u/165447989?s=48&amp;v=4" />
+  <span style="margin-left: 4px; font-size: 24px; font-weight: bold">Vue Styled Components</span>
+</div>
 
-**A CSS tool similar with `styled-components`. Help you to develop your apps fastly!**
+**A CSS tool similar with `styled-components` and support for vue 3. Help you to develop your apps fastly!**
 
 ## Feature
 
@@ -20,7 +23,7 @@
 
 ✅ Override attrs
 
-❌ The css selector of `&` support
+✅ Support nesting css. (web only: https://drafts.csswg.org/css-nesting/#nesting)
 
 ## Usage
 

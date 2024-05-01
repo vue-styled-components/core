@@ -25,6 +25,20 @@
 
 ✅ Support nesting css. (web only: https://drafts.csswg.org/css-nesting/#nesting)
 
+## Install
+
+```sh
+npm install @vvibe/vue-styled-components
+```
+
+```sh
+yarn add @vvibe/vue-styled-components
+```
+
+```sh
+pnpm i @vvibe/vue-styled-components
+```
+
 ## Usage
 
 ### Styled component

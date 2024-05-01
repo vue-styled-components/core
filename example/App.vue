@@ -1,5 +1,5 @@
-<script setup lang="tsx">
-import { styled, ThemeProvider, keyframes, withAttrs, css } from '../core'
+<script setup lang="ts">
+import { styled, ThemeProvider, keyframes, withAttrs, css } from '@vvide/vue-styled-components'
 import Component from './Component.vue'
 import { ref } from 'vue'
 
@@ -49,7 +49,8 @@ const WithAttrsComp = withAttrs(StyledComp6, { disabled: true })
 const mixin = css`
   color: ${(props) => props.color};
 `
-const StyledComp7 = styled('button', { color: String })`
+const cr = styled('button', { color: String })
+const StyledComp7 = cr`
   ${mixin}
 `
 const BlueButton = styled.button`

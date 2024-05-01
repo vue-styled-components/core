@@ -21,10 +21,10 @@ export default defineConfig({
       },
     },
   },
-  base: './',
   resolve: {
     alias: {
-      '@': new URL('./core', import.meta.url).pathname,
+      '@/': new URL('./core/', import.meta.url).pathname,
+      '@vvide/vue-styled-components': new URL('./core', import.meta.url).pathname,
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.less'],
   },

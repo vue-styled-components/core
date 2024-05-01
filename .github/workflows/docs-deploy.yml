@@ -1,10 +1,10 @@
-name: Deploy docs site to Pages
+name: Deploy Docs Site
 
 on:
   push:
-    branches: [main, beta]
-
-  # workflow_dispatch:
+    tags:
+      - '1.*'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -24,7 +24,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v3
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v3
         with:
           version: 8.15.4
 
@@ -34,16 +35,13 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      # - name: Setup Pages
-      #   uses: actions/configure-pages@v4
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build with VitePress
         run: pnpm -C docs docs:build
 
-      - name: Upload artifact
+      - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/.vitepress/dist

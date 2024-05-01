@@ -91,13 +91,7 @@ importers:
         specifier: ^2.0.7
         version: 2.0.13(typescript@5.4.5)
 
-  core: {}
-
   docs:
-    dependencies:
-      '@vvibe/vue-styled-components':
-        specifier: 1.0.0-beta.2
-        version: link:..
     devDependencies:
       vitepress:
         specifier: ^1.0.2
@@ -106,11 +100,7 @@ importers:
         specifier: ^3.0.7
         version: 3.0.7(@algolia/client-search@4.23.3)(@types/node@20.12.7)(search-insights@2.13.0)(typescript@5.4.5)
 
-  example:
-    dependencies:
-      '@vue-styled-components/core':
-        specifier: workspace:^
-        version: link:../core
+  example: {}
 
 packages:
 

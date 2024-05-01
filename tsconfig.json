@@ -25,6 +25,9 @@
     "paths": {
       "@/*": [
         "./core/*"
+      ],
+      "@vvide/vue-styled-components": [
+        "./core"
       ]
     },
     "types": [
@@ -37,7 +40,9 @@
   "include": [
     "core",
     "vite.config.ts",
-    "commitlint.config.ts"
+    "commitlint.config.ts",
+    "example",
+    "docs"
   ],
   // 排除的文件或目录
   "exclude": [

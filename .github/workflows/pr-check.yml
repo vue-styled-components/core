@@ -1,0 +1,52 @@
+name: PR Check
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8.15.4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint Check
+        run: pnpm lint
+
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Type Check
+        run: pnpm typecheck
+
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Unit Test
+        run: pnpm test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: pnpm build

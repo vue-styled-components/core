@@ -1,6 +1,6 @@
 import { defineComponent, DefineSetupFnComponent, h, inject, onMounted, PropType, PublicProps, reactive, SlotsType, watchEffect } from 'vue'
 import domElements, { type SupportedHTMLElements } from '@/constants/domElements'
-import { type ExpressionsType, generateClassName, generateComponentName, insertExpressions } from '@/utils'
+import { type ExpressionType, generateClassName, generateComponentName, insertExpressions } from '@/utils'
 import { injectStyle } from '@/utils/injectStyle'
 import { isStyledComponent, isValidElementType, isVueComponent } from '@/helper'
 import { useStyledClassName } from '@/hooks'
@@ -15,7 +15,7 @@ type ComponentCustomProps = PublicProps & {
 
 export type StyledComponentType = DefineSetupFnComponent<IProps, any, SlotsType, any, ComponentCustomProps>
 
-type StyledFactory = (styles: TemplateStringsArray, ...expressions: ExpressionsType) => StyledComponentType
+type StyledFactory = (styles: TemplateStringsArray, ...expressions: (ExpressionType | ExpressionType[])[]) => StyledComponentType
 type StyledComponent = StyledFactory & {
   attrs: <T extends Record<string, unknown>>(attrs: T) => StyledFactory
 }
@@ -28,8 +28,9 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
   let attributes: Attrs = {}
   const styledComponent: StyledComponent = function styledComponent(
     styles: TemplateStringsArray,
-    ...expressions: ExpressionsType
+    ...expressions: (ExpressionType | ExpressionType[])[]
   ): StyledComponentType {
+    console.log(expressions)
     const cssStringsWithExpression = insertExpressions(styles, expressions)
     return createStyledComponent(cssStringsWithExpression)
   }
@@ -39,7 +40,7 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
     return styledComponent
   }
 
-  function createStyledComponent(cssWithExpression: ExpressionsType): StyledComponentType {
+  function createStyledComponent(cssWithExpression: ExpressionType[]): StyledComponentType {
     let type: string = target
     if (isVueComponent(target)) {
       type = 'vue-component'

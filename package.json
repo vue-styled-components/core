@@ -31,8 +31,8 @@
     "docs:build": "pnpm -C docs docs:build",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "typecheck": "vue-tsc --noEmit",
-    "commit": "cz",
-    "prepare": "husky install",
+    "cz": "cz",
+    "prepare": "husky",
     "release": "semantic-release"
   },
   "dependencies": {
@@ -65,11 +65,6 @@
     "vite-plugin-dts": "^3.9.0",
     "vitest": "^1.5.0",
     "vue-tsc": "^2.0.7"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   },
   "publishConfig": {
     "access": "public",

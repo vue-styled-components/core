@@ -1,0 +1,7 @@
+npx --no-install commitlint --edit $1
+
+pnpm lint
+
+git add .
+
+pnpm typecheck

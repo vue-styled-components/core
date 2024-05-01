@@ -7,6 +7,6 @@ export function insertExpressions(strings: TemplateStringsArray, expressions: Ex
     (array: ExpressionsType, expression: ExpressionType | string, index: number) => {
       return array.concat(expression, strings[index + 1])
     },
-    [strings[0]]
+    [strings[0]],
   )
 }

@@ -14,7 +14,7 @@ describe('styled', () => {
 
   it('should create a styled component', async () => {
     const MyComponent = {
-      template: '<div>Hello World</div>'
+      template: '<div>Hello World</div>',
     }
 
     const StyledComponent = styled(MyComponent)`
@@ -63,7 +63,7 @@ describe('styled', () => {
 
   it('should inject attrs', async () => {
     const StyledComponent = styled.div.attrs({
-      style: 'color: red'
+      style: 'color: red',
     })`
       height: 36px;
     `
@@ -80,8 +80,8 @@ describe('styled', () => {
     const color = ref('red')
     const wrapper = mount(StyledComponent, {
       props: {
-        color: color.value
-      }
+        color: color.value,
+      },
     })
 
     expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).style['color']).toBe('red')

@@ -39,7 +39,7 @@ function insert(className: string, cssString: string) {
   insertedRuleMap[className] = cssTextNode
 }
 
-export function injectStyle(className: string, cssWithExpression: (string | ExpressionType)[], context: Record<string, any>) {
+export function injectStyle(className: string, cssWithExpression: (string | ExpressionType)[], context: Record<string, any>): void {
   const appliedCss = applyExpressions(cssWithExpression, context).join('')
   insert(className, appliedCss)
 }

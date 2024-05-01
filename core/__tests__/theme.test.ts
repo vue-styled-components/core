@@ -8,15 +8,15 @@ describe('theme-provider', () => {
     background: ${(props) => props.theme.primary};
   `
   const theme = reactive({
-    primary: 'red'
+    primary: 'red',
   })
   const wrapper = mount(ThemeProvider, {
     props: {
-      theme
+      theme,
     },
     slots: {
-      default: () => h(StyledComponent)
-    }
+      default: () => h(StyledComponent),
+    },
   })
 
   it('should use theme', async () => {
@@ -26,7 +26,7 @@ describe('theme-provider', () => {
   it('should react to theme change', async () => {
     theme.primary = 'blue'
     await wrapper.setProps({
-      theme
+      theme,
     })
     expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).style.background).toBe('blue')
   })

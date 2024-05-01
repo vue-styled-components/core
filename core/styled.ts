@@ -61,14 +61,14 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
         const theme = reactive(inject<Record<string, string | number>>('$theme', {}))
         let context = {
           theme,
-          ...props
+          ...props,
         }
         myAttrs.class = className
 
         watchEffect(() => {
           context = {
             theme,
-            ...props
+            ...props,
           }
           injectStyle(className, cssWithExpression, context)
         })
@@ -82,9 +82,9 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
           return h(
             isVueComponent(target) ? h(target, { as: props.as }) : props.as ?? target,
             {
-              ...myAttrs
+              ...myAttrs,
             },
-            slots
+            slots,
           )
         }
       },
@@ -92,12 +92,12 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
         name: componentName,
         props: {
           as: {
-            type: String as PropType<SupportedHTMLElements>
+            type: String as PropType<SupportedHTMLElements>,
           },
-          ...propsDefinition
+          ...propsDefinition,
         },
-        inheritAttrs: true
-      }
+        inheritAttrs: true,
+      },
     )
   }
 

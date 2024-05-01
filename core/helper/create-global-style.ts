@@ -1,9 +1,9 @@
 import type { ExpressionsType } from '@/utils'
-import { defineComponent, h } from 'vue'
+import { defineComponent, DefineSetupFnComponent, h } from 'vue'
 import { generateComponentName, insertExpressions } from '@/utils'
 import { injectStyle } from '@/utils/injectStyle'
 
-export const createGlobalStyle = (styles: TemplateStringsArray, ...expressions: ExpressionsType) => {
+export const createGlobalStyle = (styles: TemplateStringsArray, ...expressions: ExpressionsType): DefineSetupFnComponent<any> => {
   return defineComponent(
     (_, { attrs }) => {
       const cssStringsWithExpression = insertExpressions(styles, expressions)
@@ -15,7 +15,6 @@ export const createGlobalStyle = (styles: TemplateStringsArray, ...expressions: 
     {
       name: generateComponentName('global'),
       inheritAttrs: true,
-      styled: true
-    } as any
+    },
   )
 }

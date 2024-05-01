@@ -1,7 +1,7 @@
 import { injectStyle } from '@/utils/injectStyle'
 import { generateUniqueName } from '@/utils'
 
-export function keyframes(kfString: TemplateStringsArray) {
+export function keyframes(kfString: TemplateStringsArray): string {
   const keyframeName = `kf-${generateUniqueName()}`
   injectStyle(
     'keyframes',
@@ -10,9 +10,9 @@ export function keyframes(kfString: TemplateStringsArray) {
         @keyframes ${keyframeName} {
           ${kfString.join('')}
         }
-      `
+      `,
     ],
-    {}
+    {},
   )
   return keyframeName
 }

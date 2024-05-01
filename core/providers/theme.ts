@@ -13,8 +13,8 @@ export const ThemeProvider = defineComponent(
       theme: {
         type: Object as PropType<Record<string, string | number>>,
         required: true,
-        default: () => {}
-      }
-    }
-  }
+        default: () => {},
+      },
+    },
+  },
 )

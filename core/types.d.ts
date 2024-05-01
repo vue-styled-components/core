@@ -10,7 +10,7 @@ declare module '@vue-styled-components/core' {
     isTag,
     isValidElementType,
     useStyledClassName,
-    css
+    css,
   } from './index'
 }
 

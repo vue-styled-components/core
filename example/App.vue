@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { styled, ThemeProvider, keyframes, useStyledClassName, withAttrs, css } from '../core'
+import { styled, ThemeProvider, keyframes, withAttrs, css } from '../core'
 import Component from './Component.vue'
 import { ref } from 'vue'
 
@@ -44,7 +44,7 @@ const StyledComp6 = styled('button', { color: String })`
 
 const WithAttrsComp = withAttrs(StyledComp6, { disabled: true })
 
-console.log(useStyledClassName().getStyledClassName(StyledComp6))
+// console.log(useStyledClassName().getStyledClassName(StyledComp6))
 
 const mixin = css`
   color: ${(props) => props.color};

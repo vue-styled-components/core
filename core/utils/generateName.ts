@@ -23,10 +23,10 @@ const generateAlphabeticName = (code: number): string => {
   return code > chars.length ? `${generateAlphabeticName(Math.floor(code / chars.length))}${lastDigit}` : lastDigit
 }
 
-export function generateComponentName(target: string) {
+export function generateComponentName(target: string): string {
   return `${COMPONENT_PREFIX}-${target}-${generateUniqueName()}`
 }
 
-export function generateClassName() {
+export function generateClassName(): string {
   return `${CLASS_PREFIX}-${generateUniqueName()}`
 }

@@ -132,7 +132,7 @@ const elements = [
   'stop',
   'svg',
   'text',
-  'tspan'
+  'tspan',
 ] as const
 
 export default new Set(elements)

@@ -99,7 +99,7 @@ describe('styled', () => {
     mount(GlobalStyle)
 
     expect(GlobalStyle).toBeDefined()
-    expect(GlobalStyle.name).toMatch(/^global-style/)
+    expect(GlobalStyle.name).toMatch(/^styled-global.+/)
     expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).selectorText).toBe('body')
     expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).style.background).toBe('red')
   })

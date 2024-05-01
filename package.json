@@ -18,9 +18,9 @@
     "url": "https://github.com/v-vibe/vue-styled-components.git"
   },
   "workspaces": [
-    "package/*",
-    "example/*",
-    "docs/*"
+    "core/**/*",
+    "example/**/*",
+    "docs/**/*"
   ],
   "scripts": {
     "dev": "pnpm -C example dev",

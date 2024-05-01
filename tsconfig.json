@@ -28,13 +28,16 @@
       ]
     },
     "types": [
-      "@vue/test-utils"
+      "@vue/test-utils",
+      "vitest"
     ],
     "skipLibCheck": true
   },
   // 需要编译的文件或目录
   "include": [
-    "core"
+    "core",
+    "vite.config.ts",
+    "commitlint.config.ts"
   ],
   // 排除的文件或目录
   "exclude": [

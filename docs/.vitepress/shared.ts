@@ -1,12 +1,16 @@
-import { defineConfig } from 'vitepress'
+import { DefaultTheme, defineConfig } from 'vitepress'
 import { demoblockPlugin, demoblockVitePlugin } from 'vitepress-theme-demoblock'
+import { resolve } from 'path'
 
-// https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: '/',
   title: 'Vue Styled Components',
-  description: 'A tool for css in js.',
   head: [['link', { rel: 'icon', href: '/logo.png ' }]],
+
+  lastUpdated: true,
+  cleanUrls: true,
+  metaChunk: true,
+
   themeConfig: {
     logo: '/logo.png',
     demoblock: {
@@ -29,39 +33,9 @@ export default defineConfig({
         'copy-error': '复制失败',
       },
     },
-    
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Guide', link: '/guide/basic/quick-start' },
-    ],
-    
-    sidebar: [
-      {
-        text: 'Basic',
-        items: [
-          { text: 'Quick Start', link: '/guide/basic/quick-start' },
-          { text: 'Passed Props', link: '/guide/basic/passed-props' },
-          { text: 'Extending Styles', link: '/guide/basic/extending-styles' },
-          { text: 'Styling Any Component', link: '/guide/basic/styling-any-component' },
-          { text: 'Animations', link: '/guide/basic/animations' },
-        ],
-      },
-      {
-        text: 'Advances',
-        items: [{ text: 'Theming', link: '/guide/advances/theming' }],
-      },
-      {
-        text: 'API',
-        items: [
-          { text: 'Core', link: '/guide/api/core' },
-          { text: 'Helper', link: '/guide/api/helper' },
-        ],
-      },
-    ],
-    
+
     socialLinks: [{ icon: 'github', link: 'https://github.com/v-vibe/vue-styled-components' }],
-  },
+  } as DefaultTheme.Config,
   markdown: {
     config: (md) => {
       md.use(demoblockPlugin)
@@ -77,5 +51,4 @@ export default defineConfig({
     },
     plugins: [demoblockVitePlugin()],
   },
-  vue: {},
 })

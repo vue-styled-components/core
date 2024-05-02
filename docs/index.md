@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: 'Styled Components'
+  name: 'Vue Styled Components'
   text: 'A tool for css in js.'
   tagline: Help you to develop your apps fastly!
   image:

@@ -2,12 +2,11 @@
 outline: deep
 ---
 
-# Extending Styles
+# 扩展样式
 
-## Extending Styled Component
+## 扩展 Styled 组件
 
-Extending styles allows you to easily create new style variants based on existing components, thereby achieving higher
-code reusability and maintainability.
+`styled` 函数允许您基于现有组件轻松创建新的样式变体，从而实现更高的代码可重用性和可维护性。
 
 :::demo
 
@@ -39,14 +38,11 @@ const RedButton = styled(BlueButton)`
 
 :::
 
-In this example, we demonstrate how to extend styles using  `@vvibe/vue-styled-components` . We first define a styled button component
-with a blue background called `BlueButton`. Then, we use the styled function to pass the `BlueButton` component as a
-parameter to another styled function, creating a new component called `RedButton` with a dark red background and white
-text.
+在此示例中，我们演示了如何使用 `@vvibe/vue-styled-components` 扩展样式。我们首先定义了一个具有蓝色背景的样式化按钮组件称为 `BlueButton`。然后，我们使用 `styled` 函数将 `BlueButton` 组件作为参数传递给另一个 `styled` 函数，创建了一个新组件称为 `RedButton`，其背景为深红色，文本为白色。
 
 ## As
 
-For more advanced use cases, you can pass the `as` props to the styled component to change the element type.
+对于更高级的用例，您可以向样式化组件传递 `as` 属性以更改元素类型。
 
 :::demo
 

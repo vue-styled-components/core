@@ -8,7 +8,7 @@ import dts from 'vite-plugin-dts'
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'core/index.ts'),
+      entry: resolve(__dirname, 'core/config.ts'),
       name: 'Bundle',
       fileName: 'index',
     },

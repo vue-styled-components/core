@@ -1,7 +1,7 @@
 <div align="center">
   <img alt="Owner avatar" src="https://vue-styled-components.com/logo.png" width="220px" />
   <h1>Vue Styled Components</h1>
-  A CSS tool similar to `styled-components` and support for vue 3. Help you to develop your apps fastly!
+  一个类似于 styled-components 的 CSS 工具，支持 Vue 3，并帮助您快速开发应用程序！
 
   <br>
   <br>
@@ -19,25 +19,25 @@
 
 ## ✨Feature
 
-✅ Style vue component or styled component
+✅ 样式化 Vue 组件或样式化组件
 
-✅ Add default attrs
+✅ 添加默认属性
 
-✅ Passed props
+✅ 传递属性
 
-✅ Support theming
+✅ 支持主题化
 
-✅ Generate keyframes
+✅ 生成关键帧
 
-✅ Generate css mixin
+✅ 生成 CSS 混合
 
-✅ Create global style
+✅ 创建全局样式
 
-✅ Override attrs
+✅ 覆盖属性
 
-✅ Support nesting css. (web only: https://drafts.csswg.org/css-nesting/#nesting)
+✅ 支持 CSS 嵌套。（仅支持 web: https://drafts.csswg.org/css-nesting/#nesting）
 
-## 📦Install
+## 📦安装
 
 ```sh
 npm i @vvibe/vue-styled-components
@@ -51,9 +51,9 @@ yarn add @vvibe/vue-styled-components
 pnpm i @vvibe/vue-styled-components
 ```
 
-## 🔨Usage
+## 🔨使用
 
-### Styled component
+### 样式化组件
 
 ```vue
 <script setup lang="ts">
@@ -87,7 +87,7 @@ const StyledOtherComponent = styled(OtherComponent)`
 </template>
 ```
 
-### Attrs Setting
+### Attributes 设置
 
 ```vue
 <script setup lang="ts">
@@ -109,7 +109,7 @@ const StyledDiv = styled.div.attrs({
 </template>
 ```
 
-### Control Dynamic Style by Props
+### 通过 Props 动态控制样式
 
 ```vue
 <script setup lang="ts">
@@ -130,7 +130,7 @@ const StyledDiv = styled('div', {
 </template>
 ```
 
-### Theming
+### 主题
 
 ```vue
 <script setup lang="ts">
@@ -151,10 +151,9 @@ const StyledDiv = styled.div`
 </template>
 ```
 
-### Generate Keyframes
+### 生成 keyframes
 
-You can use the `keyframes` function to define a keyframe animation and then use the return value from `keyframes` to
-apply it to a styled component.
+您可以使用 `keyframes` 函数来定义关键帧动画，然后使用 `keyframes` 的返回值将其应用于样式化组件。
 
 ```vue
 <script setup lang="ts">
@@ -206,7 +205,7 @@ const StyledTranslateDiv = styled(StyledBaseDiv)`
 
 ### Create Global Style
 
-A function to create a `style component` that can be used to handle global styles.
+一个用于创建全局样式的函数。
 
 ```vue
 <script setup>
@@ -225,7 +224,7 @@ const GlobalStyle = createGlobalStyle`
 
 ### Generate CSS Mixin
 
-A function to generate CSS from a template literal with interpolations.
+一个用于从带有插值的模板字符串生成 CSS 的函数。
 
 ```vue
 <script setup lang="ts">
@@ -245,9 +244,9 @@ const DivWithStyles = styled('div')`
 </template>
 ```
 
-### Add or Override Attrs
+### 添加或覆盖 Attributes
 
-A function to add attributes to a `ComponentInstance` or `HTMLElements`.
+一个向 `ComponentInstance` or `HTMLElements` 添加或覆盖 `Attributes` 的函数.
 
 ```vue
 <script setup lang="ts">
@@ -278,12 +277,12 @@ const DivWithAttrs2 = withAttrs(DivWithAttrs, {
 </style>
 ```
 
-**More details see [docs site](https://v-vibe.github.io/vue-styled-components/)**
+**更多细节请查看 [官方文档](https://v-vibe.github.io/vue-styled-components/)**
 
-## Contributors
+## 贡献者
 
 <a href="https://github.com/v-vibe/vue-styled-components/graphs/contributors">
   <img alt="contributor list" src="https://contrib.rocks/image?repo=v-vibe/vue-styled-components" />
 </a>
 
-And thanks [styled-components](https://github.com/styled-components).
+另外，感谢 [styled-components](https://github.com/styled-components).

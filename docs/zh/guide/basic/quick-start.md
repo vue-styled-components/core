@@ -2,9 +2,9 @@
 outline: deep
 ---
 
-# Quick Start
+# 快速入门
 
-## Installation
+## 安装
 
 Npm
 
@@ -24,15 +24,15 @@ Pnpm
 pnpm i vue-styled-components
 ```
 
-## Getting Started
+## 开始使用
 
 :::demo
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vvibe/vue-styled-components'
+  import { styled } from '@vvibe/vue-styled-components'
 
-const StyledDiv = styled.div`
+  const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

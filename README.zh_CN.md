@@ -1,7 +1,7 @@
 <div align="center">
   <img alt="Owner avatar" src="https://vue-styled-components.com/logo.png" width="220px" />
   <h1>Vue Styled Components</h1>
-  一个类似于 styled-components 的 CSS 工具，支持 Vue 3，并帮助您快速开发应用程序！
+  一个类似于 styled-components 的 CSS in JS 库，支持 Vue 3，并帮助您快速开发应用程序！
 
   <br>
   <br>

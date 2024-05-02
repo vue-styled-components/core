@@ -1,8 +1,10 @@
 <div align="center">
   <img alt="Owner avatar" src="https://vue-styled-components.com/logo.png" width="220px" />
   <h1>Vue Styled Components</h1>
-  A CSS tool similar to `styled-components` and support for vue 3. Help you to develop your apps fastly!
+  A CSS tool similar to styled-components and support for vue 3. Help you to develop your apps fastly!
 
+  <br>
+  <br>
 
   [![CI status][github-action-image]][github-action-url]
   [![NPM version][npm-version]][npm-url]

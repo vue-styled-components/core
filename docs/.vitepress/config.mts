@@ -6,7 +6,7 @@ export default defineConfig({
   base: '/',
   title: 'Vue Styled Components',
   description: 'A tool for css in js.',
-  head: [['link', { rel: 'icon', href: '/vue-styled-components/logo.png ' }]],
+  head: [['link', { rel: 'icon', href: '/logo.png ' }]],
   themeConfig: {
     logo: '/logo.png',
     demoblock: {

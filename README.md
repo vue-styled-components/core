@@ -18,7 +18,7 @@
 
 
 
-[Changelog](./CHANGELOG.en-US.md) · English · [中文](./README.zh_CN.md)
+[Changelog](./CHANGELOG.md) · English · [中文](./README.zh_CN.md)
  
   
 </div>

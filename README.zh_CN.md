@@ -18,7 +18,7 @@
 
 
 
-  [Changelog](./CHANGELOG.en-US.md) · [English](./README.md) · 中文
+  [Changelog](./CHANGELOG.md) · [English](./README.md) · 中文
 </div>
 
 ## ✨Feature

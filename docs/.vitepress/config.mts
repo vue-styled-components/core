@@ -60,7 +60,7 @@ export default defineConfig({
       },
     ],
     
-    socialLinks: [{ icon: 'github', link: 'https://github.com/vue-styled-components/vue-styled-components' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/v-vibe/vue-styled-components' }],
   },
   markdown: {
     config: (md) => {

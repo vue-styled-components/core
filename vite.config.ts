@@ -8,7 +8,7 @@ import dts from 'vite-plugin-dts'
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'core/config.ts'),
+      entry: resolve(__dirname, 'core/index.ts'),
       name: 'Bundle',
       fileName: 'index',
     },
@@ -24,7 +24,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@/': new URL('./core/', import.meta.url).pathname,
-      '@vvide/vue-styled-components': new URL('./core', import.meta.url).pathname,
+      '@vvide/vue-styled-components': new URL('./core/', import.meta.url).pathname,
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.less'],
   },

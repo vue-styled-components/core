@@ -1,11 +1,23 @@
-<div style="display: flex; align-items: center">
-  <img alt="Owner avatar" src="https://avatars.githubusercontent.com/u/165447989?s=48&amp;v=4" />
-  <span style="margin-left: 4px; font-size: 24px; font-weight: bold">Vue Styled Components</span>
+<div align="center">
+  <img alt="Owner avatar" src="https://vue-styled-components.com/logo.png" width="220px" />
+  <h1>Vue Styled Components</h1>
+  A CSS tool similar to `styled-components` and support for vue 3. Help you to develop your apps fastly!
+
+  <br>
+  <br>
+
+  [![CI status][github-action-image]][github-action-url]
+  [![NPM version][npm-version]][npm-url]
+  [![minzip size][npm-bundle-size]][npm-url]
+
+  [github-action-image]: https://github.com/v-vibe/vue-styled-components/workflows/Code%20Check/badge.svg
+  [github-action-url]: https://github.com/v-vibe/vue-styled-components/actions/workflows/code-check.yml
+  [npm-version]: https://img.shields.io/npm/v/%40vvibe%2Fvue-styled-components
+  [npm-bundle-size]: https://img.shields.io/bundlephobia/minzip/%40vvibe%2Fvue-styled-components
+  [npm-url]: http://npmjs.org/package/@vvibe/vue-styled-components
 </div>
 
-**A CSS tool similar with `styled-components` and support for vue 3. Help you to develop your apps fastly!**
-
-## Feature
+## ✨Feature
 
 ✅ Style vue component or styled component
 
@@ -25,7 +37,7 @@
 
 ✅ Support nesting css. (web only: https://drafts.csswg.org/css-nesting/#nesting)
 
-## Install
+## 📦Install
 
 ```sh
 npm i @vvibe/vue-styled-components
@@ -39,7 +51,7 @@ yarn add @vvibe/vue-styled-components
 pnpm i @vvibe/vue-styled-components
 ```
 
-## Usage
+## 🔨Usage
 
 ### Styled component
 

@@ -24,10 +24,17 @@ jobs:
           node-version: 20
           cache: pnpm
 
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
       - name: Install dependencies
         run: pnpm install
 
   lint:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,10 +50,18 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
+
+      - name: Restore cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
       - name: Lint Check
         run: pnpm lint
 
   type-check:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -56,6 +71,12 @@ jobs:
         uses: pnpm/action-setup@v3
         with:
           version: 8.15.4
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -66,6 +87,7 @@ jobs:
         run: pnpm typecheck
 
   unit-test:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -81,10 +103,18 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
       - name: Unit Test
         run: pnpm test
 
   build:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -100,5 +130,12 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
       - name: Build
         run: pnpm build

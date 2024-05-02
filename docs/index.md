@@ -15,7 +15,7 @@ hero:
       link: /guide/basic/quick-start
     - theme: alt
       text: View on Github
-      link: https://github.com/vue-styled-components/vue-styled-components
+      link: https://github.com/v-vibe/vue-styled-components
 
 features:
   - icon: 🗃

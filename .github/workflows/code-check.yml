@@ -25,10 +25,11 @@ jobs:
           cache: pnpm
 
       - name: Cache dependencies
+        id: node_modules_cache_id
         uses: actions/cache@v4
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Install dependencies
         run: pnpm install
@@ -52,10 +53,10 @@ jobs:
           cache: pnpm
 
       - name: Restore cached dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Lint Check
         run: pnpm lint
@@ -75,8 +76,8 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -105,10 +106,10 @@ jobs:
           cache: pnpm
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Unit Test
         run: pnpm test
@@ -132,10 +133,10 @@ jobs:
           cache: pnpm
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Build
         run: pnpm build

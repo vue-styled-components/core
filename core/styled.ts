@@ -30,7 +30,6 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
     styles: TemplateStringsArray,
     ...expressions: (ExpressionType | ExpressionType[])[]
   ): StyledComponentType {
-    console.log(expressions)
     const cssStringsWithExpression = insertExpressions(styles, expressions)
     return createStyledComponent(cssStringsWithExpression)
   }

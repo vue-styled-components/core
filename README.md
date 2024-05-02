@@ -3,8 +3,6 @@
   <h1>Vue Styled Components</h1>
   A CSS tool similar to `styled-components` and support for vue 3. Help you to develop your apps fastly!
 
-  <br>
-  <br>
 
   [![CI status][github-action-image]][github-action-url]
   [![NPM version][npm-version]][npm-url]
@@ -15,6 +13,12 @@
   [npm-version]: https://img.shields.io/npm/v/%40vvibe%2Fvue-styled-components
   [npm-bundle-size]: https://img.shields.io/bundlephobia/minzip/%40vvibe%2Fvue-styled-components
   [npm-url]: http://npmjs.org/package/@vvibe/vue-styled-components
+
+
+
+[Changelog](./CHANGELOG.en-US.md) · English · [中文](./README.zh_CN.md)
+ 
+  
 </div>
 
 ## ✨Feature

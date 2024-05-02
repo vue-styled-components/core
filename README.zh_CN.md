@@ -15,6 +15,10 @@
   [npm-version]: https://img.shields.io/npm/v/%40vvibe%2Fvue-styled-components
   [npm-bundle-size]: https://img.shields.io/bundlephobia/minzip/%40vvibe%2Fvue-styled-components
   [npm-url]: http://npmjs.org/package/@vvibe/vue-styled-components
+
+
+
+  [Changelog](./CHANGELOG.en-US.md) · [English](./README.md) · 中文
 </div>
 
 ## ✨Feature

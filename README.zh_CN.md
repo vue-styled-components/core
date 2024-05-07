@@ -21,7 +21,7 @@
   [Changelog](./CHANGELOG.md) · [English](./README.md) · 中文
 </div>
 
-## ✨Feature
+## ✨特性
 
 ✅ 样式化 Vue 组件或样式化组件
 
@@ -207,7 +207,7 @@ const StyledTranslateDiv = styled(StyledBaseDiv)`
 </template>
 ```
 
-### Create Global Style
+### 生成全局样式
 
 一个用于创建全局样式的函数。
 
@@ -226,7 +226,7 @@ const GlobalStyle = createGlobalStyle`
 </template>
 ```
 
-### Generate CSS Mixin
+### 生成css
 
 一个用于从带有插值的模板字符串生成 CSS 的函数。
 
@@ -281,12 +281,13 @@ const DivWithAttrs2 = withAttrs(DivWithAttrs, {
 </style>
 ```
 
-**更多细节请查看 [官方文档](https://v-vibe.github.io/vue-styled-components/)**
+**更多细节请查看 [官方文档](https://vue-styled-components.com)**
 
 ## 贡献者
 
 <a href="https://github.com/v-vibe/vue-styled-components/graphs/contributors">
   <img alt="contributor list" src="https://contrib.rocks/image?repo=v-vibe/vue-styled-components" />
 </a>
+
 
 另外，感谢 [styled-components](https://github.com/styled-components).

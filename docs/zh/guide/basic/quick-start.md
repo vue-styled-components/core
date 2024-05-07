@@ -9,19 +9,19 @@ outline: deep
 Npm
 
 ```shell
-npm i vue-styled-components
+npm i @vvibe/vue-styled-components
 ```
 
 Yarn
 
 ```shell
-yarn add vue-styled-components
+yarn add @vvibe/vue-styled-components
 ```
 
 Pnpm
 
 ```shell
-pnpm i vue-styled-components
+pnpm i @vvibe/vue-styled-components
 ```
 
 ## 开始使用

@@ -23,21 +23,19 @@
 
 ## ✨特性
 
-✅ 样式化 Vue 组件或样式化组件
+✅ 样式化 Vue 组件或原生组件
 
-✅ 添加默认属性
-
-✅ 传递属性
+✅ 传递 Props
 
 ✅ 支持主题化
 
-✅ 生成关键帧
+✅ 生成 keyframes
 
-✅ 生成 CSS 混合
+✅ 创建 CSS Mixin
 
 ✅ 创建全局样式
 
-✅ 覆盖属性
+✅ 添加或覆盖 Attributes
 
 ✅ 支持 CSS 嵌套。（仅支持 web: https://drafts.csswg.org/css-nesting/#nesting）
 

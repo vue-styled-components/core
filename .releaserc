@@ -22,9 +22,7 @@
       {
         "assets": [
           "package.json",
-          "CHANGELOG.md",
-          "dist",
-          "core"
+          "CHANGELOG.md"
         ],
         "message": "chore(release): v${nextRelease.version} \n\n${nextRelease.notes}"
       }

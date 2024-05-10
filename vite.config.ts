@@ -14,11 +14,6 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ['vue'],
-      output: {
-        globals: {
-          vue: 'Vue',
-        },
-      },
     },
   },
   resolve: {
@@ -35,7 +30,9 @@ export default defineConfig({
       },
     }),
     vueJsx(),
-    dts(),
+    dts({
+      exclude: ['docs', 'example', '**/__tests__/**', 'vite.config.ts', 'commitlint.config.ts'],
+    }),
   ],
   test: {
     clearMocks: true,

@@ -117,12 +117,16 @@ const StyledDiv = styled.div.attrs({
 
 ### Control Dynamic Style by Props
 
+You must define the props in the `styled` function if you want to use them in the style. Because Vue components
+require explicit props declaration so that Vue knows what external props passed to the component should be treated as
+fallthrough attributes.(see [Props Declaration](https://vuejs.org/guide/components/props.html#props-declaration))
+
 ```vue
 <script setup lang="ts">
 import { styled } from '@vvibe/vue-styled-components';
 
 const StyledDiv = styled('div', {
-  color: '#fff'
+  color: String
 })`
   width: 100px;
   height: 100px;
@@ -132,7 +136,7 @@ const StyledDiv = styled('div', {
 </script>
 
 <template>
-  <StyledDiv>Styled Div</StyledDiv>
+  <StyledDiv color="red">Styled Div</StyledDiv>
 </template>
 ```
 

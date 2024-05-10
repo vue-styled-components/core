@@ -115,12 +115,14 @@ const StyledDiv = styled.div.attrs({
 
 ### 通过 Props 动态控制样式
 
+如果要在样式中传递 props，则必须在 styled 函数中定义这些属性。因为 Vue 组件需要显式声明 props，以便 Vue 知道应如何处理传递给组件的外部 props（请参阅 [Props Declaration](https://vuejs.org/guide/components/props.html#props-declaration)）
+
 ```vue
 <script setup lang="ts">
 import { styled } from '@vvibe/vue-styled-components';
 
 const StyledDiv = styled('div', {
-  color: '#fff'
+  color: String
 })`
   width: 100px;
   height: 100px;
@@ -130,7 +132,7 @@ const StyledDiv = styled('div', {
 </script>
 
 <template>
-  <StyledDiv>Styled Div</StyledDiv>
+  <StyledDiv color="red">Styled Div</StyledDiv>
 </template>
 ```
 

@@ -27,7 +27,7 @@
 
 ✅ Style vue component or styled component
 
-✅ Add default attrs
+✅ Set default attrs
 
 ✅ Passed props
 
@@ -39,7 +39,7 @@
 
 ✅ Create global style
 
-✅ Override attrs
+✅ Add or override attrs
 
 ✅ Support nesting css. (web only: https://drafts.csswg.org/css-nesting/#nesting)
 

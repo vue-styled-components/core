@@ -1,4 +1,4 @@
-import { defineComponent, DefineSetupFnComponent, h, inject, onMounted, PropType, PublicProps, reactive, SlotsType, watchEffect } from 'vue'
+import { defineComponent, DefineSetupFnComponent, h, inject, onMounted, PropType, PublicProps, reactive, SlotsType, watch } from 'vue'
 import domElements, { type SupportedHTMLElements } from '@/constants/domElements'
 import { type ExpressionType, generateClassName, generateComponentName, insertExpressions } from '@/utils'
 import { injectStyle } from '@/utils/injectStyle'
@@ -65,7 +65,7 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
         }
         myAttrs.class = className
 
-        watchEffect(() => {
+        watch([theme, props], () => {
           context = {
             theme,
             ...props,
@@ -79,8 +79,9 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
 
         // Return the render function
         return () => {
+          const node = isVueComponent(target) ? h(target, { as: props.as }) : props.as ?? target
           return h(
-            isVueComponent(target) ? h(target, { as: props.as }) : props.as ?? target,
+            node,
             {
               ...myAttrs,
             },

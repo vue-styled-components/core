@@ -54,8 +54,8 @@ describe('styled', () => {
     const className = wrapper.find('div').element.className
     expect(className).contain((document.styleSheets[0].cssRules[0] as CSSStyleRule).selectorText.replace(/\./, ''))
     expect(className).contain((document.styleSheets[0].cssRules[1] as CSSStyleRule).selectorText.replace(/\./, ''))
-    expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).style.height).toBe('44px')
-    expect((document.styleSheets[0].cssRules[1] as CSSStyleRule).style.height).toBe('36px')
+    expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).style.height).toBe('36px')
+    expect((document.styleSheets[0].cssRules[1] as CSSStyleRule).style.height).toBe('44px')
     expect(wrapper.find('div').element.className).toMatch(/^styled-/)
     expect(wrapper.text()).toBe('Hello World')
     expect(wrapper.find('div').element.style.color).toBe('blue')

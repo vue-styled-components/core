@@ -27,6 +27,6 @@ describe('keyframes', () => {
 
     mount(StyledComponent)
     expect((document.styleSheets[0].cssRules[0] as CSSKeyframesRule).name).toBe(kf)
-    expect((document.styleSheets[0].cssRules[1] as CSSStyleRule).style['animation-name']).toBe(kf)
+    expect((document.styleSheets[0].cssRules[1] as CSSStyleRule).style['animation-name' as any]).toBe(kf)
   })
 })

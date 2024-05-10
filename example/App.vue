@@ -5,6 +5,8 @@ import { ref } from 'vue'
 
 const theme = ref({ primary: 'green', error: 'red' })
 
+const color = ref('red')
+
 const kf = keyframes`
   from {
     margin-left: 100%;
@@ -19,6 +21,7 @@ const kf = keyframes`
 
 const update = () => {
   theme.value.primary = theme.value.primary === 'red' ? 'green' : 'red'
+  color.value = color.value === 'red' ? 'green' : 'red'
 }
 
 const StyledComp3 = styled(Component)`
@@ -71,6 +74,14 @@ const BlueButton = styled.button`
 const LinkButton = styled(BlueButton)`
   border: none;
 `
+
+const StyledLink = styled.a`
+  color: #ccc;
+`
+
+const StyledBlueLink = styled(StyledLink, { color: String })`
+  color: ${(props: any) => props.color};
+`
 </script>
 
 <template>
@@ -81,6 +92,7 @@ const LinkButton = styled(BlueButton)`
     <WithAttrsComp color="red">123</WithAttrsComp>
     <StyledComp7 color="blue">123</StyledComp7>
     <LinkButton as="a" href="#">Link Button</LinkButton>
+    <StyledBlueLink :color="color" href="#" @click="update">Styled Link</StyledBlueLink>
   </ThemeProvider>
 </template>
 

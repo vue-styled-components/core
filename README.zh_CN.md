@@ -25,13 +25,15 @@
 
 ✅ 样式化 Vue 组件或原生组件
 
+✅ 设置默认 Attributes
+
 ✅ 传递 Props
 
 ✅ 支持主题化
 
 ✅ 生成 keyframes
 
-✅ 创建 CSS Mixin
+✅ 生成可复用 CSS 片段
 
 ✅ 创建全局样式
 

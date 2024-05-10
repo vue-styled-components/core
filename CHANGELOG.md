@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/v-vibe/vue-styled-components/compare/v1.0.0...v1.0.1) (2024-05-10)
+
+
+### Bug Fixes
+
+* **core:** animation doesn't working ([41fb553](https://github.com/v-vibe/vue-styled-components/commit/41fb5535ba9b0ecb5aa0c79700846a3e36f09d85))
+* **core:** identical styles cannot override ([#6](https://github.com/v-vibe/vue-styled-components/issues/6)) ([fe1cf46](https://github.com/v-vibe/vue-styled-components/commit/fe1cf46297aa45f20b77b11a2dec22931f196027))
+
 # 1.0.0 (2024-05-02)
 
 

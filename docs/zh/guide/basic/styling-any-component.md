@@ -57,8 +57,6 @@ const StyledLink = styled.a`
 const StyledBlueLink = styled(StyledLink)`
   color: blue !important;
 `
-
-console.log(StyledLink, StyledBlueLink)
 </script>
 
 <template>

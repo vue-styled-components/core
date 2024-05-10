@@ -38,13 +38,13 @@ const StyledBaseDiv = styled.div`
 
 const StyledRotateDiv = styled(StyledBaseDiv)`
   background-color: skyblue;
-  animation: ${rotate} 2s linear infinite;
+  animation: ${rotate} 2s linear infinite !important;
 `
 
 const StyledTranslateDiv = styled(StyledBaseDiv)`
   margin-left: 10px;
   background-color: darkred;
-  animation: ${translate} 2s ease infinite alternate;
+  animation: ${translate} 2s ease infinite alternate !important;
 `
 </script>
 

@@ -1,3 +1,10 @@
+## [1.0.1-beta.1](https://github.com/v-vibe/vue-styled-components/compare/v1.0.0...v1.0.1-beta.1) (2024-05-10)
+
+
+### Bug Fixes
+
+* **core:** identical styles cannot override ([#6](https://github.com/v-vibe/vue-styled-components/issues/6)) ([fe1cf46](https://github.com/v-vibe/vue-styled-components/commit/fe1cf46297aa45f20b77b11a2dec22931f196027))
+
 # 1.0.0 (2024-05-02)
 
 

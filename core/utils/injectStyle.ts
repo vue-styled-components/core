@@ -26,7 +26,7 @@ function insert(className: string, cssString: string) {
   const ruleNode = insertedRuleMap[className]
   let rule = `.${className} { ${cssString} }`
 
-  if (className === 'global' || className === 'keyframes') {
+  if (className === 'global' || /^kf-.+/.test(className)) {
     rule = cssString
   }
 

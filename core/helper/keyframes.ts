@@ -4,7 +4,7 @@ import { generateUniqueName } from '@/utils'
 export function keyframes(kfString: TemplateStringsArray): string {
   const keyframeName = `kf-${generateUniqueName()}`
   injectStyle(
-    'keyframes',
+    keyframeName,
     [
       `
         @keyframes ${keyframeName} {

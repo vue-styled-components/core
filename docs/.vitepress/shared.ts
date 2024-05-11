@@ -5,7 +5,34 @@ import { resolve } from 'path'
 export default defineConfig({
   base: '/',
   title: 'Vue Styled Components',
-  head: [['link', { rel: 'icon', href: '/logo.png ' }]],
+  head: [
+    ['link', { rel: 'icon', href: '/logo.png ' }],
+    [
+      'script',
+      { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-WBXHE8DJ0C' }
+    ],
+    [
+      'script',
+      {},
+      `window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WBXHE8DJ0C');`
+    ],
+    [
+      'script',
+      {},
+      `
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?29a321a01482ac90641e590b27adbbf5";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+      `
+    ]
+  ],
 
   lastUpdated: true,
   cleanUrls: true,

@@ -7,6 +7,7 @@ export default defineConfig({
   title: 'Vue Styled Components',
   head: [
     ['link', { rel: 'icon', href: '/logo.png ' }],
+    ['meta', { name: 'baidu-site-verification', content: 'codeva-A0O1O91tRG' }],
     [
       'script',
       { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-WBXHE8DJ0C' }

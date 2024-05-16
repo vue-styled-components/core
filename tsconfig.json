@@ -16,8 +16,6 @@
     "resolveJsonModule": true,
     // 每个文件都作为单独的模块进行处理
     "isolatedModules": true,
-    // 处理 .tsx 文件时的 JSX 选项
-    "jsx": "preserve",
     "lib": [
       "dom",
       "esnext"

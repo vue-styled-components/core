@@ -25,31 +25,35 @@ const update = () => {
 }
 
 const StyledComp3 = styled(Component)`
-  background: ${(props: any) => props.theme.primary};
+  background: ${(props) => props.theme.primary};
 `
 const StyledComp4 = styled.div`
-  background: ${(props: any) => props.theme.error};
+  background: ${(props) => props.theme.error};
 `
 const StyledComp5 = styled.div`
   width: 40px;
   height: 40px;
-  background: ${(props: any) => props.theme.error};
+  background: ${(props) => props.theme.error};
   animation-duration: 3s;
   animation-name: ${kf};
   animation-iteration-count: infinite;
 `
 
-const StyledComp6 = styled('button', { color: String })`
+const StyledComp6 = styled('button', { color: String })<{
+  color: string
+}>`
   width: 40px;
   height: 40px;
-  color: ${(props: any) => props.color};
+  color: ${(props) => props.color};
 `
 
 const WithAttrsComp = withAttrs(StyledComp6, { disabled: true })
 
 // console.log(useStyledClassName().getStyledClassName(StyledComp6))
 
-const mixin = css`
+const mixin = css<{
+  color: string
+}>`
   color: ${(props) => props.color};
 `
 const cr = styled('button', { color: String })

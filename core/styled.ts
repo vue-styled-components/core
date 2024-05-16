@@ -15,31 +15,34 @@ type ComponentCustomProps = PublicProps & {
 
 export type StyledComponentType = DefineSetupFnComponent<IProps, any, SlotsType, any, ComponentCustomProps>
 
-type StyledFactory = (styles: TemplateStringsArray, ...expressions: (ExpressionType | ExpressionType[])[]) => StyledComponentType
+type StyledFactory = <T = Record<string, any>>(
+  styles: TemplateStringsArray,
+  ...expressions: (ExpressionType<T> | ExpressionType<T>[])[]
+) => StyledComponentType
 type StyledComponent = StyledFactory & {
   attrs: <T extends Record<string, unknown>>(attrs: T) => StyledFactory
 }
-type Attrs = Record<string, unknown>
+type Attrs = Record<string, any>
 
 function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<string, unknown> = {}): StyledComponent {
   if (!isValidElementType(target)) {
     throw Error('The element is invalid.')
   }
   let attributes: Attrs = {}
-  const styledComponent: StyledComponent = function styledComponent(
+  function styledComponent<T>(
     styles: TemplateStringsArray,
-    ...expressions: (ExpressionType | ExpressionType[])[]
+    ...expressions: (ExpressionType<T> | ExpressionType<T>[])[]
   ): StyledComponentType {
-    const cssStringsWithExpression = insertExpressions(styles, expressions)
-    return createStyledComponent(cssStringsWithExpression)
+    const cssStringsWithExpression = insertExpressions<T>(styles, expressions)
+    return createStyledComponent<T>(cssStringsWithExpression)
   }
 
-  styledComponent.attrs = function <T extends Record<string, unknown>>(attrs: T): StyledComponent {
+  styledComponent.attrs = function <T extends Record<string, any>>(attrs: T): StyledComponent {
     attributes = attrs
     return styledComponent
   }
 
-  function createStyledComponent(cssWithExpression: ExpressionType[]): StyledComponentType {
+  function createStyledComponent<T>(cssWithExpression: ExpressionType<T>[]): StyledComponentType {
     let type: string = target
     if (isVueComponent(target)) {
       type = 'vue-component'
@@ -70,11 +73,11 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
             theme,
             ...props,
           }
-          injectStyle(className, cssWithExpression, context)
+          injectStyle<T>(className, cssWithExpression, context)
         })
 
         onMounted(() => {
-          injectStyle(className, cssWithExpression, context)
+          injectStyle<T>(className, cssWithExpression, context)
         })
 
         // Return the render function

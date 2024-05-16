@@ -9,7 +9,7 @@
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
-    "vitepress": "^1.0.2",
+    "vitepress": "^1.1.4",
     "vitepress-theme-demoblock": "^3.0.7"
   }
 }

@@ -1,5 +1,5 @@
 import { type ExpressionType, insertExpressions } from '@/utils'
 
-export function css(strings: TemplateStringsArray, ...interpolations: ExpressionType[]): ExpressionType[] {
-  return insertExpressions(strings, interpolations)
+export function css<T>(strings: TemplateStringsArray, ...interpolations: ExpressionType<T>[]): ExpressionType<T>[] {
+  return insertExpressions<T>(strings, interpolations)
 }

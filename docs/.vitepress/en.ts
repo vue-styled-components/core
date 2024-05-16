@@ -30,7 +30,7 @@ function nav() {
     },
     {
       text: 'API',
-      link: '/api/core',
+      link: '/guide/api/core',
     },
   ]
 }
@@ -39,23 +39,31 @@ function sidebarGuide() {
   return [
     {
       text: 'Basic',
+      base: '/guide/basic/',
       items: [
-        { text: 'Quick Start', link: '/basic/quick-start' },
-        { text: 'Passed Props', link: '/basic/passed-props' },
-        { text: 'Extending Styles', link: '/basic/extending-styles' },
-        { text: 'Styling Any Component', link: '/basic/styling-any-component' },
-        { text: 'Animations', link: '/basic/animations' },
+        { text: 'Quick Start', link: 'quick-start' },
+        { text: 'Passing Props', link: 'passing-props' },
+        { text: 'Extending Styles', link: 'extending-styles' },
+        { text: 'Styling Any Component', link: 'styling-any-component' },
+        { text: 'Animations', link: 'animations' },
       ],
     },
     {
       text: 'Advances',
-      items: [{ text: 'Theming', link: '/advances/theming' }],
+      base: '/guide/advances/',
+      items: [
+        { text: 'Theming', link: 'theming' },
+        { text: 'Global Styles', link: 'global-style' },
+        { text: 'CSS Mixin', link: 'css-mixin' }
+      ],
     },
     {
       text: 'API Reference',
+      base: '/guide/api/',
       items: [
-        { text: 'Core', link: '/api/core' },
-        { text: 'Helper', link: '/api/helper' },
+        { text: 'Core', link: 'core' },
+        { text: 'Helper', link: 'helper' },
+        { text: 'Hook', link: 'hook' },
       ],
     },
   ]

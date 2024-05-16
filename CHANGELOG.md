@@ -1,3 +1,10 @@
+# [1.1.0-beta.1](https://github.com/v-vibe/vue-styled-components/compare/v1.0.1...v1.1.0-beta.1) (2024-05-16)
+
+
+### Features
+
+* **core:** [styled] support passing type for props ([691be76](https://github.com/v-vibe/vue-styled-components/commit/691be768583d33a5b64390a6954bd388f0e51867))
+
 ## [1.0.1](https://github.com/v-vibe/vue-styled-components/compare/v1.0.0...v1.0.1) (2024-05-10)
 
 

@@ -37,9 +37,8 @@ export default defineConfig({
   test: {
     clearMocks: true,
     environment: 'jsdom',
-    reporters: ['default'],
     coverage: {
-      reporter: ['text', 'json-summary', 'json'],
+      reporter: ['lcov', 'text', 'json-summary', 'json'],
     },
   },
 })

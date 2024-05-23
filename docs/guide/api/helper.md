@@ -105,6 +105,36 @@ A function to generate CSS from a template literal with interpolations.
 </template>
 ```
 
+## `cssClass`
+
+A function generating css and return a class name.
+
+**Augments**
+
+- CSS，`TemplateStringsArray`，`必需`
+
+**Return**
+
+- Class name，`string`
+
+**Usage**
+
+```vue
+<script setup lang="ts">
+  import { cssClass } from '@vvibe/vue-styled-components'
+
+  const commonClass = cssClass`
+    padding: 20px;
+    color: #fff;
+    background-color: red;
+  `
+</script>
+
+<template>
+  <div :class="commonClass">Test</div>
+</template>
+```
+
 ## `withAttrs`
 
 A function to add attributes to a `ComponentInstance` or `HTMLElements`.

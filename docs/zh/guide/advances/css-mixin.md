@@ -29,3 +29,30 @@ Such as:
 </template>
 ```
 :::
+
+# 公共 CSS 类
+
+你还可以使用 `cssClass` 来生成一个可公用的样式类，该函数会创建你传入的 CSS 并返回一个类名。
+
+:::demo
+```vue
+<script setup lang="ts">
+  import { css, cssClass } from '@vvibe/vue-styled-components'
+  
+  const commonCSS = css`
+    padding: 10px 20px;
+    border-radius: 8px;
+  `
+
+  const commonClass = cssClass`
+    ${commonCSS}
+    color: #fff;
+    background-color: red;
+  `
+</script>
+
+<template>
+  <div :class="commonClass">Test</div>
+</template>
+```
+:::

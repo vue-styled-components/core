@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/v-vibe/vue-styled-components/compare/v1.1.0...v1.2.0) (2024-05-23)
+
+
+### Features
+
+* **helper:** [cssClass] add function to generate common class ([fa57d0c](https://github.com/v-vibe/vue-styled-components/commit/fa57d0c653a2edcb897cf86d6b2e3889cc2d8330))
+
 # [1.1.0](https://github.com/v-vibe/vue-styled-components/compare/v1.0.1...v1.1.0) (2024-05-17)
 
 

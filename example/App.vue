@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { styled, ThemeProvider, keyframes, withAttrs, css } from '@vvide/vue-styled-components'
+import { styled, ThemeProvider, keyframes, withAttrs, css, cssClass } from '@vvide/vue-styled-components'
 import Component from './Component.vue'
 import { ref } from 'vue'
 
@@ -86,6 +86,17 @@ const StyledLink = styled.a`
 const StyledBlueLink = styled(StyledLink, { color: String })`
   color: ${(props: any) => props.color};
 `
+
+const commonCSS = css`
+  padding: 10px 20px;
+  border-radius: 8px;
+`
+
+const commonClass = cssClass`
+  ${commonCSS}
+  color: #fff;
+  background-color: red;
+`
 </script>
 
 <template>
@@ -97,6 +108,7 @@ const StyledBlueLink = styled(StyledLink, { color: String })`
     <StyledComp7 color="blue">123</StyledComp7>
     <LinkButton as="a" href="#">Link Button</LinkButton>
     <StyledBlueLink :color="color" href="#" @click="update">Styled Link</StyledBlueLink>
+    <div :class="commonClass">test common class</div>
   </ThemeProvider>
 </template>
 

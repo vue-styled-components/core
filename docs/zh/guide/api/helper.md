@@ -105,6 +105,39 @@ outline: deep
 </template>
 ```
 
+
+
+## `cssClass`
+
+一个使用模板字符串生成 CSS 并返回 class 类名的函数。
+
+**参数**
+
+- 模板字符串，`TemplateStringsArray`，`必需`
+
+**返回值**
+
+- class 名称，`string`
+
+**用法**
+
+```vue
+
+<script setup lang="ts">
+  import { cssClass } from '@vvibe/vue-styled-components'
+
+  const commonClass = cssClass`
+    padding: 20px;
+    color: #fff;
+    background-color: red;
+  `
+</script>
+
+<template>
+  <div :class="commonClass">Test</div>
+</template>
+```
+
 ## `withAttrs`
 
 一个用于向 `ComponentInstance` 或 `HTMLElements` 添加 `attributes` 的函数。

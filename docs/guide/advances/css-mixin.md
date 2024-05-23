@@ -29,3 +29,30 @@ Such as:
 </template>
 ```
 :::
+
+# Common CSS Class
+
+You can also use `cssClass` to generate a common css class. The function will inject your css and return a class name
+
+:::demo
+```vue
+<script setup lang="ts">
+  import { css, cssClass } from '@vvibe/vue-styled-components'
+  
+  const commonCSS = css`
+    padding: 10px 20px;
+    border-radius: 8px;
+  `
+
+  const commonClass = cssClass`
+    ${commonCSS}
+    color: #fff;
+    background-color: red;
+  `
+</script>
+
+<template>
+  <div :class="commonClass">Test</div>
+</template>
+```
+:::

@@ -102,7 +102,7 @@ const StyledOtherComponent = styled(OtherComponent)`
 </template>
 ```
 
-### Attrs Setting
+### 🔧Attrs Setting
 
 ```vue
 <script setup lang="ts">

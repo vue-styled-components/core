@@ -22,8 +22,6 @@
   [discord]: https://img.shields.io/badge/chat-on%20discord-7289da.svg?sanitize=true
   [discord-url]: https://discord.gg/UbJxnvt2UH
 
-
-
   [Changelog](./CHANGELOG.md) · [English](./README.md) · 中文
 </div>
 
@@ -47,7 +45,13 @@
 
 ✅ 支持 CSS 嵌套。（仅支持 web: https://drafts.csswg.org/css-nesting/#nesting）
 
-## 📦安装
+## 文档
+
+详细的介绍和使用方法，请参考[官方文档](https://vue-styled-components.com)
+
+## 快速开始
+
+### 📦安装
 
 ```sh
 npm i @vvibe/vue-styled-components
@@ -61,9 +65,9 @@ yarn add @vvibe/vue-styled-components
 pnpm i @vvibe/vue-styled-components
 ```
 
-## 🔨使用
+### 🔨用法
 
-### 样式化组件
+#### 基本使用
 
 ```vue
 <script setup lang="ts">
@@ -97,7 +101,7 @@ const StyledOtherComponent = styled(OtherComponent)`
 </template>
 ```
 
-### Attributes 设置
+#### Attributes 设置
 
 ```vue
 <script setup lang="ts">
@@ -119,7 +123,7 @@ const StyledDiv = styled.div.attrs({
 </template>
 ```
 
-### 通过 Props 动态控制样式
+#### 通过 Props 动态控制样式
 
 如果要在样式中传递 props，则必须在 styled 函数中定义这些属性。因为 Vue 组件需要显式声明 props，以便 Vue 知道应如何处理传递给组件的外部 props（请参阅 [Props Declaration](https://vuejs.org/guide/components/props.html#props-declaration)）
 
@@ -142,7 +146,7 @@ const StyledDiv = styled('div', {
 </template>
 ```
 
-### 主题
+#### 主题
 
 ```vue
 <script setup lang="ts">
@@ -163,7 +167,7 @@ const StyledDiv = styled.div`
 </template>
 ```
 
-### 生成 keyframes
+#### 生成 keyframes
 
 您可以使用 `keyframes` 函数来定义关键帧动画，然后使用 `keyframes` 的返回值将其应用于样式化组件。
 
@@ -215,80 +219,6 @@ const StyledTranslateDiv = styled(StyledBaseDiv)`
 </template>
 ```
 
-### 生成全局样式
-
-一个用于创建全局样式的函数。
-
-```vue
-<script setup>
-import { createGlobalStyle } from '@vvibe/vue-styled-components';
-
-const GlobalStyle = createGlobalStyle`
-    body {
-      color: ${(props) => props.color};
-    }
-  `;
-</script>
-<template>
-  <GlobalStyle color="white" />
-</template>
-```
-
-### 生成css
-
-一个用于从带有插值的模板字符串生成 CSS 的函数。
-
-```vue
-<script setup lang="ts">
-import { styled, css } from '@vvibe/vue-styled-components';
-
-const mixin = css`
-  color: red;
-  background-color: blue;
-`;
-const DivWithStyles = styled('div')`
-  ${mixin}
-`;
-</script>
-
-<template>
-  <DivWithStyles>Div with mixin</DivWithStyles>
-</template>
-```
-
-### 添加或覆盖 Attributes
-
-一个向 `ComponentInstance` or `HTMLElements` 添加或覆盖 `Attributes` 的函数.
-
-```vue
-<script setup lang="ts">
-import { withAttrs } from '@vvibe/vue-styled-components';
-
-const DivWithAttrs = withAttrs('div', {
-  class: 'div-with-attrs'
-});
-
-const DivWithAttrs2 = withAttrs(DivWithAttrs, {
-  class: 'div-with-attrs-2'
-});
-</script>
-
-<template>
-  <DivWithAttrs>Div with attrs</DivWithAttrs>
-  <DivWithAttrs2>Div with attrs 2</DivWithAttrs2>
-</template>
-
-<style scope>
-.div-with-attrs {
-  color: red;
-}
-
-.div-with-attrs-2 {
-  color: blue;
-}
-</style>
-```
-
 **更多细节请查看 [官方文档](https://vue-styled-components.com)**
 
 ## 贡献者
@@ -297,5 +227,6 @@ const DivWithAttrs2 = withAttrs(DivWithAttrs, {
   <img alt="contributor list" src="https://contrib.rocks/image?repo=v-vibe/vue-styled-components" />
 </a>
 
+<br>
 
 另外，感谢 [styled-components](https://github.com/styled-components).

@@ -48,7 +48,13 @@
 
 ✅ Support nesting css. (web only: https://drafts.csswg.org/css-nesting/#nesting)
 
-## 📦Install
+## 📖Documentation
+
+For detailed introduction and usage instructions, please refer to [the documentation website](https://vue-styled-components.com)
+
+## Getting Start
+
+### 📦Install
 
 ```sh
 npm i @vvibe/vue-styled-components
@@ -62,9 +68,9 @@ yarn add @vvibe/vue-styled-components
 pnpm i @vvibe/vue-styled-components
 ```
 
-## 🔨Usage
+### 🔨Usage
 
-### Styled component
+#### Basic
 
 ```vue
 <script setup lang="ts">
@@ -98,7 +104,7 @@ const StyledOtherComponent = styled(OtherComponent)`
 </template>
 ```
 
-### Attrs Setting
+#### Attrs Setting
 
 ```vue
 <script setup lang="ts">
@@ -120,7 +126,7 @@ const StyledDiv = styled.div.attrs({
 </template>
 ```
 
-### Control Dynamic Style by Props
+#### Control Dynamic Style by Props
 
 You must define the props in the `styled` function if you want to use them in the style. Because Vue components
 require explicit props declaration so that Vue knows what external props passed to the component should be treated as
@@ -145,7 +151,7 @@ const StyledDiv = styled('div', {
 </template>
 ```
 
-### Theming
+#### Theming
 
 ```vue
 <script setup lang="ts">
@@ -166,133 +172,6 @@ const StyledDiv = styled.div`
 </template>
 ```
 
-### Generate Keyframes
-
-You can use the `keyframes` function to define a keyframe animation and then use the return value from `keyframes` to
-apply it to a styled component.
-
-```vue
-<script setup lang="ts">
-import { styled, keyframes } from '@vvibe/vue-styled-components';
-
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
-const translate = keyframes`
-  0 {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(250%);
-  }
-  60% {
-    transform: rotate(360deg);
-  }
-`;
-
-const StyledBaseDiv = styled.div`
-  display: inline-block;
-  width: 100px;
-  height: 100px;
-`;
-
-const StyledRotateDiv = styled(StyledBaseDiv)`
-  background-color: skyblue;
-  animation: ${rotate} 2s linear infinite;
-`;
-
-const StyledTranslateDiv = styled(StyledBaseDiv)`
-  margin-left: 10px;
-  background-color: darkred;
-  animation: ${translate} 2s ease infinite alternate;
-`;
-</script>
-
-<template>
-  <StyledRotateDiv />
-  <StyledTranslateDiv />
-</template>
-```
-
-### Create Global Style
-
-A function to create a `style component` that can be used to handle global styles.
-
-```vue
-<script setup>
-import { createGlobalStyle } from '@vvibe/vue-styled-components';
-
-const GlobalStyle = createGlobalStyle`
-    body {
-      color: ${(props) => props.color};
-    }
-  `;
-</script>
-<template>
-  <GlobalStyle color="white" />
-</template>
-```
-
-### Generate CSS Mixin
-
-A function to generate CSS from a template literal with interpolations.
-
-```vue
-<script setup lang="ts">
-import { styled, css } from '@vvibe/vue-styled-components';
-
-const mixin = css`
-  color: red;
-  background-color: blue;
-`;
-const DivWithStyles = styled('div')`
-  ${mixin}
-`;
-</script>
-
-<template>
-  <DivWithStyles>Div with mixin</DivWithStyles>
-</template>
-```
-
-### Add or Override Attrs
-
-A function to add attributes to a `ComponentInstance` or `HTMLElements`.
-
-```vue
-<script setup lang="ts">
-import { withAttrs } from '@vvibe/vue-styled-components';
-
-const DivWithAttrs = withAttrs('div', {
-  class: 'div-with-attrs'
-});
-
-const DivWithAttrs2 = withAttrs(DivWithAttrs, {
-  class: 'div-with-attrs-2'
-});
-</script>
-
-<template>
-  <DivWithAttrs>Div with attrs</DivWithAttrs>
-  <DivWithAttrs2>Div with attrs 2</DivWithAttrs2>
-</template>
-
-<style scope>
-.div-with-attrs {
-  color: red;
-}
-
-.div-with-attrs-2 {
-  color: blue;
-}
-</style>
-```
-
 **More details see [docs site](https://v-vibe.github.io/vue-styled-components/)**
 
 ## Contributors
@@ -300,5 +179,7 @@ const DivWithAttrs2 = withAttrs(DivWithAttrs, {
 <a href="https://github.com/v-vibe/vue-styled-components/graphs/contributors">
   <img alt="contributor list" src="https://contrib.rocks/image?repo=v-vibe/vue-styled-components" />
 </a>
+
+<br>
 
 And thanks [styled-components](https://github.com/styled-components).

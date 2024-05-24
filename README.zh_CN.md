@@ -65,9 +65,7 @@ yarn add @vvibe/vue-styled-components
 pnpm i @vvibe/vue-styled-components
 ```
 
-### 🔨用法
-
-#### 基本使用
+### 💅基本使用
 
 ```vue
 <script setup lang="ts">
@@ -101,7 +99,7 @@ const StyledOtherComponent = styled(OtherComponent)`
 </template>
 ```
 
-#### Attributes 设置
+### 🔧Attributes 设置
 
 ```vue
 <script setup lang="ts">
@@ -123,7 +121,7 @@ const StyledDiv = styled.div.attrs({
 </template>
 ```
 
-#### 通过 Props 动态控制样式
+### 🕹️通过 Props 动态控制样式
 
 如果要在样式中传递 props，则必须在 styled 函数中定义这些属性。因为 Vue 组件需要显式声明 props，以便 Vue 知道应如何处理传递给组件的外部 props（请参阅 [Props Declaration](https://vuejs.org/guide/components/props.html#props-declaration)）
 
@@ -146,7 +144,7 @@ const StyledDiv = styled('div', {
 </template>
 ```
 
-#### 主题
+### 🧙主题
 
 ```vue
 <script setup lang="ts">
@@ -164,58 +162,6 @@ const StyledDiv = styled.div`
   <ThemeProvider :theme="{ color: '#fff' }">
     <StyledDiv>Styled Div</StyledDiv>
   </ThemeProvider>
-</template>
-```
-
-#### 生成 keyframes
-
-您可以使用 `keyframes` 函数来定义关键帧动画，然后使用 `keyframes` 的返回值将其应用于样式化组件。
-
-```vue
-<script setup lang="ts">
-import { styled, keyframes } from '@vvibe/vue-styled-components';
-
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
-const translate = keyframes`
-  0 {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(250%);
-  }
-  60% {
-    transform: rotate(360deg);
-  }
-`;
-
-const StyledBaseDiv = styled.div`
-  display: inline-block;
-  width: 100px;
-  height: 100px;
-`;
-
-const StyledRotateDiv = styled(StyledBaseDiv)`
-  background-color: skyblue;
-  animation: ${rotate} 2s linear infinite;
-`;
-
-const StyledTranslateDiv = styled(StyledBaseDiv)`
-  margin-left: 10px;
-  background-color: darkred;
-  animation: ${translate} 2s ease infinite alternate;
-`;
-</script>
-
-<template>
-  <StyledRotateDiv />
-  <StyledTranslateDiv />
 </template>
 ```
 

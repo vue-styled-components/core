@@ -52,7 +52,7 @@
 
 For detailed introduction and usage instructions, please refer to [the documentation website](https://vue-styled-components.com)
 
-## Getting Start
+## 🚀Getting Start
 
 ### 📦Install
 
@@ -68,9 +68,7 @@ yarn add @vvibe/vue-styled-components
 pnpm i @vvibe/vue-styled-components
 ```
 
-### 🔨Usage
-
-#### Basic
+### 💅Basic
 
 ```vue
 <script setup lang="ts">
@@ -104,7 +102,7 @@ const StyledOtherComponent = styled(OtherComponent)`
 </template>
 ```
 
-#### Attrs Setting
+### Attrs Setting
 
 ```vue
 <script setup lang="ts">
@@ -126,7 +124,7 @@ const StyledDiv = styled.div.attrs({
 </template>
 ```
 
-#### Control Dynamic Style by Props
+### 🕹️Control Dynamic Style by Props
 
 You must define the props in the `styled` function if you want to use them in the style. Because Vue components
 require explicit props declaration so that Vue knows what external props passed to the component should be treated as
@@ -151,7 +149,7 @@ const StyledDiv = styled('div', {
 </template>
 ```
 
-#### Theming
+### 🧙Theming
 
 ```vue
 <script setup lang="ts">

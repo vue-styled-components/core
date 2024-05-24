@@ -172,7 +172,7 @@ const StyledDiv = styled.div`
 
 **More details see [docs site](https://v-vibe.github.io/vue-styled-components/)**
 
-## Contributors
+## 🧑‍🤝‍🧑Contributors
 
 <a href="https://github.com/v-vibe/vue-styled-components/graphs/contributors">
   <img alt="contributor list" src="https://contrib.rocks/image?repo=v-vibe/vue-styled-components" />

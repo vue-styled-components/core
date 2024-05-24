@@ -167,7 +167,7 @@ const StyledDiv = styled.div`
 
 **更多细节请查看 [官方文档](https://vue-styled-components.com)**
 
-## 贡献者
+## 🧑‍🤝‍🧑贡献者
 
 <a href="https://github.com/v-vibe/vue-styled-components/graphs/contributors">
   <img alt="contributor list" src="https://contrib.rocks/image?repo=v-vibe/vue-styled-components" />

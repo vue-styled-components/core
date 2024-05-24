@@ -8,14 +8,14 @@
 
   [![CI status][github-action-image]][github-action-url]
   [![NPM version][npm-version]][npm-url]
-  [![minzip size][npm-bundle-size]][npm-url]
+  [![minified size][npm-bundle-size]][npm-url]
   [![Coverage Status][coverage]][codecov-url]
   [![chat on discord][discord]][discord-url]
 
   [github-action-image]: https://github.com/v-vibe/vue-styled-components/workflows/Code%20Check/badge.svg
   [github-action-url]: https://github.com/v-vibe/vue-styled-components/actions/workflows/code-check.yml
   [npm-version]: https://img.shields.io/npm/v/%40vvibe%2Fvue-styled-components
-  [npm-bundle-size]: https://img.shields.io/bundlephobia/minzip/%40vvibe%2Fvue-styled-components
+  [npm-bundle-size]: https://img.shields.io/bundlejs/size/%40vvibe%2Fvue-styled-components
   [npm-url]: http://npmjs.org/package/@vvibe/vue-styled-components
   [coverage]: https://coveralls.io/repos/github/v-vibe/vue-styled-components/badge.svg?branch=main
   [codecov-url]: https://coveralls.io/github/v-vibe/vue-styled-components?branch=main

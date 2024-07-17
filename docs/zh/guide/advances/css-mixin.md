@@ -32,21 +32,48 @@ Such as:
 
 ## 有条件地嵌套 CSS
 
+
+:::demo
+
 ```vue
 <script setup lang="ts">
   import { styled, css } from '@vvibe/vue-styled-components'
+  import { ref } from 'vue'
+
+  const status = ref<boolean>(false)
+
+  const StyledButton = styled.button`
+    height: 36px;
+    margin-left: 20px;
+    padding: 4px 12px;
+    border-radius: 8px;
+    background-color: skyblue;
+  `
 
   const testCss1 = css`
-    background: white;
+    color: #fff;
+    background: darkred;
   `
   const testCss2 = css`
-    background: blue;
+    color: #000;
+    background: orange;
   `
   const TestEmbedComponent = styled('div', { status: Boolean })`
+    width: 200px;
+    border-radius: 8px;
+    text-align: center;
+    line-height: 40px;
     ${(props) => props.status ? testCss1 : testCss2}
   `
 </script>
+<template>
+  <div style="display: flex; align-items: center;">
+    <TestEmbedComponent :status="status">Test</TestEmbedComponent>
+    <StyledButton @click="status = !status">Change Status</StyledButton>
+  </div>
+</template>
 ```
+:::
 
 # 公共 CSS 类
 

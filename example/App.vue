@@ -49,8 +49,6 @@ const StyledComp6 = styled('button', { color: String })<{
 
 const WithAttrsComp = withAttrs(StyledComp6, { disabled: true })
 
-// console.log(useStyledClassName().getStyledClassName(StyledComp6))
-
 const mixin = css<{
   color: string
 }>`
@@ -97,6 +95,29 @@ const commonClass = cssClass`
   color: #fff;
   background-color: red;
 `
+
+const testEmbedCss1 = css`
+  margin: 40px;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+`
+const testEmbedCss2 = css`
+  margin: 40px;
+  background: blue;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: white;
+`
+
+const show = ref(true)
+const TestEmbedComponent = styled('div', { show: Boolean })`
+  ${(props) => {
+    return props.show ? testEmbedCss1 : testEmbedCss2
+  }}
+`
+
+// console.log(testEmbedCss1, testEmbedCss2)
 </script>
 
 <template>
@@ -109,6 +130,9 @@ const commonClass = cssClass`
     <LinkButton as="a" href="#">Link Button</LinkButton>
     <StyledBlueLink :color="color" href="#" @click="update">Styled Link</StyledBlueLink>
     <div :class="commonClass">test common class</div>
+
+    <TestEmbedComponent :show="show"> White </TestEmbedComponent>
+    <TestEmbedComponent :show="!show" @click="show = !show"> Blue </TestEmbedComponent>
   </ThemeProvider>
 </template>
 

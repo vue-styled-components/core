@@ -1,4 +1,4 @@
-export type ExpressionType<T = Record<string, any>> = ((props: T) => string | number) | string
+export type ExpressionType<T = Record<string, any>> = ((props: T) => string | number | ExpressionType | ExpressionType[]) | string
 
 export function insertExpressions<T>(
   strings: TemplateStringsArray,

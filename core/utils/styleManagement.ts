@@ -39,6 +39,17 @@ function insert(className: string, cssString: string) {
   insertedRuleMap[className] = cssTextNode
 }
 
+export function removeStyle(className: string): void {
+  for (const tag of tags) {
+    for (const node of tag.childNodes) {
+      if (node.nodeValue?.includes(className)) {
+        node.remove()
+        break
+      }
+    }
+  }
+}
+
 export function injectStyle<T>(className: string, cssWithExpression: ExpressionType<T>[], context: Record<string, any>): void {
   const appliedCss = applyExpressions(cssWithExpression, context).join('')
   insert(className, appliedCss)

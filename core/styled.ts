@@ -1,9 +1,19 @@
-import { defineComponent, DefineSetupFnComponent, h, inject, onMounted, PropType, PublicProps, reactive, SlotsType, watch } from 'vue'
+import {
+  defineComponent,
+  DefineSetupFnComponent,
+  h,
+  inject,
+  onMounted,
+  onUnmounted,
+  PropType,
+  PublicProps,
+  reactive,
+  SlotsType,
+  watch,
+} from 'vue'
 import domElements, { type SupportedHTMLElements } from '@/constants/domElements'
-import { type ExpressionType, generateClassName, generateComponentName, insertExpressions } from '@/utils'
-import { injectStyle } from '@/utils/injectStyle'
+import { type ExpressionType, generateClassName, generateComponentName, insertExpressions, injectStyle, removeStyle } from '@/utils'
 import { isStyledComponent, isValidElementType, isVueComponent } from '@/helper'
-import { useStyledClassName } from '@/hooks'
 
 interface IProps {
   as?: SupportedHTMLElements
@@ -51,13 +61,7 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
       type = 'styled-component'
     }
 
-    // Generate a unique class name
-    const className = generateClassName()
     const componentName = generateComponentName(type)
-
-    const { styledClassNameMap } = useStyledClassName()
-    styledClassNameMap[componentName] = className
-
     return defineComponent(
       (props, { slots }) => {
         const myAttrs = { ...attributes }
@@ -66,18 +70,23 @@ function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<
           theme,
           ...props,
         }
-        myAttrs.class = className
+
+        myAttrs.class = generateClassName()
 
         watch([theme, props], () => {
           context = {
             theme,
             ...props,
           }
-          injectStyle<T>(className, cssWithExpression, context)
+          injectStyle<T>(myAttrs.class, cssWithExpression, context)
         })
 
         onMounted(() => {
-          injectStyle<T>(className, cssWithExpression, context)
+          injectStyle<T>(myAttrs.class, cssWithExpression, context)
+        })
+
+        onUnmounted(() => {
+          removeStyle(myAttrs.class)
         })
 
         // Return the render function

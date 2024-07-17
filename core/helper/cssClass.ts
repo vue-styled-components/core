@@ -1,5 +1,5 @@
 import { ExpressionType, generateClassName, insertExpressions } from '@/utils'
-import { injectStyle } from '@/utils/injectStyle'
+import { injectStyle } from '@/utils'
 
 export function cssClass(cssStrings: TemplateStringsArray, ...interpolations: (ExpressionType<any> | ExpressionType<any>[])[]): string {
   const className = generateClassName()

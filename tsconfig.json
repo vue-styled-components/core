@@ -18,7 +18,8 @@
     "isolatedModules": true,
     "lib": [
       "dom",
-      "esnext"
+      "esnext",
+      "dom.iterable"
     ],
     "paths": {
       "@/*": [

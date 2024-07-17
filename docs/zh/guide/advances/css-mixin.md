@@ -30,6 +30,24 @@ Such as:
 ```
 :::
 
+## 有条件地嵌套 CSS
+
+```vue
+<script setup lang="ts">
+  import { styled, css } from '@vvibe/vue-styled-components'
+
+  const testCss1 = css`
+    background: white;
+  `
+  const testCss2 = css`
+    background: blue;
+  `
+  const TestEmbedComponent = styled('div', { status: Boolean })`
+    ${(props) => props.status ? testCss1 : testCss2}
+  `
+</script>
+```
+
 # 公共 CSS 类
 
 你还可以使用 `cssClass` 来生成一个可公用的样式类，该函数会创建你传入的 CSS 并返回一个类名。

@@ -4,7 +4,7 @@ outline: deep
 
 # Hook
 
-## `useStyledClassName`
+## useStyledClassName  <div style="display: inline-flex; align-items: center;"><Badge type="info" text="deprecated at v1.3.0.beta.1" /></div>
 
 **返回**
 

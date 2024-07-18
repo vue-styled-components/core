@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/v-vibe/vue-styled-components/compare/v1.2.0...v1.3.0) (2024-07-18)
+
+
+### Features
+
+* **core:** [styled] support embed css ([9ce5920](https://github.com/v-vibe/vue-styled-components/commit/9ce5920e8b2ccc049bae23d4491179d50ea237ec))
+* **utils:** [style-management] auto clear style when the component unmounted ([0678b03](https://github.com/v-vibe/vue-styled-components/commit/0678b03b4a179b62f5179503e471557fdfdf0269))
+
 # [1.3.0-beta.1](https://github.com/v-vibe/vue-styled-components/compare/v1.2.0...v1.3.0-beta.1) (2024-07-17)
 
 

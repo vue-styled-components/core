@@ -1,3 +1,10 @@
+## [1.3.1-beta.1](https://github.com/v-vibe/vue-styled-components/compare/v1.3.0...v1.3.1-beta.1) (2024-07-22)
+
+
+### Bug Fixes
+
+* **theme-provider:** reactive theme loss issue ([#15](https://github.com/v-vibe/vue-styled-components/issues/15)) ([29f02b9](https://github.com/v-vibe/vue-styled-components/commit/29f02b9cb85b0bf311e277fe8681e4dcbde91206))
+
 # [1.3.0](https://github.com/v-vibe/vue-styled-components/compare/v1.2.0...v1.3.0) (2024-07-18)
 
 

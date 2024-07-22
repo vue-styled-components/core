@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "preserve",
     // 目标 ECMAScript 版本
     "target": "esnext",
     // 模块解析策略

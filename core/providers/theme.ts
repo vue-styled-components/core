@@ -1,8 +1,20 @@
-import { defineComponent, h, PropType, provide } from 'vue'
+import { defineComponent, h, PropType, provide, ref, watch } from 'vue'
 
 export const ThemeProvider = defineComponent(
   (props, { slots }) => {
-    provide('$theme', props.theme)
+    const theme = ref(props.theme)
+    provide('$theme', theme)
+
+    watch(
+      () => props.theme,
+      (v) => {
+        theme.value = v
+      },
+      {
+        deep: true,
+      },
+    )
+
     return () => {
       return h('div', null, slots)
     }

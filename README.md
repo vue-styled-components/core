@@ -46,7 +46,7 @@
 
 ✅ Add or override attrs
 
-✅ Support nesting css. (web only: https://drafts.csswg.org/css-nesting/#nesting)
+✅ Support nesting css.
 
 ## 📖Documentation
 
@@ -180,4 +180,7 @@ const StyledDiv = styled.div`
 
 <br>
 
-And thanks [styled-components](https://github.com/styled-components).
+And thanks 
+
+- [styled-components](https://github.com/styled-components).
+- [stylis](https://github.com/thysultan/stylis)

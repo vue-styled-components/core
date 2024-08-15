@@ -78,7 +78,9 @@ function sidebarGuide() {
       items: [
         { text: '主题', link: 'theming' },
         { text: '全局样式', link: 'global-style' },
-        { text: '样式复用', link: 'css-mixin' }
+        { text: '样式复用', link: 'css-mixin' },
+        { text: '嵌套CSS', link: 'nest-css' },
+        { text: 'CSS私有前缀', link: 'auto-prefix' },
       ],
     },
     {

@@ -35,7 +35,7 @@
     "prepare": "husky",
     "release": "semantic-release"
   },
-  "dependencies": {
+  "peerDependencies": {
     "vue": "^3.4.21"
   },
   "devDependencies": {
@@ -43,6 +43,7 @@
     "@commitlint/config-conventional": "^19.1.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "@types/stylis": "^4.2.6",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
     "@vitejs/plugin-vue": "^5.0.4",
@@ -70,9 +71,7 @@
     "access": "public",
     "provenance": true
   },
-  "pnpm": {
-    "overrides": {
-      "vue-template-compiler@>=2.0.0 <3.0.0": ">=3.0.0"
-    }
+  "dependencies": {
+    "stylis": "^4.3.2"
   }
 }

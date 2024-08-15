@@ -2,7 +2,6 @@
 import { styled, ThemeProvider, keyframes, withAttrs, css, cssClass } from '@vvibe/vue-styled-components'
 import Component from './Component.vue'
 import { ref } from 'vue'
-import { IconInner } from './Test'
 
 const theme = ref({ primary: 'green', error: 'red' })
 

@@ -16,14 +16,14 @@ import { type ExpressionType, generateClassName, generateComponentName, insertEx
 import { isStyledComponent, isValidElementType, isVueComponent } from '@/helper'
 
 interface IProps {
-  as?: SupportedHTMLElements
+  as?: PropType<SupportedHTMLElements>
 }
 
 type ComponentCustomProps = PublicProps & {
   styled: boolean
 }
 
-export type StyledComponentType = DefineSetupFnComponent<IProps, any, SlotsType, any, ComponentCustomProps>
+export type StyledComponentType<P = any> = DefineSetupFnComponent<IProps & P, any, SlotsType, IProps & P, ComponentCustomProps>
 
 type StyledFactory = <T = Record<string, any>>(
   styles: TemplateStringsArray,
@@ -34,7 +34,7 @@ type StyledComponent = StyledFactory & {
 }
 type Attrs = Record<string, any>
 
-function baseStyled(target: string | InstanceType<any>, propsDefinition: Record<string, unknown> = {}): StyledComponent {
+function baseStyled<P extends Record<string, any>>(target: string | InstanceType<any>, propsDefinition?: P & IProps): StyledComponent {
   if (!isValidElementType(target)) {
     throw Error('The element is invalid.')
   }

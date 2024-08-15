@@ -1,4 +1,5 @@
 import { applyExpressions, ExpressionType } from '@/utils/index'
+import { compile, middleware, prefixer, serialize, stringify } from 'stylis'
 
 const MAX_SIZE = 65536
 
@@ -24,11 +25,7 @@ function insert(className: string, cssString: string) {
   }
 
   const ruleNode = insertedRuleMap[className]
-  let rule = `.${className} { ${cssString} }`
-
-  if (className === 'global' || /^kf-.+/.test(className)) {
-    rule = cssString
-  }
+  const rule = cssString
 
   if (ruleNode) {
     ruleNode.data = rule
@@ -42,7 +39,7 @@ function insert(className: string, cssString: string) {
 export function removeStyle(className: string): void {
   for (const tag of tags) {
     for (const node of tag.childNodes) {
-      if (node.nodeValue?.includes(className)) {
+      if (node.nodeValue?.startsWith(`.${className}`)) {
         node.remove()
         break
       }
@@ -52,5 +49,6 @@ export function removeStyle(className: string): void {
 
 export function injectStyle<T>(className: string, cssWithExpression: ExpressionType<T>[], context: Record<string, any>): void {
   const appliedCss = applyExpressions(cssWithExpression, context).join('')
-  insert(className, appliedCss)
+  const compiledCss = serialize(compile(`.${className}{${appliedCss}}`), middleware([prefixer, stringify]))
+  insert(className, compiledCss)
 }

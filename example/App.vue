@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { styled, ThemeProvider, keyframes, withAttrs, css, cssClass } from '@vvide/vue-styled-components'
+import { styled, ThemeProvider, keyframes, withAttrs, css, cssClass } from '@vvibe/vue-styled-components'
 import Component from './Component.vue'
 import { ref } from 'vue'
 
@@ -25,6 +25,7 @@ const update = () => {
 }
 
 const StyledComp3 = styled(Component)`
+  position: sticky;
   background: ${(props) => props.theme.primary};
 `
 const StyledComp4 = styled.div`
@@ -118,10 +119,12 @@ const TestEmbedComponent = styled('div', { show: Boolean })`
 `
 
 // console.log(testEmbedCss1, testEmbedCss2)
+const visible = ref(true)
 </script>
 
 <template>
   <ThemeProvider :theme="theme">
+    <div @click="visible = !visible">Test Remove</div>
     <StyledComp3 @click="update">12345</StyledComp3>
     <StyledComp4>12345</StyledComp4>
     <StyledComp5>12345</StyledComp5>
@@ -133,6 +136,10 @@ const TestEmbedComponent = styled('div', { show: Boolean })`
 
     <TestEmbedComponent :show="show"> White </TestEmbedComponent>
     <TestEmbedComponent :show="!show" @click="show = !show"> Blue </TestEmbedComponent>
+
+    <IconInner color="red" size="55"> 666 </IconInner>
+
+    <BlueButton v-if="visible" />
   </ThemeProvider>
 </template>
 

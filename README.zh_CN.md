@@ -43,7 +43,9 @@
 
 ✅ 添加或覆盖 Attributes
 
-✅ 支持 CSS 嵌套。（仅支持 web: https://drafts.csswg.org/css-nesting/#nesting）
+✅ 支持嵌套 CSS 写法
+
+✅ 自动添加浏览器私有前缀
 
 ## 文档
 

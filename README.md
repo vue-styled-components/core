@@ -48,6 +48,8 @@
 
 ✅ Support nesting css.
 
+✅ Auto-prefix css.
+
 ## 📖Documentation
 
 For detailed introduction and usage instructions, please refer to [the documentation website](https://vue-styled-components.com)

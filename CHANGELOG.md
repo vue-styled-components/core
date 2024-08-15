@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/v-vibe/vue-styled-components/compare/v1.3.1...v1.4.0) (2024-08-15)
+
+
+### Bug Fixes
+
+* **core:** [styled] autmatically infer props type ([176f06a](https://github.com/v-vibe/vue-styled-components/commit/176f06ae9298a7cafdb2e5241a1d5e0a093f14fa))
+
+
+### Features
+
+* implement automatic addition of vendor prefixes to CSS styles and add support for nested CSS in legacy browsers([#19](https://github.com/v-vibe/vue-styled-components/issues/19)) ([2fc5b48](https://github.com/v-vibe/vue-styled-components/commit/2fc5b48e49345c0e4238667ee22173f09ea81070))
+
 ## [1.3.1](https://github.com/v-vibe/vue-styled-components/compare/v1.3.0...v1.3.1) (2024-07-24)
 
 

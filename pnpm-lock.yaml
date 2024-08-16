@@ -12,7 +12,7 @@ importers:
         specifier: ^4.3.2
         version: 4.3.2
       vue:
-        specifier: ^3.4.21
+        specifier: ^3.*
         version: 3.4.27(typescript@5.4.5)
     devDependencies:
       '@commitlint/cli':
@@ -5305,7 +5305,7 @@ snapshots:
       '@babel/helper-module-imports': 7.22.15
       '@babel/helper-plugin-utils': 7.24.0
       '@babel/parser': 7.24.4
-      '@vue/compiler-sfc': 3.4.21
+      '@vue/compiler-sfc': 3.4.27
 
   '@vue/compiler-core@3.4.21':
     dependencies:
@@ -5399,8 +5399,8 @@ snapshots:
     dependencies:
       '@volar/language-core': 1.11.1
       '@volar/source-map': 1.11.1
-      '@vue/compiler-dom': 3.4.21
-      '@vue/shared': 3.4.21
+      '@vue/compiler-dom': 3.4.27
+      '@vue/shared': 3.4.27
       computeds: 0.0.1
       minimatch: 9.0.4
       muggle-string: 0.3.1
@@ -5412,8 +5412,8 @@ snapshots:
   '@vue/language-core@2.0.13(typescript@5.4.5)':
     dependencies:
       '@volar/language-core': 2.2.0-alpha.8
-      '@vue/compiler-dom': 3.4.21
-      '@vue/shared': 3.4.21
+      '@vue/compiler-dom': 3.4.27
+      '@vue/shared': 3.4.27
       computeds: 0.0.1
       minimatch: 9.0.4
       path-browserify: 1.0.1

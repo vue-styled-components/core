@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/v-vibe/vue-styled-components/compare/v1.4.0...v1.4.1) (2024-08-16)
+
+
+### Bug Fixes
+
+* **helper:** [create-global-style] cannot apply style correctly ([ccd9805](https://github.com/v-vibe/vue-styled-components/commit/ccd980506ef70983e4b974820edfc714c1729b54))
+
 # [1.4.0](https://github.com/v-vibe/vue-styled-components/compare/v1.3.1...v1.4.0) (2024-08-15)
 
 

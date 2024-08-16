@@ -49,6 +49,10 @@ export function removeStyle(className: string): void {
 
 export function injectStyle<T>(className: string, cssWithExpression: ExpressionType<T>[], context: Record<string, any>): void {
   const appliedCss = applyExpressions(cssWithExpression, context).join('')
-  const compiledCss = serialize(compile(`.${className}{${appliedCss}}`), middleware([prefixer, stringify]))
+  let cssString = appliedCss
+  if (className !== '') {
+    cssString = `.${className}{${appliedCss}}`
+  }
+  const compiledCss = serialize(compile(cssString), middleware([prefixer, stringify]))
   insert(className, compiledCss)
 }

@@ -1,14 +1,13 @@
 import type { ExpressionType } from '@/utils'
 import { defineComponent, DefineSetupFnComponent, h } from 'vue'
-import { generateComponentName, generateUniqueName, insertExpressions } from '@/utils'
+import { generateComponentName, insertExpressions } from '@/utils'
 import { injectStyle } from '@/utils'
 
 export const createGlobalStyle = (styles: TemplateStringsArray, ...expressions: ExpressionType[]): DefineSetupFnComponent<any> => {
   return defineComponent(
     (_, { attrs }) => {
-      const golbalClassName = `global-${generateUniqueName()}`
       const cssStringsWithExpression = insertExpressions(styles, expressions)
-      injectStyle(golbalClassName, cssStringsWithExpression, attrs)
+      injectStyle('', cssStringsWithExpression, attrs)
       return () => {
         return h('div', { style: 'display: none' })
       }

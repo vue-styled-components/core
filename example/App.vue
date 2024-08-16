@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { styled, ThemeProvider, keyframes, withAttrs, css, cssClass } from '@vvibe/vue-styled-components'
+import { styled, ThemeProvider, keyframes, withAttrs, css, cssClass, createGlobalStyle } from '@vvibe/vue-styled-components'
 import Component from './Component.vue'
 import { ref } from 'vue'
 
@@ -120,10 +120,17 @@ const TestEmbedComponent = styled('div', { show: Boolean })`
 
 // console.log(testEmbedCss1, testEmbedCss2)
 const visible = ref(true)
+
+const Global = createGlobalStyle`
+  body {
+    display: flex
+  }
+`
 </script>
 
 <template>
   <ThemeProvider :theme="theme">
+    <Global />
     <div @click="visible = !visible">Test Remove</div>
     <StyledComp3 @click="update">12345</StyledComp3>
     <StyledComp4>12345</StyledComp4>

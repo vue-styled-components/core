@@ -14,7 +14,7 @@ import {
 import domElements, { type SupportedHTMLElements } from '@/src/constants/domElements'
 import { type ExpressionType, generateClassName, generateComponentName, insertExpressions, injectStyle, removeStyle } from '@/src/utils'
 import { isStyledComponent, isValidElementType, isVueComponent } from '@/src/helper'
-import { DefaultTheme } from './providers'
+import { DefaultTheme } from './providers/theme'
 
 interface IProps {
   as?: PropType<SupportedHTMLElements>

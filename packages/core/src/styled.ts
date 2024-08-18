@@ -14,6 +14,7 @@ import {
 import domElements, { type SupportedHTMLElements } from '@/src/constants/domElements'
 import { type ExpressionType, generateClassName, generateComponentName, insertExpressions, injectStyle, removeStyle } from '@/src/utils'
 import { isStyledComponent, isValidElementType, isVueComponent } from '@/src/helper'
+import { DefaultTheme } from './providers'
 
 interface IProps {
   as?: PropType<SupportedHTMLElements>
@@ -27,7 +28,7 @@ export type StyledComponentType<P = any> = DefineSetupFnComponent<IProps & P, an
 
 type StyledFactory = <T = Record<string, any>>(
   styles: TemplateStringsArray,
-  ...expressions: (ExpressionType<T> | ExpressionType<T>[])[]
+  ...expressions: (ExpressionType<T & { theme: DefaultTheme }> | ExpressionType<T & { theme: DefaultTheme }>[])[]
 ) => StyledComponentType
 type StyledComponent = StyledFactory & {
   attrs: <T extends Record<string, unknown>>(attrs: T) => StyledFactory
@@ -52,7 +53,7 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
     return styledComponent
   }
 
-  function createStyledComponent<T>(cssWithExpression: ExpressionType<T>[]): StyledComponentType {
+  function createStyledComponent<T>(cssWithExpression: ExpressionType<T & { theme: DefaultTheme }>[]): StyledComponentType {
     let type: string = target
     if (isVueComponent(target)) {
       type = 'vue-component'
@@ -80,7 +81,7 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
               theme: theme?.value ?? {},
               ...props,
             }
-            injectStyle<T>(myAttrs.class, cssWithExpression, context)
+            injectStyle<T & { theme: DefaultTheme }>(myAttrs.class, cssWithExpression, context)
           },
           {
             deep: true,
@@ -88,7 +89,7 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
         )
 
         onMounted(() => {
-          injectStyle<T>(myAttrs.class, cssWithExpression, context)
+          injectStyle<T & { theme: DefaultTheme }>(myAttrs.class, cssWithExpression, context)
         })
 
         onUnmounted(() => {

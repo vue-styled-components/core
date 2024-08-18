@@ -1,6 +1,8 @@
 import { defineComponent, h, PropType, provide, ref, watch } from 'vue'
 
-export type DefaultTheme = Record<string, any>
+export interface DefaultTheme {
+  [key: string]: any
+}
 
 export const ThemeProvider = defineComponent(
   (props, { slots }) => {

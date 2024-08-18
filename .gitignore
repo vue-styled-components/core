@@ -1,5 +1,5 @@
 **/node_modules
 **/**/dist
 .idea
-packages/docs/.vitepress/cache
+./packages/docs/.vitepress/cache
 coverage

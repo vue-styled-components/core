@@ -129,3 +129,26 @@ const Link = defineComponent(() => {
 ```
 
 :::
+
+## How to Get Theme Hints with TypeScript
+
+When using styled components, you might reference your theme context like `${props => props.theme.primary}`. To enable TypeScript to provide autocomplete hints and type checking for your theme properties, you can extend the `DefaultTheme` interface.
+
+```ts
+// xxx.d.ts
+import '@vue-styled-components/core'
+
+export {}
+
+interface Theme {
+  primary: string
+}
+
+declare module '@vue-styled-components/core' {
+  export interface DefaultTheme extends Theme {}
+}
+```
+
+By defining and extending the `Theme` interface, TypeScript will recognize your custom theme properties, providing hints when you use `${props => props.theme.primary}` in your styled components.
+
+

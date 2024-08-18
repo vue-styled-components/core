@@ -122,3 +122,24 @@ const Link = defineComponent(() => {
 ```
 
 :::
+
+## 如何通过 TypeScript 获取主题提示？
+
+在使用 styled 组件时，你可能会通过 `${props => props.theme.primary}` 引用你的主题上下文。为了让 TypeScript 能够提供自动补全提示并进行类型检查，你可以扩展 `DefaultTheme` 接口。
+
+```ts
+// xxx.d.ts
+import '@vue-styled-components/core';
+
+export {};
+
+interface Theme {
+  primary: string;
+}
+
+declare module '@vue-styled-components/core' {
+  export interface DefaultTheme extends Theme {}
+}
+```
+
+通过定义并扩展 `Theme` 接口，TypeScript 将能够识别你的自定义主题属性，并在你使用 `${props => props.theme.primary}` 时提供相应的提示。

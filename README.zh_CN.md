@@ -12,18 +12,22 @@
   [![Coverage Status][coverage]][codecov-url]
   [![chat on discord][discord]][discord-url]
 
-  [github-action-image]: https://github.com/v-vibe/vue-styled-components/workflows/Code%20Check/badge.svg
-  [github-action-url]: https://github.com/v-vibe/vue-styled-components/actions/workflows/code-check.yml
-  [npm-version]: https://img.shields.io/npm/v/%40vvibe%2Fvue-styled-components
-  [npm-bundle-size]: https://img.shields.io/bundlejs/size/%40vvibe%2Fvue-styled-components
+  [github-action-image]: https://github.com/vue-styled-components/core/workflows/Code%20Check/badge.svg
+  [github-action-url]: https://github.com/vue-styled-components/core/actions/workflows/code-check.yml
+  [npm-version]: https://img.shields.io/npm/v/%40vue-styled-components%2Fcore
+  [npm-bundle-size]: https://img.shields.io/bundlejs/size/%40vue-styled-components%2Fcore
   [npm-url]: http://npmjs.org/package/@vue-styled-components/core
-  [coverage]: https://coveralls.io/repos/github/v-vibe/vue-styled-components/badge.svg?branch=main
-  [codecov-url]: https://coveralls.io/github/v-vibe/vue-styled-components?branch=main
+  [coverage]: https://coveralls.io/repos/github/vue-styled-components/core/badge.svg?branch=main
+  [codecov-url]: https://coveralls.io/github/vue-styled-components/core?branch=main
   [discord]: https://img.shields.io/badge/chat-on%20discord-7289da.svg?sanitize=true
   [discord-url]: https://discord.gg/UbJxnvt2UH
 
   [Changelog](./CHANGELOG.md) · [English](./README.md) · 中文
 </div>
+
+> [!IMPORTANT]
+> 这个库已经迁移到新的npm组织 [@vue-styled-components/core](https://npmjs.org/package/@vue-styled-components/core)
+> 旧的npm组织 已经废弃，不再发布新版本
 
 ## ✨特性
 

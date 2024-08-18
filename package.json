@@ -1,57 +1,34 @@
 {
-  "name": "@vvibe/vue-styled-components",
-  "private": false,
-  "version": "1.4.1",
-  "type": "module",
-  "files": [
-    "dist/*"
-  ],
-  "main": "./dist/index.umd.cjs",
-  "module": "./dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs"
-    }
-  },
-  "repository": {
-    "url": "https://github.com/v-vibe/vue-styled-components.git"
-  },
+  "name": "@vue-styled-components/root",
+  "packageManager": "pnpm@9.3.0",
+  "private": true,
   "workspaces": [
-    "core/**/*",
-    "example/**/*",
-    "docs/**/*"
+    "packages/*"
   ],
   "scripts": {
-    "dev": "pnpm -C example dev",
-    "build": "pnpm typecheck && vite build",
-    "test": "vitest",
-    "coverage": "vitest run --coverage",
-    "docs:dev": "pnpm -C docs docs:dev",
-    "docs:build": "pnpm -C docs docs:build",
+    "dev": "pnpm -F playground dev",
+    "build": "pnpm typecheck && pnpm -F core build",
+    "test": "pnpm -F core test",
+    "coverage": "pnpm -F core test:coverage",
+    "docs:dev": "pnpm -F docs docs:dev",
+    "docs:build": "pnpm -F docs docs:build",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "typecheck": "vue-tsc --noEmit",
-    "cz": "cz",
     "prepare": "husky",
     "release": "semantic-release"
-  },
-  "peerDependencies": {
-    "vue": "^3.*"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
     "@commitlint/config-conventional": "^19.1.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "@types/stylis": "^4.2.6",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
-    "@vitest/coverage-v8": "^1.5.0",
+    "@vitest/coverage-v8": "^2.0.5",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/test-utils": "^2.4.5",
-    "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -62,16 +39,9 @@
     "prettier": "^3.2.5",
     "semantic-release": "^23.0.8",
     "typescript": "^5.4.3",
-    "vite": "^5.2.0",
-    "vite-plugin-dts": "^3.9.0",
-    "vitest": "^1.5.0",
+    "vite": "^5.4.1",
+    "vite-plugin-dts": "^4.0.3",
+    "vitest": "^2.0.5",
     "vue-tsc": "^2.0.7"
-  },
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
-  "dependencies": {
-    "stylis": "^4.3.2"
   }
 }

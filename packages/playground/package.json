@@ -1,0 +1,9 @@
+{
+  "name": "@vue-styled-components/playground",
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "vue": "^3.4.38"
+  }
+}

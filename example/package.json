@@ -1,7 +1,0 @@
-{
-  "name": "example",
-  "scripts": {
-    "dev": "vite --config ../vite.config.ts",
-    "preview": "vite preview"
-  }
-}

@@ -1,0 +1,50 @@
+{
+  "name": "@vue-styled-components/core",
+  "version": "1.4.1",
+  "type": "module",
+  "files": [
+    "dist/*"
+  ],
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "url": "https://github.com/v-vibe/vue-styled-components.git"
+  },
+  "author": {
+    "name": "akinoccc",
+    "email": "akinochen@foxmail.com"
+  },
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [
+    "vue3",
+    "styled-components",
+    "styled-system",
+    "css",
+    "css-in-js"
+  ],
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "devDependencies": {
+    "@types/stylis": "^4.2.6"
+  },
+  "dependencies": {
+    "stylis": "^4.3.2"
+  }
+}

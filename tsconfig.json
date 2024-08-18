@@ -22,32 +22,29 @@
       "esnext",
       "dom.iterable"
     ],
-    "paths": {
-      "@/*": [
-        "./core/*"
-      ],
-      "@vvibe/vue-styled-components": [
-        "./core"
-      ]
-    },
     "types": [
       "@vue/test-utils",
       "vitest"
     ],
+    "paths": {
+      "@/*": [
+        "./packages/core/*"
+      ],
+      "@vue-styled-components/core": [
+        "./packages/core/index"
+      ]
+    },
     "skipLibCheck": true
   },
   // 需要编译的文件或目录
   "include": [
-    "core",
-    "vite.config.ts",
-    "commitlint.config.ts",
-    "example",
-    "docs"
+    "packages",
+    "vite.config.ts"
   ],
   // 排除的文件或目录
   "exclude": [
-    "node_modules",
-    "dist",
+    "./*/node_modules",
+    "./*/dist",
   ],
   "compileOnSave": false
 }

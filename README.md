@@ -16,7 +16,7 @@
   [github-action-url]: https://github.com/v-vibe/vue-styled-components/actions/workflows/code-check.yml
   [npm-version]: https://img.shields.io/npm/v/%40vvibe%2Fvue-styled-components
   [npm-bundle-size]: https://img.shields.io/bundlejs/size/%40vvibe%2Fvue-styled-components
-  [npm-url]: http://npmjs.org/package/@vvibe/vue-styled-components
+  [npm-url]: http://npmjs.org/package/@vue-styled-components/core
   [coverage]: https://coveralls.io/repos/github/v-vibe/vue-styled-components/badge.svg?branch=main
   [codecov-url]: https://coveralls.io/github/v-vibe/vue-styled-components?branch=main
   [discord]: https://img.shields.io/badge/chat-on%20discord-7289da.svg?sanitize=true
@@ -59,22 +59,22 @@ For detailed introduction and usage instructions, please refer to [the documenta
 ### 📦Install
 
 ```sh
-npm i @vvibe/vue-styled-components
+npm i @vue-styled-components/core
 ```
 
 ```sh
-yarn add @vvibe/vue-styled-components
+yarn add @vue-styled-components/core
 ```
 
 ```sh
-pnpm i @vvibe/vue-styled-components
+pnpm i @vue-styled-components/core
 ```
 
 ### 💅Basic
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vvibe/vue-styled-components';
+import { styled } from '@vue-styled-components/core';
 import OtherComponent from './VueComponent.vue';
 
 const StyledDiv = styled('div')`
@@ -108,7 +108,7 @@ const StyledOtherComponent = styled(OtherComponent)`
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vvibe/vue-styled-components';
+import { styled } from '@vue-styled-components/core';
 
 const StyledDiv = styled.div.attrs({
   class: 'styled-div'
@@ -134,7 +134,7 @@ fallthrough attributes.(see [Props Declaration](https://vuejs.org/guide/componen
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vvibe/vue-styled-components';
+import { styled } from '@vue-styled-components/core';
 
 const StyledDiv = styled('div', {
   color: String
@@ -155,7 +155,7 @@ const StyledDiv = styled('div', {
 
 ```vue
 <script setup lang="ts">
-import { styled, ThemeProvider } from '@vvibe/vue-styled-components';
+import { styled, ThemeProvider } from '@vue-styled-components/core';
 
 const StyledDiv = styled.div`
   width: 100px;

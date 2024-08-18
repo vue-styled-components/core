@@ -1,0 +1,15 @@
+{
+  "name": "@vue-styled-components/docs",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.1.4",
+    "vitepress-theme-demoblock": "^3.0.7"
+  }
+}

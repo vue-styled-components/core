@@ -1,3 +1,15 @@
+# [1.5.0-beta.1](https://github.com/vue-styled-components/core/compare/v1.4.1...v1.5.0-beta.1) (2024-08-18)
+
+
+### Bug Fixes
+
+* **provider:** [theme] no hint when passing props ([c758864](https://github.com/vue-styled-components/core/commit/c7588645974d620366b44a12b6f95afe2b8c6d03))
+
+
+### Features
+
+* **provider:** [theme] add support for extending and implementing theme typedef ([5087d1b](https://github.com/vue-styled-components/core/commit/5087d1b9c9eaa983d4448613aad03719fb7812a1))
+
 # [1.5.0-alpha.1](https://github.com/vue-styled-components/core/compare/v1.4.1...v1.5.0-alpha.1) (2024-08-18)
 
 

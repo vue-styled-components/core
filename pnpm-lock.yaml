@@ -98,6 +98,10 @@ importers:
         version: 4.2.6
 
   packages/docs:
+    dependencies:
+      vue:
+        specifier: ^3.4.38
+        version: 3.4.38(typescript@5.4.5)
     devDependencies:
       vitepress:
         specifier: ^1.1.4

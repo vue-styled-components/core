@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    types: [opened]
+    types: [opened, synchronize]
 
 jobs:
   setup:
@@ -24,15 +24,16 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      - name: Cache dependencies
-        id: node_modules_cache_id
+      - name: Cache pnpm store
         uses: actions/cache@v4
         with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
   lint:
     needs: setup
@@ -46,17 +47,16 @@ jobs:
         with:
           version: 9.3.0
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-
-      - name: Restore cached dependencies
+      - name: Restore cached pnpm store
         uses: actions/cache@v4
         with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Lint Check
         run: pnpm lint
@@ -67,23 +67,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+        
       - name: Setup Pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 9.3.0
 
-      - name: Cache dependencies
+      - name: Restore cached pnpm store
         uses: actions/cache@v4
         with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Type Check
         run: pnpm typecheck
 
@@ -93,23 +93,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+        
       - name: Setup Pnpm
         uses: pnpm/action-setup@v3
         with:
-          version: 9.3,0
+          version: 9.3.0
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-
-      - name: Cache dependencies
+      - name: Restore cached pnpm store
         uses: actions/cache@v4
         with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Unit Test
         run: pnpm test
@@ -124,30 +123,28 @@ jobs:
           flag-name: Unit Test
           parallel: true
     
-
   build:
     needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+        
       - name: Setup Pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 9.3.0
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-
-      - name: Cache dependencies
+      - name: Restore cached pnpm store
         uses: actions/cache@v4
         with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm build

@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/vue-styled-components/core/compare/v1.5.0...v1.5.1) (2024-08-19)
+
+
+### Bug Fixes
+
+* **provider:** [theme] incorrect object type provide to component tree ([3307d65](https://github.com/vue-styled-components/core/commit/3307d65b1a8276ce30b816ea67c4a68e6adee217))
+
 # [1.5.0](https://github.com/vue-styled-components/core/compare/v1.4.1...v1.5.0) (2024-08-18)
 
 

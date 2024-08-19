@@ -1,4 +1,4 @@
-import { defineComponent, h, PropType, provide, ref, watch } from 'vue'
+import { defineComponent, h, PropType, provide, reactive, ref, watch } from 'vue'
 
 export interface DefaultTheme {
   [key: string]: any
@@ -7,7 +7,7 @@ export interface DefaultTheme {
 export const ThemeProvider = defineComponent(
   (props, { slots }) => {
     const theme = ref(props.theme)
-    provide('$theme', theme)
+    provide('$theme', reactive(theme.value as DefaultTheme))
 
     watch(
       () => props.theme,

@@ -7,7 +7,7 @@ import {
   onUnmounted,
   PropType,
   PublicProps,
-  reactive,
+  Ref,
   SlotsType,
   watch,
 } from 'vue'
@@ -66,9 +66,9 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
     return defineComponent(
       (props, { slots }) => {
         const myAttrs = { ...attributes }
-        const theme = inject<Record<string, string | number>>('$theme', reactive({}))
+        const theme = inject<Ref<Record<string, string | number>>>('$theme')
         let context = {
-          theme,
+          theme: theme?.value ?? {},
           ...props,
         }
 
@@ -78,7 +78,7 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
           [theme, props],
           () => {
             context = {
-              theme,
+              theme: theme?.value ?? {},
               ...props,
             }
             injectStyle<T & { theme: DefaultTheme }>(myAttrs.class, cssWithExpression, context)

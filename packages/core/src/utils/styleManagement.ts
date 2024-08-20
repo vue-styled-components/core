@@ -26,7 +26,7 @@ function insert(className: string, cssString: string) {
 
   const ruleNode = insertedRuleMap[className]
   const rule = cssString
-
+  
   if (ruleNode) {
     ruleNode.data = rule
     return
@@ -47,12 +47,15 @@ export function removeStyle(className: string): void {
   }
 }
 
-export function injectStyle<T>(className: string, cssWithExpression: ExpressionType<T>[], context: Record<string, any>): void {
-  const appliedCss = applyExpressions(cssWithExpression, context).join('')
+export function injectStyle<T>(className: string, cssWithExpression: ExpressionType<T>[], context: Record<string, any>): string[] {
+  const tailwindClasses: string[] = []
+  const appliedCss = applyExpressions(cssWithExpression, context, tailwindClasses).join('')
   let cssString = appliedCss
   if (className !== '') {
     cssString = `.${className}{${appliedCss}}`
   }
   const compiledCss = serialize(compile(cssString), middleware([prefixer, stringify]))
   insert(className, compiledCss)
+
+  return tailwindClasses
 }

@@ -26,7 +26,7 @@ function insert(className: string, cssString: string) {
 
   const ruleNode = insertedRuleMap[className]
   const rule = cssString
-  
+
   if (ruleNode) {
     ruleNode.data = rule
     return

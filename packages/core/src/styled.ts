@@ -8,6 +8,7 @@ import {
   PropType,
   PublicProps,
   reactive,
+  ref,
   SlotsType,
   watch,
 } from 'vue'
@@ -65,14 +66,26 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
     const componentName = generateComponentName(type)
     return defineComponent(
       (props, { slots }) => {
-        const myAttrs = { ...attributes }
+        const tailwindClasses = ref<string[]>([])
+        const myAttrs = ref({ ...attributes })
         const theme = inject<Record<string, string | number>>('$theme', reactive({}))
         let context = {
           theme,
           ...props,
         }
 
-        myAttrs.class = generateClassName()
+        const defaultClassName = generateClassName()
+
+        myAttrs.value.class = defaultClassName
+
+        // Inject the tailwind classes to the class attribute
+        watch(
+          tailwindClasses,
+          (classNames) => {
+            myAttrs.value.class = `${defaultClassName} ${classNames.join(' ')}`
+          },
+          { deep: true },
+        )
 
         watch(
           [theme, props],
@@ -81,7 +94,7 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
               theme,
               ...props,
             }
-            injectStyle<T & { theme: DefaultTheme }>(myAttrs.class, cssWithExpression, context)
+            tailwindClasses.value = injectStyle<T & { theme: DefaultTheme }>(defaultClassName, cssWithExpression, context)
           },
           {
             deep: true,
@@ -89,11 +102,11 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
         )
 
         onMounted(() => {
-          injectStyle<T & { theme: DefaultTheme }>(myAttrs.class, cssWithExpression, context)
+          tailwindClasses.value = injectStyle<T & { theme: DefaultTheme }>(defaultClassName, cssWithExpression, context)
         })
 
         onUnmounted(() => {
-          removeStyle(myAttrs.class)
+          removeStyle(myAttrs.value.class)
         })
 
         // Return the render function
@@ -102,7 +115,7 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
           return h(
             node,
             {
-              ...myAttrs,
+              ...myAttrs.value,
             },
             slots,
           )

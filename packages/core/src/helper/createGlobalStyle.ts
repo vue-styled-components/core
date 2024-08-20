@@ -7,7 +7,9 @@ export const createGlobalStyle = (styles: TemplateStringsArray, ...expressions: 
   return defineComponent(
     (_, { attrs }) => {
       const cssStringsWithExpression = insertExpressions(styles, expressions)
+
       injectStyle('', cssStringsWithExpression, attrs)
+
       return () => {
         return h('div', { style: 'display: none' })
       }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { styled, ThemeProvider, keyframes, withAttrs, css, cssClass, createGlobalStyle } from '@vue-styled-components/core'
+import { styled, ThemeProvider, keyframes, withAttrs, css, cssClass, createGlobalStyle, tw } from '@/index'
 import Component from './Component.vue'
 import { ref } from 'vue'
 
@@ -126,13 +126,18 @@ const Global = createGlobalStyle`
     display: flex
   }
 `
+const tt = 'bg-white'
+const TwComponent = styled.div`
+  ${tw`text-2xl text-gray-100 text-lg ${tt}`}
+`
 </script>
 
 <template>
   <ThemeProvider :theme="theme">
+    <TwComponent>Test</TwComponent>
     <Global />
     <div @click="visible = !visible">Test Remove</div>
-    <StyledComp3 @click="update">12345</StyledComp3>
+    <StyledComp3 class="text-white" @click="update">12345</StyledComp3>
     <StyledComp4>12345</StyledComp4>
     <StyledComp5>12345</StyledComp5>
     <WithAttrsComp color="red">123</WithAttrsComp>
@@ -143,8 +148,6 @@ const Global = createGlobalStyle`
 
     <TestEmbedComponent :show="show"> White </TestEmbedComponent>
     <TestEmbedComponent :show="!show" @click="show = !show"> Blue </TestEmbedComponent>
-
-    <IconInner color="red" size="55"> 666 </IconInner>
 
     <BlueButton v-if="visible" />
   </ThemeProvider>

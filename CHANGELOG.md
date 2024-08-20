@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/vue-styled-components/core/compare/v1.5.1...v1.6.0) (2024-08-20)
+
+
+### Features
+
+* support use `tailwind css`([#17](https://github.com/vue-styled-components/core/issues/17)) ([800ddaf](https://github.com/vue-styled-components/core/commit/800ddaf1ec6b6ce8c4ffbbebd38bfc291cb02a9b))
+
 ## [1.5.1](https://github.com/vue-styled-components/core/compare/v1.5.0...v1.5.1) (2024-08-19)
 
 

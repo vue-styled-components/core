@@ -81,6 +81,7 @@ function sidebarGuide() {
         { text: '样式复用', link: 'css-mixin' },
         { text: '嵌套CSS', link: 'nest-css' },
         { text: 'CSS私有前缀', link: 'auto-prefix' },
+        { text: 'Tailwind CSS', link: 'tailwind-css' },
       ],
     },
     {

@@ -57,6 +57,7 @@ function sidebarGuide() {
         { text: 'CSS Mixin', link: 'css-mixin' },
         { text: 'Nest CSS', link: 'nest-css' },
         { text: 'Auto Prefix', link: 'auto-prefix' },
+        { text: 'Tailwind CSS', link: 'tailwind-css' },
       ],
     },
     {

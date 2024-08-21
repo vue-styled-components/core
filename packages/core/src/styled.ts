@@ -72,6 +72,7 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
         let context = {
           theme,
           ...props,
+          ...props.props,
         }
 
         const defaultClassName = generateClassName()
@@ -93,6 +94,7 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
             context = {
               theme,
               ...props,
+              ...props.props,
             }
             tailwindClasses.value = injectStyle<T & { theme: DefaultTheme }>(defaultClassName, cssWithExpression, context)
           },
@@ -126,6 +128,9 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
         props: {
           as: {
             type: String as PropType<SupportedHTMLElements>,
+          },
+          props: {
+            type: Object as PropType<P>,
           },
           ...propsDefinition,
         },

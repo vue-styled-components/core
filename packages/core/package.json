@@ -1,6 +1,6 @@
 {
   "name": "@vue-styled-components/core",
-  "version": "1.7.0-alpha.1",
+  "version": "1.7.0",
   "type": "module",
   "files": [
     "dist/*"

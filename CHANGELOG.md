@@ -1,3 +1,11 @@
+# [1.7.0](https://github.com/vue-styled-components/core/compare/v1.6.1...v1.7.0) (2024-08-21)
+
+
+### Features
+
+* **core:** [styled] support infering ts type from props ([97101d0](https://github.com/vue-styled-components/core/commit/97101d01953323e27c743221996abff1192e9add))
+* **core:** [styled] support passing custom props and no need definition ([119f4b8](https://github.com/vue-styled-components/core/commit/119f4b8a6ab26a7439de3d002baa54d787d11eef))
+
 # [1.7.0-alpha.1](https://github.com/vue-styled-components/core/compare/v1.6.1...v1.7.0-alpha.1) (2024-08-21)
 
 

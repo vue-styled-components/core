@@ -5,6 +5,8 @@ export type ExpressionType<T = Record<string, any>> =
   | string
   | number
   | TailwindObject
+  | undefined
+  | null
 
 export function insertExpressions<T>(
   strings: TemplateStringsArray,

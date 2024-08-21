@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     // 目标 ECMAScript 版本
     "target": "esnext",
     // 模块解析策略

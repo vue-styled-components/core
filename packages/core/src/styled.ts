@@ -1,15 +1,13 @@
 import {
+  ComponentObjectPropsOptions,
+  ExtractPropTypes,
   defineComponent,
-  DefineSetupFnComponent,
   h,
   inject,
   onMounted,
   onUnmounted,
-  PropType,
-  PublicProps,
   reactive,
   ref,
-  SlotsType,
   watch,
 } from 'vue'
 import domElements, { type SupportedHTMLElements } from '@/src/constants/domElements'
@@ -17,44 +15,34 @@ import { type ExpressionType, generateClassName, generateComponentName, insertEx
 import { isStyledComponent, isValidElementType, isVueComponent } from '@/src/helper'
 import { DefaultTheme } from './providers/theme'
 
-interface IProps {
-  as?: PropType<SupportedHTMLElements>
-}
-
-type ComponentCustomProps = PublicProps & {
-  styled: boolean
-}
-
-export type StyledComponentType<P = any> = DefineSetupFnComponent<IProps & P, any, SlotsType, IProps & P, ComponentCustomProps>
-
-type StyledFactory = <T = Record<string, any>>(
-  styles: TemplateStringsArray,
-  ...expressions: (ExpressionType<T & { theme: DefaultTheme }> | ExpressionType<T & { theme: DefaultTheme }>[])[]
-) => StyledComponentType
-type StyledComponent = StyledFactory & {
-  attrs: <T extends Record<string, unknown>>(attrs: T) => StyledFactory
-}
 type Attrs = Record<string, any>
 
-function baseStyled<P extends Record<string, any>>(target: string | InstanceType<any>, propsDefinition?: P & IProps): StyledComponent {
+type BaseContext<T> = T & { theme: DefaultTheme }
+type PropsDefinition<T> = {
+  [K in keyof T]: T[K]
+}
+function baseStyled<T extends object>(target: string | InstanceType<any>, propsDefinition?: PropsDefinition<T>) {
   if (!isValidElementType(target)) {
     throw Error('The element is invalid.')
   }
   let attributes: Attrs = {}
-  function styledComponent<T>(
+  function styledComponent<P>(
     styles: TemplateStringsArray,
-    ...expressions: (ExpressionType<T> | ExpressionType<T>[])[]
-  ): StyledComponentType {
-    const cssStringsWithExpression = insertExpressions<T>(styles, expressions)
-    return createStyledComponent<T>(cssStringsWithExpression)
+    ...expressions: (
+      | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>
+      | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>[]
+    )[]
+  ) {
+    const cssStringsWithExpression = insertExpressions(styles, expressions)
+    return createStyledComponent<P>(cssStringsWithExpression)
   }
 
-  styledComponent.attrs = function <T extends Record<string, any>>(attrs: T): StyledComponent {
+  styledComponent.attrs = function <A extends Attrs = Record<string, any>>(attrs: A) {
     attributes = attrs
     return styledComponent
   }
 
-  function createStyledComponent<T>(cssWithExpression: ExpressionType<T & { theme: DefaultTheme }>[]): StyledComponentType {
+  function createStyledComponent<P>(cssWithExpression: ExpressionType<any>[]) {
     let type: string = target
     if (isVueComponent(target)) {
       type = 'vue-component'
@@ -96,7 +84,7 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
               ...props,
               ...props.props,
             }
-            tailwindClasses.value = injectStyle<T & { theme: DefaultTheme }>(defaultClassName, cssWithExpression, context)
+            tailwindClasses.value = injectStyle(defaultClassName, cssWithExpression, context)
           },
           {
             deep: true,
@@ -104,7 +92,7 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
         )
 
         onMounted(() => {
-          tailwindClasses.value = injectStyle<T & { theme: DefaultTheme }>(defaultClassName, cssWithExpression, context)
+          tailwindClasses.value = injectStyle(defaultClassName, cssWithExpression, context)
         })
 
         onUnmounted(() => {
@@ -127,13 +115,15 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
         name: componentName,
         props: {
           as: {
-            type: String as PropType<SupportedHTMLElements>,
+            type: String,
+            required: false,
           },
           props: {
-            type: Object as PropType<P>,
+            type: Object,
+            required: false,
           },
           ...propsDefinition,
-        },
+        } as ComponentObjectPropsOptions<{ as?: string; props?: P } & ExtractPropTypes<PropsDefinition<T>>>,
         inheritAttrs: true,
       },
     )
@@ -144,7 +134,7 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
 
 /** Append all the supported HTML elements to the styled properties */
 const styled = baseStyled as typeof baseStyled & {
-  [E in SupportedHTMLElements]: StyledComponent
+  [E in SupportedHTMLElements]: ReturnType<typeof baseStyled>
 }
 
 domElements.forEach((domElement: SupportedHTMLElements) => {

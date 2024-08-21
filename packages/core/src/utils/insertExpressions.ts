@@ -1,4 +1,10 @@
-export type ExpressionType<T = Record<string, any>> = ((props: T) => string | number | ExpressionType | ExpressionType[]) | string
+import { TailwindObject } from '../helper'
+
+export type ExpressionType<T = Record<string, any>> =
+  | ((props: T) => string | number | ExpressionType | ExpressionType[])
+  | string
+  | number
+  | TailwindObject
 
 export function insertExpressions<T>(
   strings: TemplateStringsArray,

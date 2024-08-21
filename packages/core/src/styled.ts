@@ -67,7 +67,7 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
     return defineComponent(
       (props, { slots }) => {
         const tailwindClasses = ref<string[]>([])
-        const myAttrs = ref({ ...attributes })
+        const myAttrs = ref({ class: '', ...attributes })
         const theme = inject<Record<string, string | number>>('$theme', reactive({}))
         let context = {
           theme,
@@ -76,13 +76,13 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
 
         const defaultClassName = generateClassName()
 
-        myAttrs.value.class = defaultClassName
+        myAttrs.value.class += ` ${defaultClassName}`
 
         // Inject the tailwind classes to the class attribute
         watch(
           tailwindClasses,
           (classNames) => {
-            myAttrs.value.class = `${defaultClassName} ${classNames.join(' ')}`
+            myAttrs.value.class += ` ${defaultClassName} ${classNames.join(' ')}`
           },
           { deep: true },
         )
@@ -106,7 +106,7 @@ function baseStyled<P extends Record<string, any>>(target: string | InstanceType
         })
 
         onUnmounted(() => {
-          removeStyle(myAttrs.value.class)
+          removeStyle(defaultClassName)
         })
 
         // Return the render function

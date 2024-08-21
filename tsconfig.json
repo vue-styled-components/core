@@ -23,7 +23,6 @@
       "dom.iterable"
     ],
     "types": [
-      "@vue/test-utils",
       "vitest"
     ],
     "paths": {

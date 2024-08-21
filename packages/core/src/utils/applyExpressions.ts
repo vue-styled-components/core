@@ -3,15 +3,12 @@ export function applyExpressions(chunks: any[], executionContext: Record<string,
     if (chunk === undefined || chunk === null || chunk === false || chunk === '') {
       return ruleSet
     }
-
     if (Array.isArray(chunk)) {
       return [...ruleSet, ...applyExpressions(chunk, executionContext, tailwindClasses)]
     }
 
     if (typeof chunk === 'function') {
-      return executionContext
-        ? ruleSet.concat(...applyExpressions([chunk(executionContext)], executionContext, tailwindClasses))
-        : ruleSet.concat(chunk)
+      return ruleSet.concat(...applyExpressions([chunk(executionContext)], executionContext, tailwindClasses))
     }
 
     if (typeof chunk === 'object' && chunk?.source === 'tw') {

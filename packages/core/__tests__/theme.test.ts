@@ -1,33 +1,40 @@
-import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { describe, it, expect, afterEach } from 'vitest'
+import { render, cleanup, waitFor } from '@testing-library/vue'
 import { ThemeProvider, styled } from '../index'
 import { h, reactive } from 'vue'
+import { getStyle } from './utils'
 
 describe('theme-provider', () => {
-  const StyledComponent = styled.p`
-    background: ${(props) => props.theme.primary};
-  `
-  const theme = reactive({
-    primary: 'red',
-  })
-  const wrapper = mount(ThemeProvider, {
-    props: {
-      theme,
-    },
-    slots: {
-      default: () => h(StyledComponent),
-    },
+  afterEach(() => {
+    // Reset env
+    cleanup()
   })
 
-  it('should use theme', async () => {
-    expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).style.background).toBe('red')
-  })
-
-  it('should react to theme change', async () => {
-    theme.primary = 'blue'
-    await wrapper.setProps({
-      theme,
+  it('should render with theme', async () => {
+    const StyledComponent = styled.p.attrs({ 'data-testid': 'test' })`
+      background: ${(props) => props.theme.primary};
+    `
+    const theme = reactive({
+      primary: 'rgb(255, 0, 0)',
     })
-    expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).style.background).toBe('blue')
+
+    const instance = render(ThemeProvider, {
+      props: {
+        theme,
+      },
+      slots: {
+        default: () => h(StyledComponent),
+      },
+    })
+
+    const element = instance.getByTestId('test')
+    const preStyle = getStyle(element)
+    expect(preStyle?.background).toBe('rgb(255, 0, 0)')
+
+    theme.primary = 'rgb(0, 0, 255)'
+    await waitFor(() => {
+      const newStyle = getStyle(element)
+      return expect(newStyle?.background).eq('rgb(0, 0, 255)')
+    })
   })
 })

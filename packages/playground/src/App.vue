@@ -130,11 +130,15 @@ const tt = 'bg-white'
 const TwComponent = styled.div`
   ${tw`text-2xl text-gray-100 text-lg ${tt}`}
 `
+
+const className = cssClass`
+  color: red;
+`
 </script>
 
 <template>
   <ThemeProvider :theme="theme">
-    <TwComponent>Test</TwComponent>
+    <TwComponent :class="className">Test</TwComponent>
     <Global />
     <div @click="visible = !visible">Test Remove</div>
     <StyledComp3 class="text-white" @click="update">12345</StyledComp3>

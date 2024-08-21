@@ -1,15 +1,13 @@
-import { createGlobalStyle, styled } from '../index'
+import { createGlobalStyle, isStyledComponent, styled } from '../index'
 import { afterEach, describe, expect, it } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { render, cleanup } from '@testing-library/vue'
+import { getStyle } from './utils'
 import { ref } from 'vue'
 
 describe('styled', () => {
   afterEach(() => {
     // Reset env
-    const styleTags = document.querySelectorAll('style')
-    styleTags.forEach((styleTag) => {
-      styleTag.innerHTML = ''
-    })
+    cleanup()
   })
 
   it('should create a styled component', async () => {
@@ -17,25 +15,33 @@ describe('styled', () => {
       template: '<div>Hello World</div>',
     }
 
-    const StyledComponent = styled(MyComponent)`
-      color: blue;
+    const StyledComponent = styled(MyComponent).attrs({ 'data-testid': 'test' })`
+      color: rgb(0, 0, 255);
     `
-    expect(StyledComponent).toBeDefined()
-    expect(StyledComponent.name).toMatch(/^styled-/)
 
-    const wrapper = mount(StyledComponent)
-    const className = wrapper.find('div').element.className
+    // Is styled component
+    expect(isStyledComponent(StyledComponent)).toBeTruthy()
 
-    expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).selectorText).toBe(`.${className}`)
-    expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).style.color).toBe('blue')
-    expect(wrapper.text()).toBe('Hello World')
+    const instance = render(StyledComponent)
+    const element = instance.getByTestId('test')
+
+    // Is element exist
+    expect(element).toBeDefined()
+
+    // Is applied style correctly
+    const style = getStyle(element)
+    expect(style).toBeDefined()
+    expect(style?.color).eq('rgb(0, 0, 255)')
+
+    // Is element text content correct
+    expect(element.textContent).eq('Hello World')
   })
 
   it('should throw error if the element is invalid', () => {
-    // 模拟一个无效的元素类型
+    // Mock a invalid element
     const invalidElement = 'invalid-element'
 
-    // 断言当传入无效的元素类型时，应该抛出错误
+    // should throw error
     expect(() => {
       styled(invalidElement)
     }).toThrowError('The element is invalid.')
@@ -43,64 +49,73 @@ describe('styled', () => {
 
   it('should style styled component', async () => {
     const StyledComponent = styled.div`
+      width: 80px;
       height: 36px;
     `
 
-    const StyledComponent2 = styled(StyledComponent).attrs({ style: 'color: blue' })`
+    const StyledComponent2 = styled(StyledComponent).attrs({ 'data-testid': 'test' })`
+      color: rgb(0, 0, 255);
       height: 44px;
     `
 
-    const wrapper = mount(StyledComponent2, { slots: { default: () => 'Hello World' } })
-    const className = wrapper.find('div').element.className
-    expect(className).contain((document.styleSheets[0].cssRules[0] as CSSStyleRule).selectorText.replace(/\./, ''))
-    expect(className).contain((document.styleSheets[0].cssRules[1] as CSSStyleRule).selectorText.replace(/\./, ''))
-    expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).style.height).toBe('36px')
-    expect((document.styleSheets[0].cssRules[1] as CSSStyleRule).style.height).toBe('44px')
-    expect(wrapper.find('div').element.className).toMatch(/^styled-/)
-    expect(wrapper.text()).toBe('Hello World')
-    expect(wrapper.find('div').element.style.color).toBe('blue')
+    const instance = render(StyledComponent2)
+    const element = instance.getByTestId('test')
+
+    // Is applied style correctly
+    const style = getStyle(element)
+    expect(style).toBeDefined()
+    expect(style?.color).eq('rgb(0, 0, 255)')
+    expect(style?.height).eq('44px')
+    expect(style?.width).eq('80px')
   })
 
   it('should inject attrs', async () => {
     const StyledComponent = styled.div.attrs({
-      style: 'color: red',
+      'data-testid': 'test',
     })`
       height: 36px;
     `
-    const wrapper = mount(StyledComponent)
+    const instance = render(StyledComponent)
+    const element = instance.getByTestId('test')
 
-    expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).style.height).toBe('36px')
-    expect(wrapper.find('div').element.style.color).toBe('red')
+    expect(element).toBeDefined()
+    expect(element.dataset['testid']).eq('test')
+
+    const style = getStyle(element)
+    expect(style?.height).eq('36px')
   })
 
   it('should react to props change', async () => {
-    const StyledComponent = styled('div', { color: String })`
+    const StyledComponent = styled('div', { color: String }).attrs({ 'data-testid': 'test' })`
       color: ${(props) => props.color};
     `
-    const color = ref('red')
-    const wrapper = mount(StyledComponent, {
-      props: {
-        color: color.value,
-      },
+    const color = ref('rgb(255, 0, 0)')
+    const instance = render(StyledComponent, {
+      props: { color: color.value },
     })
 
-    expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).style['color']).toBe('red')
+    const element = instance.getByTestId('test')
+    const style = getStyle(element)
+    expect(style?.color).eq('rgb(255, 0, 0)')
 
-    await wrapper.setProps({ color: 'blue' })
-    expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).style['color']).toBe('blue')
+    color.value = 'rgb(0, 0, 255)'
+    await instance.rerender({ color: color.value })
+    const newStyle = getStyle(element)
+    expect(newStyle?.color).eq('rgb(0, 0, 255)')
   })
 
   it('should create a global style component', async () => {
     const GlobalStyle = createGlobalStyle`
       body {
-        background: red;
+        background: rgb(255, 0, 0);
       }
     `
-    mount(GlobalStyle)
+    const instance = render(GlobalStyle)
 
     expect(GlobalStyle).toBeDefined()
     expect(GlobalStyle.name).toMatch(/^styled-global.+/)
-    expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).selectorText).toBe('body')
-    expect((document.styleSheets[0].cssRules[0] as CSSStyleRule).style.background).toBe('red')
+
+    const style = getStyle(instance.baseElement)
+    expect(style?.background).toBe('rgb(255, 0, 0)')
   })
 })

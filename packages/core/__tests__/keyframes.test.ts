@@ -1,8 +1,14 @@
-import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { describe, it, expect, afterEach } from 'vitest'
 import { keyframes, styled } from '../index'
+import { render, cleanup } from '@testing-library/vue'
+import { getStyle } from './utils'
 
 describe('keyframes', () => {
+  afterEach(() => {
+    // Reset env
+    cleanup()
+  })
+
   it('should have keyframes', async () => {
     const kf = keyframes`
       from {
@@ -19,23 +25,19 @@ describe('keyframes', () => {
     const StyledComponent = styled.div`
       width: 40px;
       height: 40px;
-      background: ${(props: any) => props.theme.error};
       animation-duration: 3s;
       animation-name: ${kf};
       animation-iteration-count: infinite;
     `
 
-    mount(StyledComponent)
-    // Make sure the keyframes are defined
-    const cssRules = document.styleSheets[0].cssRules
-    const keyframesRule = Array.from(cssRules as unknown as CSSKeyframesRule[]).find((rule) => rule?.name === kf)
-
-    expect(keyframesRule).not.toBeUndefined()
-    expect(keyframesRule?.name).toBe(kf)
+    const instance = render(StyledComponent)
+    const element = instance.container.firstElementChild
 
     // Make sure the animation is applied correctly
-    const styleRule = Array.from(cssRules as unknown as CSSStyleRule[]).find((rule) => rule instanceof CSSStyleRule)
-    expect(styleRule).not.toBeUndefined()
-    expect(styleRule!.style['animation-name' as any]).toBe(kf)
+    const style = getStyle(element)
+    expect(style).toBeDefined()
+    expect(style?.animationName).toBe(kf)
+    expect(style?.animationDuration).toBe('3s')
+    expect(style?.animationIterationCount).toBe('infinite')
   })
 })

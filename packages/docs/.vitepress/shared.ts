@@ -60,7 +60,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/v-vibe/vue-styled-components' },
+      { icon: 'github', link: 'https://github.com/vue-styled-components/core' },
       { icon: 'discord', link: 'https://discord.gg/UbJxnvt2UH' },
     ],
   } as DefaultTheme.Config,

@@ -1,3 +1,11 @@
+## [1.6.1](https://github.com/vue-styled-components/core/compare/v1.6.0...v1.6.1) (2024-08-21)
+
+
+### Bug Fixes
+
+* **core:** [styled] cannot auto-remove unused style ([93dc029](https://github.com/vue-styled-components/core/commit/93dc029149a6e80e58efcd71cd1cafb247e7c2c1))
+* **helper:** [tw] cannot merge template string correctly ([23008bb](https://github.com/vue-styled-components/core/commit/23008bbef2cd37d20fcdae0885419ff8464cfda4))
+
 # [1.6.0](https://github.com/vue-styled-components/core/compare/v1.5.1...v1.6.0) (2024-08-20)
 
 

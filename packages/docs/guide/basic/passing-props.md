@@ -7,6 +7,8 @@ outline: deep
 You can pass props to the styled component, similar to Vue components. For instance, you can pass a placeholder to the
 styled input.
 
+## Basic
+
 :::demo
 
 ```vue
@@ -41,8 +43,42 @@ the input.
 
 ::: tip NOTE
 
-You must define the props in the `styled` function if you want to use them in the style. Because Vue components
+You need define the props in the `styled` function if you want to use them directly in the style. Because Vue components
 require explicit props declaration so that Vue knows what external props passed to the component should be treated as
 fallthrough attributes.(see [Props Declaration](https://vuejs.org/guide/components/props.html#props-declaration))
 
 :::
+
+## New way to pass props
+
+From `v1.7.0`, you can use the `props` option to pass props to the styled component.
+
+:::demo
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { styled } from '@vue-styled-components/core'
+
+const borderColor = ref('darkred')
+const StyledInput = styled.input`
+  width: 100%;
+  height: 40px;
+  padding: 4px 8px;
+  border: 1px solid ${(props) => props.borderColor};
+  border-radius: 8px;
+`
+
+const input = () => (borderColor.value = 'forestgreen')
+const focus = () => (borderColor.value = 'skyblue ')
+const blur = () => (borderColor.value = 'darkred')
+</script>
+
+<template>
+  <StyledInput 
+    placeholder="Type something" 
+    :props="{ borderColor }" 
+    @input="input"
+    @focus="focus" 
+    @blur="blur" 
+  />
+</template>

@@ -2,5 +2,5 @@
 **/**/dist
 **/**/.DS_Store
 .idea
-./packages/docs/.vitepress/cache
+packages/docs/.vitepress/cache
 coverage

@@ -13,6 +13,12 @@ export default defineConfig({
       formats: ['es', 'umd'],
     },
     rollupOptions: {
+      output: {
+        exports: 'named',
+        globals: {
+          vue: 'Vue',
+        },
+      },
       external: ['vue'],
     },
   },

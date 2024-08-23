@@ -1,6 +1,7 @@
 import {
-  ComponentObjectPropsOptions,
-  ExtractPropTypes,
+  type ComponentObjectPropsOptions,
+  type ExtractPropTypes,
+  type DefineSetupFnComponent,
   defineComponent,
   h,
   inject,
@@ -13,15 +14,30 @@ import {
 import domElements, { type SupportedHTMLElements } from '@/src/constants/domElements'
 import { type ExpressionType, generateClassName, generateComponentName, insertExpressions, injectStyle, removeStyle } from '@/src/utils'
 import { isStyledComponent, isValidElementType, isVueComponent } from '@/src/helper'
-import { DefaultTheme } from './providers/theme'
+import type { DefaultTheme } from './providers/theme'
 
 type Attrs = Record<string, any>
 
-type BaseContext<T> = T & { theme: DefaultTheme }
-type PropsDefinition<T> = {
+export type BaseContext<T> = T & { theme: DefaultTheme }
+
+export type PropsDefinition<T> = {
   [K in keyof T]: T[K]
 }
-function baseStyled<T extends object>(target: string | InstanceType<any>, propsDefinition?: PropsDefinition<T>) {
+
+// 定义 styledComponent 类型
+interface StyledComponent<T extends object> {
+  <P>(
+    styles: TemplateStringsArray,
+    ...expressions: (
+      | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>
+      | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>[]
+    )[]
+  ): DefineSetupFnComponent<{ as?: string; props?: P } & ExtractPropTypes<PropsDefinition<T>>>
+
+  attrs<A extends Attrs = Record<string, any>>(attrs: A): StyledComponent<T>
+}
+
+function baseStyled<T extends object>(target: string | InstanceType<any>, propsDefinition?: PropsDefinition<T>): StyledComponent<T> {
   if (!isValidElementType(target)) {
     throw Error('The element is invalid.')
   }
@@ -71,7 +87,7 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
         watch(
           tailwindClasses,
           (classNames) => {
-            myAttrs.value.class += ` ${defaultClassName} ${classNames.join(' ')}`
+            myAttrs.value.class += ` ${classNames.join(' ')}`
           },
           { deep: true },
         )
@@ -141,4 +157,4 @@ domElements.forEach((domElement: SupportedHTMLElements) => {
   styled[domElement] = baseStyled(domElement)
 })
 
-export { styled }
+export { styled, styled as default }

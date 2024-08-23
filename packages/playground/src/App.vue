@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { styled } from '@/index'
+import { styled } from '@vue-styled-components/core'
 
 const TestProps = styled.div<{
   color: string

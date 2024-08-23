@@ -15,7 +15,7 @@
   },
   "types": "./dist/index.d.ts",
   "repository": {
-    "url": "https://github.com/vue-styled-components/core.git"
+    "url": "git+https://github.com/vue-styled-components/core.git"
   },
   "author": {
     "name": "akinoccc",

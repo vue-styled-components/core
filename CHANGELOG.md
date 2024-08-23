@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/vue-styled-components/core/compare/v1.7.0...v1.7.1) (2024-08-23)
+
+
+### Bug Fixes
+
+* **core:** not export `styled` and duplicated class adding ([ee3a320](https://github.com/vue-styled-components/core/commit/ee3a32013b8524270db2d0cb087909c76cb07361))
+
 # [1.7.0](https://github.com/vue-styled-components/core/compare/v1.6.1...v1.7.0) (2024-08-21)
 
 

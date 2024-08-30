@@ -15,6 +15,7 @@ import domElements, { type SupportedHTMLElements } from '@/src/constants/domElem
 import { type ExpressionType, generateClassName, generateComponentName, insertExpressions, injectStyle, removeStyle } from '@/src/utils'
 import { isStyledComponent, isValidElementType, isVueComponent } from '@/src/helper'
 import type { DefaultTheme } from './providers/theme'
+import { JSX } from 'vue/jsx-runtime'
 
 type Attrs = Record<string, any>
 
@@ -32,7 +33,7 @@ interface StyledComponent<T extends object> {
       | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>
       | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>[]
     )[]
-  ): DefineSetupFnComponent<{ as?: string; props?: P } & ExtractPropTypes<PropsDefinition<T>>>
+  ): DefineSetupFnComponent<{ as?: string; props?: P } & ExtractPropTypes<PropsDefinition<T>> & JSX.IntrinsicElements['div']>
 
   attrs<A extends Attrs = Record<string, any>>(attrs: A): StyledComponent<T>
 }

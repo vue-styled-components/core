@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/vue-styled-components/core/compare/v1.7.1...v1.7.2) (2024-08-30)
+
+
+### Bug Fixes
+
+* **core:** typedef issue of JSX events binding([#28](https://github.com/vue-styled-components/core/issues/28)) ([b2ae1cd](https://github.com/vue-styled-components/core/commit/b2ae1cd12a15d3bed20982200e1bfcd796ecdbbb))
+
 ## [1.7.1](https://github.com/vue-styled-components/core/compare/v1.7.0...v1.7.1) (2024-08-23)
 
 

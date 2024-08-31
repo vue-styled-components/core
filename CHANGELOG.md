@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/vue-styled-components/core/compare/v1.7.2...v1.7.3) (2024-08-31)
+
+
+### Bug Fixes
+
+* **core:** the type definition of jsx is not well defined([#28](https://github.com/vue-styled-components/core/issues/28)) ([e2bc882](https://github.com/vue-styled-components/core/commit/e2bc882be2d1b221378539f273391eaa98f95178))
+
 ## [1.7.2](https://github.com/vue-styled-components/core/compare/v1.7.1...v1.7.2) (2024-08-30)
 
 

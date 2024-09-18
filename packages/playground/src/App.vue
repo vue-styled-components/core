@@ -1,27 +1,21 @@
 <script setup lang="ts">
-import { styled } from '@vue-styled-components/core'
+import styled from '@vue-styled-components/core'
 
-const TestProps = styled.div<{
-  color: string
-}>`
+const Test = styled('div', { color: String }).attrs<{ disabled: boolean }>({ disabled: false })`
   color: ${(props) => props.color};
+  background: ${(props) => (props.disabled ? 'gray' : 'red')};
 `
-
-const Test = styled('div', { color: String })`
+const Test2 = styled('div', { color: String }).attrs<{ disabled: boolean }>((props) => ({
+  disabled: props.color === 'orange',
+}))`
   color: ${(props) => props.color};
+  background: ${(props) => (props.disabled ? 'gray' : 'red')};
 `
 </script>
 
 <template>
   <Test color="orange">666</Test>
-
-  <TestProps
-    :props="{
-      color: 'red',
-    }"
-  >
-    tttttttt
-  </TestProps>
+  <Test2 color="orange">666</Test2>
 </template>
 
 <style>

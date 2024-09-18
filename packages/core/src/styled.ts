@@ -11,6 +11,7 @@ import {
   ref,
   watch,
   HTMLAttributes,
+  computed,
 } from 'vue'
 import domElements, { type SupportedHTMLElements } from '@/src/constants/domElements'
 import { type ExpressionType, generateClassName, generateComponentName, insertExpressions, injectStyle, removeStyle } from '@/src/utils'
@@ -33,14 +34,16 @@ interface StyledComponent<T extends object> {
     )[]
   ): DefineSetupFnComponent<{ as?: string; props?: P } & ExtractPropTypes<PropsDefinition<T>> & HTMLAttributes>
 
-  attrs<A extends object>(attrs: A): StyledComponent<A & T>
+  attrs<A = object>(
+    attrs: A | ((props: ExtractPropTypes<PropsDefinition<T>>) => A),
+  ): StyledComponent<A & ExtractPropTypes<PropsDefinition<T>>>
 }
 
 function baseStyled<T extends object>(target: string | InstanceType<any>, propsDefinition?: PropsDefinition<T>): StyledComponent<T> {
   if (!isValidElementType(target)) {
     throw Error('The element is invalid.')
   }
-  let attributes = {}
+  let defaultAttrs: unknown
   function styledComponent<P>(
     styles: TemplateStringsArray,
     ...expressions: (
@@ -53,7 +56,7 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
   }
 
   styledComponent.attrs = function <A extends object>(attrs: A) {
-    attributes = attrs
+    defaultAttrs = attrs
     return styledComponent
   }
 
@@ -69,14 +72,25 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
     const componentName = generateComponentName(type)
     return defineComponent(
       (props, { slots }) => {
+        const internalAttrs = computed<Record<string, any>>(() => {
+          if (typeof defaultAttrs === 'function') {
+            return defaultAttrs(props)
+          }
+          if (typeof defaultAttrs === 'object') {
+            return defaultAttrs
+          }
+          return {}
+        })
+
         const tailwindClasses = ref<string[]>([])
-        const internalProps = ref({ class: '', ...attributes })
+        const internalProps = ref({ class: '', ...internalAttrs.value })
         const theme = inject<Record<string, string | number>>('$theme', reactive({}))
+
         let context = {
           theme,
           ...props,
           ...props.props,
-          ...attributes,
+          ...internalAttrs.value,
         }
 
         const defaultClassName = generateClassName()
@@ -109,7 +123,6 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
         )
 
         onMounted(() => {
-          console.log(internalProps.value)
           tailwindClasses.value = injectStyle(defaultClassName, cssWithExpression, context)
         })
 

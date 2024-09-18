@@ -69,7 +69,7 @@ const StyledDiv = styled.div`
 
 **参数**
 
-- 属性对象，`Record<string, number | string | boolean>`，`必需`
+- Attrs 对象或构造函数，`Record<string, any> ｜  ((props: Context) => Record<string, any>)`，`必需`
 
 **返回值**
 
@@ -80,15 +80,19 @@ const StyledDiv = styled.div`
 
 ```vue
 <script setup lang="ts">
-import { styled } from '@vue-styled-components/core'
+  import { styled } from '@vue-styled-components/core'
 
-const InputWithValue = styled.input.attrs({ value: "I'm input with default value. 🥺" })`
-  width: 100%;
-  height: 40px;
-`
+  const InputWithValue = styled
+    .input
+    .attrs({ value: "I'm input with default value. 🥺" })`
+    width: 100%;
+    height: 40px;
+  `
+
+  const StyledInput = styled('input', { canInput: Boolean })
+    .attrs(props => { disabled: !props.canInput })`
+    width: 100%;
+    height: 40px;
+  `
 </script>
-
-<template>
-  <InputWithValue type="text" />
-</template>
 ```

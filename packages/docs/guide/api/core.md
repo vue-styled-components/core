@@ -69,7 +69,7 @@ It is used for passing attributes to styled component.
 
 **Augments**
 
-- Attrs Object, `Record<string, number | string | boolean>`, `required`
+- Attrs Object or Factory Function, `Record<string, any> | ((props: Context) => Record<string, any>)`, `required`
 
 **Return**
 
@@ -81,13 +81,17 @@ It is used for passing attributes to styled component.
 <script setup lang="ts">
 import { styled } from '@vue-styled-components/core'
 
-const InputWithValue = styled.input.attrs({ value: "I'm input with default value. 🥺" })`
-  width: 100%;
-  height: 40px;
-`
-</script>
+const InputWithValue = styled
+  .input
+  .attrs({ value: "I'm input with default value. 🥺" })`
+    width: 100%;
+    height: 40px;
+  `
 
-<template>
-  <InputWithValue type="text" />
-</template>
+const StyledInput = styled('input', { canInput: Boolean })
+  .attrs(props => { disabled: !props.canInput })`
+    width: 100%;
+    height: 40px;
+  `
+</script>
 ```

@@ -67,6 +67,7 @@ function sidebarGuide() {
       items: [
         { text: '快速开始', link: 'quick-start' },
         { text: '传递 props', link: 'passing-props' },
+        { text: 'Attrs设置', link: 'attrs' },
         { text: '扩展样式', link: 'extending-styles' },
         { text: '样式化任意组件', link: 'styling-any-component' },
         { text: '动画', link: 'animations' },

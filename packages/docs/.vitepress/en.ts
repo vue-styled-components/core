@@ -43,6 +43,7 @@ function sidebarGuide() {
       items: [
         { text: 'Quick Start', link: 'quick-start' },
         { text: 'Passing Props', link: 'passing-props' },
+        { text: 'Attrs Setting', link: 'attrs' },
         { text: 'Extending Styles', link: 'extending-styles' },
         { text: 'Styling Any Component', link: 'styling-any-component' },
         { text: 'Animations', link: 'animations' },

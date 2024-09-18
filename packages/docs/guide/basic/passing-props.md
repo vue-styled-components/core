@@ -49,6 +49,32 @@ fallthrough attributes.(see [Props Declaration](https://vuejs.org/guide/componen
 
 :::
 
+## Use `attributes`
+
+:::demo
+```vue
+<script setup lang="ts">
+import { styled } from '@vue-styled-components/core'
+
+const StyledInput = styled
+  .input
+  .attrs({ disabled: true })`
+    width: 100%;
+    height: 40px;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: ${ props => props.disabled ? 'not-allowed' : 'pointer'};
+  `
+</script>
+
+<template>
+  <StyledInput value="Type something..." :canInput="false" />
+</template>
+```
+:::
+
+
 ## New way to pass props
 
 From `v1.7.0`, you can use the `props` option to pass props to the styled component.

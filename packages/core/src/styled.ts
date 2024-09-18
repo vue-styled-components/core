@@ -17,8 +17,6 @@ import { type ExpressionType, generateClassName, generateComponentName, insertEx
 import { isStyledComponent, isValidElementType, isVueComponent } from '@/src/helper'
 import type { DefaultTheme } from './providers/theme'
 
-type Attrs = Record<string, any>
-
 export type BaseContext<T> = T & { theme: DefaultTheme }
 
 export type PropsDefinition<T> = {
@@ -35,14 +33,14 @@ interface StyledComponent<T extends object> {
     )[]
   ): DefineSetupFnComponent<{ as?: string; props?: P } & ExtractPropTypes<PropsDefinition<T>> & HTMLAttributes>
 
-  attrs<A extends Attrs = Record<string, any>>(attrs: A): StyledComponent<T>
+  attrs<A extends object>(attrs: A): StyledComponent<A & T>
 }
 
 function baseStyled<T extends object>(target: string | InstanceType<any>, propsDefinition?: PropsDefinition<T>): StyledComponent<T> {
   if (!isValidElementType(target)) {
     throw Error('The element is invalid.')
   }
-  let attributes: Attrs = {}
+  let attributes = {}
   function styledComponent<P>(
     styles: TemplateStringsArray,
     ...expressions: (
@@ -54,7 +52,7 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
     return createStyledComponent<P>(cssStringsWithExpression)
   }
 
-  styledComponent.attrs = function <A extends Attrs = Record<string, any>>(attrs: A) {
+  styledComponent.attrs = function <A extends object>(attrs: A) {
     attributes = attrs
     return styledComponent
   }
@@ -72,23 +70,24 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
     return defineComponent(
       (props, { slots }) => {
         const tailwindClasses = ref<string[]>([])
-        const myAttrs = ref({ class: '', ...attributes })
+        const internalProps = ref({ class: '', ...attributes })
         const theme = inject<Record<string, string | number>>('$theme', reactive({}))
         let context = {
           theme,
           ...props,
           ...props.props,
+          ...attributes,
         }
 
         const defaultClassName = generateClassName()
 
-        myAttrs.value.class += ` ${defaultClassName}`
+        internalProps.value.class += ` ${defaultClassName}`
 
         // Inject the tailwind classes to the class attribute
         watch(
           tailwindClasses,
           (classNames) => {
-            myAttrs.value.class += ` ${classNames.join(' ')}`
+            internalProps.value.class += ` ${classNames.join(' ')}`
           },
           { deep: true },
         )
@@ -97,6 +96,7 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
           [theme, props],
           () => {
             context = {
+              ...internalProps.value,
               theme,
               ...props,
               ...props.props,
@@ -109,6 +109,7 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
         )
 
         onMounted(() => {
+          console.log(internalProps.value)
           tailwindClasses.value = injectStyle(defaultClassName, cssWithExpression, context)
         })
 
@@ -122,7 +123,7 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
           return h(
             node,
             {
-              ...myAttrs.value,
+              ...internalProps.value,
             },
             slots,
           )
@@ -146,7 +147,7 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
     )
   }
 
-  return styledComponent
+  return styledComponent as StyledComponent<T>
 }
 
 /** Append all the supported HTML elements to the styled properties */

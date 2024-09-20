@@ -123,6 +123,12 @@ const Link = defineComponent(() => {
 
 :::
 
+## 通过 Hook 获取主题
+
+你还可以通过 `useTheme` 获取主题，但前提是必须属于 `ThemeProvider` 的组件树内。
+
+使用方法参考 [useTheme](/zh/guide/api/hook)
+
 ## 如何通过 TypeScript 获取主题提示？
 
 在使用 styled 组件时，你可能会通过 `${props => props.theme.primary}` 引用你的主题上下文。为了让 TypeScript 能够提供自动补全提示并进行类型检查，你可以扩展 `DefaultTheme` 接口。

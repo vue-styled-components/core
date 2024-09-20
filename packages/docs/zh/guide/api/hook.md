@@ -4,23 +4,22 @@ outline: deep
 
 # Hook
 
-## useStyledClassName  <div style="display: inline-flex; align-items: center;"><Badge type="info" text="deprecated at v1.3.0.beta.1" /></div>
+## `useTheme`
 
-**返回**
+**Return**
 
-- `getStyledClassName`, `styledComponentInstance => string`
-- `styledClassNameMap`, `Record<string, string>`, `{[componentName]: className}`
+- `DefaultTheme`
 
-**用法**
+**使用**
 
 ```vue
 <script setup lang="ts">
-  import { styled, useStyledClassName } from '@vue-styled-components/core'
+  import styled, { useTheme } from '@vue-styled-components/core'
+  
+  const theme = useTheme()
 
   const StyledDiv = styled.div`
-    background: #ccc;
+    background: ${ theme.bg };
   `
-  const { getStyledClassName } = useStyledClassName()
-  console.log(getStyledClassName(StyledDiv)) // styled-xxx(unique id)
 </script>
 ```

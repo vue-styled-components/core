@@ -130,6 +130,12 @@ const Link = defineComponent(() => {
 
 :::
 
+## Getting Theme by Hook
+
+Yet you can also get theme by using `useTheme` hook, but it must be used within a `ThemeProvider`.
+
+The usage see [useTheme](/guide/api/hook)
+
 ## How to Get Theme Hints with TypeScript
 
 When using styled components, you might reference your theme context like `${props => props.theme.primary}`. To enable TypeScript to provide autocomplete hints and type checking for your theme properties, you can extend the `DefaultTheme` interface.

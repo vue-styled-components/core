@@ -1,21 +1,41 @@
 <script setup lang="ts">
-import styled from '@vue-styled-components/core'
+import styled, { ThemeProvider } from '@vue-styled-components/core'
+import { reactive } from 'vue'
 
-const Test = styled('div', { color: String }).attrs<{ disabled: boolean }>({ disabled: false })`
-  color: ${(props) => props.color};
-  background: ${(props) => (props.disabled ? 'gray' : 'red')};
+const Button = styled.button`
+  color: ${(props) => props.theme.fg};
+  background: ${(props) => props.theme.bg};
 `
-const Test2 = styled('div', { color: String }).attrs<{ disabled: boolean }>((props) => ({
-  disabled: props.color === 'orange',
-}))`
-  color: ${(props) => props.color};
-  background: ${(props) => (props.disabled ? 'gray' : 'red')};
-`
+
+const theme = reactive({
+  fg: 'red',
+  bg: 'blue',
+})
+
+const changeTheme = () => {
+  if (theme.fg === 'red') {
+    theme.fg = 'blue'
+    theme.bg = 'red'
+  } else {
+    theme.fg = 'red'
+    theme.bg = 'blue'
+  }
+}
 </script>
 
 <template>
-  <Test color="orange">666</Test>
-  <Test2 color="orange">666</Test2>
+  <ThemeProvider :theme="theme">
+    <Button @click="changeTheme">666</Button>
+    <ThemeProvider
+      :theme="
+        (t) => {
+          return { fg: t.bg, bg: t.fg, aa: 2111 }
+        }
+      "
+    >
+      <Button>777</Button>
+    </ThemeProvider>
+  </ThemeProvider>
 </template>
 
 <style>

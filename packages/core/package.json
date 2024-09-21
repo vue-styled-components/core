@@ -43,6 +43,7 @@
     "provenance": true
   },
   "devDependencies": {
+    "@types/lodash-es": "^4.17.12",
     "@types/stylis": "^4.2.6"
   },
   "dependencies": {

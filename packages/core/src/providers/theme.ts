@@ -1,4 +1,5 @@
-import { defineComponent, h, PropType, provide, reactive, ref, watch } from 'vue'
+import { defineComponent, h, PropType, provide, reactive, inject, watch } from 'vue'
+import { assign, cloneDeep } from 'lodash-es'
 
 export interface DefaultTheme {
   [key: string]: any
@@ -6,17 +7,21 @@ export interface DefaultTheme {
 
 export const ThemeProvider = defineComponent(
   (props, { slots }) => {
-    const theme = ref(props.theme)
-    provide('$theme', reactive(theme.value as DefaultTheme))
+    const parentTheme = inject<DefaultTheme>('$theme', reactive({}))
+    const mergeTheme = (cur: DefaultTheme) => {
+      return typeof props.theme === 'function' ? props.theme(cloneDeep(cur)) : props.theme
+    }
+
+    const reactiveTheme = reactive(mergeTheme(parentTheme))
+
+    provide<DefaultTheme>('$theme', reactive(reactiveTheme))
 
     watch(
-      () => props.theme,
+      parentTheme,
       (v) => {
-        theme.value = v
+        assign(reactiveTheme, mergeTheme(v))
       },
-      {
-        deep: true,
-      },
+      { deep: true, immediate: true },
     )
 
     return () => {
@@ -27,9 +32,8 @@ export const ThemeProvider = defineComponent(
     name: 'ThemeProvider',
     props: {
       theme: {
-        type: Object as PropType<DefaultTheme>,
+        type: [Object, Function] as PropType<DefaultTheme | ((theme: DefaultTheme) => DefaultTheme)>,
         required: true,
-        default: () => {},
       },
     },
   },

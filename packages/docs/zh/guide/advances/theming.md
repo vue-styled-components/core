@@ -97,6 +97,57 @@ const changeTheme = () => {
 
 :::
 
+## 函数式主题
+
+在某些情况下，您可能需要使用函数主题，而不是对象主题。例如，您可能需要反转颜色，或者根据其他条件动态更改颜色。
+
+:::demo
+```vue
+<script setup lang="ts">
+import styled, { ThemeProvider } from '@vue-styled-components/core'
+import { reactive } from 'vue'
+
+const StyledThemeProvider = styled(ThemeProvider)`
+  display: flex;
+  gap: 8px;
+`
+
+const Button = styled.button`
+  padding: 4px 12px;
+  border-radius: 16px;
+  color: ${(props) => props.theme.fg};
+  background: ${(props) => props.theme.bg};
+`
+
+const ActionButton = styled(Button)`
+  color: black;
+  background: skyblue
+`
+
+const theme = reactive({
+  fg: '#eee',
+  bg: 'black',
+})
+
+const inverse = () => {
+  Object.assign(theme, { bg: theme.fg, fg: theme.bg })
+}
+</script>
+
+<template>
+  <StyledThemeProvider :theme="theme">
+    <Button>Normal Button</Button>
+    <ThemeProvider
+      :theme="(t) => ({ fg: t.bg, bg: t.fg })"
+    >
+      <Button>Inversed Button</Button>
+    </ThemeProvider>
+    <ActionButton @click="inverse">Inverse</ActionButton>
+  </StyledThemeProvider>
+</template>
+```
+:::
+
 ## 在非 Styled 组件中使用主题
 
 通过在 `ThemeProvider` 中定义主题，您确保所有组件都可以访问相同的主题样式，从而实现全局一致的视觉外观。即使在 Vue 中的 `非Styled组件` 也可以通过注入 `$theme` 并使用主题中定义的属性来访问主题，从而为其样式设置使用主题。

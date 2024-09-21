@@ -8,7 +8,7 @@ outline: deep
 to all its descendant Vue components via props. All styled components within the render tree will have access to the
 provided theme.
 
-## Basic Theming
+## Basic
 
 The `ThemeProvider` wraps its children components and passes a theme object to them. All styled components within
 the `ThemeProvider`'s scope can access this theme object.
@@ -45,7 +45,7 @@ const StyledLink = styled.a`
 
 In this example, the `StyledLink` component uses the primary color from the provided theme.
 
-## Reactive Theming
+## Reactive
 
 You can also make your theme reactive by using Vue's reactivity system. This allows you to dynamically change the theme
 and see the updates reflected in your styled components.
@@ -98,7 +98,57 @@ const changeTheme = () => {
   </ThemeProvider>
 </template>
 ```
+:::
 
+## Functional Theme
+
+You may need to use functional themes, instead of object themes. For example, you may need to reverse colors, or change the color based on other conditions.
+
+:::demo
+```vue
+<script setup lang="ts">
+import styled, { ThemeProvider } from '@vue-styled-components/core'
+import { reactive } from 'vue'
+
+const StyledThemeProvider = styled(ThemeProvider)`
+  display: flex;
+  gap: 8px;
+`
+
+const Button = styled.button`
+  padding: 4px 12px;
+  border-radius: 16px;
+  color: ${(props) => props.theme.fg};
+  background: ${(props) => props.theme.bg};
+`
+
+const ActionButton = styled(Button)`
+  color: black;
+  background: skyblue
+`
+
+const theme = reactive({
+  fg: '#eee',
+  bg: 'black',
+})
+
+const inverse = () => {
+  Object.assign(theme, { bg: theme.fg, fg: theme.bg })
+}
+</script>
+
+<template>
+  <StyledThemeProvider :theme="theme">
+    <Button>Normal Button</Button>
+    <ThemeProvider
+      :theme="(t) => ({ fg: t.bg, bg: t.fg })"
+    >
+      <Button>Inversed Button</Button>
+    </ThemeProvider>
+    <ActionButton @click="inverse">Inverse</ActionButton>
+  </StyledThemeProvider>
+</template>
+```
 :::
 
 ## Using Theme in Non-Styled Components

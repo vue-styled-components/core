@@ -1,4 +1,4 @@
-name: Beta Sync
+name: Sync
 
 on:
   push:
@@ -8,7 +8,7 @@ permissions:
   contents: write
 
 jobs:
-  sync:
+  beta:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,5 +21,20 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         run: |
           git checkout beta
+          git pull --rebase origin main
+          git push -f
+  alpha:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Sync
+        env:
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        run: |
+          git checkout alpha
           git pull --rebase origin main
           git push -f

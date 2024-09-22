@@ -100,9 +100,9 @@ const changeTheme = () => {
 ```
 :::
 
-## Functional Theme
+## Function Theme
 
-You may need to use functional themes, instead of object themes. For example, you may need to reverse colors, or change the color based on other conditions.
+You may need to use function themes, instead of object themes. For example, you may need to reverse colors, or change the color based on other conditions.
 
 :::demo
 ```vue

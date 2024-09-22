@@ -47,6 +47,7 @@
     "@types/stylis": "^4.2.6"
   },
   "dependencies": {
+    "lodash-es": "^4.17.21",
     "stylis": "^4.3.2"
   }
 }

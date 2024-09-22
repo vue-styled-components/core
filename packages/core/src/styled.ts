@@ -70,7 +70,8 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
     }
 
     const componentName = generateComponentName(type)
-    return defineComponent(
+    const commonClassName = generateClassName()
+    const component = defineComponent(
       (props, { slots }) => {
         const internalAttrs = computed<Record<string, any>>(() => {
           if (typeof defaultAttrs === 'function') {
@@ -95,7 +96,7 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
 
         const defaultClassName = generateClassName()
 
-        internalProps.value.class += ` ${defaultClassName}`
+        internalProps.value.class += ` ${defaultClassName} ${commonClassName}`
 
         // Inject the tailwind classes to the class attribute
         watch(
@@ -157,7 +158,12 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
         } as ComponentObjectPropsOptions<{ as?: string; props?: P } & ExtractPropTypes<PropsDefinition<T>>>,
         inheritAttrs: true,
       },
-    )
+    ) as any
+    component.custom = {
+      className: commonClassName,
+    }
+
+    return component
   }
 
   return styledComponent as StyledComponent<T>

@@ -21,6 +21,12 @@ const changeTheme = () => {
     theme.bg = 'blue'
   }
 }
+
+const Container = styled.div`
+  ${Button} {
+    color: #fff;
+  }
+`
 </script>
 
 <template>
@@ -35,6 +41,10 @@ const changeTheme = () => {
     >
       <Button>777</Button>
     </ThemeProvider>
+
+    <Container>
+      <Button>888</Button>
+    </Container>
   </ThemeProvider>
 </template>
 

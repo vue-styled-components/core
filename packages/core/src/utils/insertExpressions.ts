@@ -1,3 +1,4 @@
+import { DefineSetupFnComponent } from 'vue'
 import { TailwindObject } from '../helper'
 
 export type ExpressionType<T = Record<string, any>> =
@@ -5,6 +6,7 @@ export type ExpressionType<T = Record<string, any>> =
   | string
   | number
   | TailwindObject
+  | DefineSetupFnComponent<any>
   | undefined
   | null
 

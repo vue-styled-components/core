@@ -1,3 +1,10 @@
+# [1.8.0-alpha.2](https://github.com/vue-styled-components/core/compare/v1.8.0-alpha.1...v1.8.0-alpha.2) (2024-09-23)
+
+
+### Features
+
+* **styled:** support using `StyledComponent` as selector ([ae52619](https://github.com/vue-styled-components/core/commit/ae52619219cc85687fa2366defa92b4b17050b1d))
+
 # [1.8.0-alpha.1](https://github.com/vue-styled-components/core/compare/v1.7.3...v1.8.0-alpha.1) (2024-09-22)
 
 

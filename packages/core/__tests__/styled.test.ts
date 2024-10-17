@@ -2,7 +2,7 @@ import { createGlobalStyle, isStyledComponent, styled } from '../index'
 import { afterEach, describe, expect, it } from 'vitest'
 import { render, cleanup } from '@testing-library/vue'
 import { getStyle } from './utils'
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 describe('styled', () => {
   afterEach(() => {
@@ -72,8 +72,10 @@ describe('styled', () => {
   it('should inject attrs', async () => {
     const StyledComponent = styled.div.attrs({
       'data-testid': 'test',
+      color: 'rgb(0, 0, 255)',
     })`
       height: 36px;
+      color: ${(props) => props.color};
     `
     const instance = render(StyledComponent)
     const element = instance.getByTestId('test')
@@ -83,6 +85,24 @@ describe('styled', () => {
 
     const style = getStyle(element)
     expect(style?.height).eq('36px')
+    expect(style?.color).eq('rgb(0, 0, 255)')
+
+    const StyledComponent2 = styled.div.attrs(() => ({
+      'data-testid': 'test2',
+      color: 'rgb(255, 0, 0)',
+    }))`
+      height: 36px;
+      color: ${(props) => props.color};
+    `
+    const instance2 = render(StyledComponent2)
+    const element2 = instance2.getByTestId('test2')
+
+    expect(element2).toBeDefined()
+    expect(element2.dataset['testid']).eq('test2')
+
+    const style2 = getStyle(element2)
+    expect(style2?.height).eq('36px')
+    expect(style2?.color).eq('rgb(255, 0, 0)')
   })
 
   it('should react to props change', async () => {
@@ -117,5 +137,22 @@ describe('styled', () => {
 
     const style = getStyle(instance.baseElement)
     expect(style?.background).toBe('rgb(255, 0, 0)')
+  })
+
+  it('should take effect of using styled component as selector', async () => {
+    const StyledComponent = styled('div', { color: String }).attrs({ 'data-testid': 'test' })``
+    const Container = styled.div`
+      ${StyledComponent} {
+        height: 20px;
+      }
+    `
+    const instance = render(Container, {
+      slots: {
+        default: () => h(StyledComponent),
+      },
+    })
+    const element = instance.getByTestId('test')
+    const style = getStyle(element)
+    expect(style?.height).toBe('20px')
   })
 })

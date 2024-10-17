@@ -37,4 +37,25 @@ describe('theme-provider', () => {
       return expect(newStyle?.background).eq('rgb(0, 0, 255)')
     })
   })
+
+  it('should use the nestest theme', async () => {
+    const StyledComponent = styled.p.attrs({ 'data-testid': 'test' })`
+      background: ${(props) => props.theme.primary};
+    `
+
+    const instance = render(ThemeProvider, {
+      props: {
+        theme: {
+          primary: 'rgb(255, 0, 0)',
+        },
+      },
+      slots: {
+        default: () => h(ThemeProvider, { theme: { primary: 'rgb(0, 0, 255)' } }, h(StyledComponent)),
+      },
+    })
+
+    const element = instance.getByTestId('test')
+    const style = getStyle(element)
+    expect(style?.background).toBe('rgb(0, 0, 255)')
+  })
 })

@@ -1,3 +1,14 @@
+# [1.8.0](https://github.com/vue-styled-components/core/compare/v1.7.3...v1.8.0) (2024-10-17)
+
+
+### Features
+
+* **attrs:** support passing a function to generate attrs ([d6c4db1](https://github.com/vue-styled-components/core/commit/d6c4db15ade756d63a5d21c8300468f29068a191))
+* **attrs:** support using attrs value in style ([5e32b20](https://github.com/vue-styled-components/core/commit/5e32b20f548b9023b478b61241a3efffc3ab670c))
+* **hooks:** add `useTheme` ([f82e67f](https://github.com/vue-styled-components/core/commit/f82e67fc3466de6a2a220730a1f7f14249f7b687))
+* **styled:** support using `StyledComponent` as selector ([ae52619](https://github.com/vue-styled-components/core/commit/ae52619219cc85687fa2366defa92b4b17050b1d))
+* **theme:** support embed theme provider and passing a function to theme prop ([7ef63d9](https://github.com/vue-styled-components/core/commit/7ef63d93600b24b65414682197fc984052212e26))
+
 # [1.8.0-alpha.2](https://github.com/vue-styled-components/core/compare/v1.8.0-alpha.1...v1.8.0-alpha.2) (2024-09-23)
 
 

@@ -4,6 +4,7 @@
     "dev": "vite"
   },
   "dependencies": {
+    "@vue-styled-components/core": "workspace:1.8.0-alpha.2",
     "vue": "^3.4.38"
   },
   "devDependencies": {

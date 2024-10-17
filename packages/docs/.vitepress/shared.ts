@@ -72,8 +72,6 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        '@/': new URL('../../core/', import.meta.url).pathname,
-        '@vue-styled-components/core': new URL('../../core', import.meta.url).pathname,
       },
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.less'],
     },

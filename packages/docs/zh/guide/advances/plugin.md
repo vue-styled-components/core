@@ -1,4 +1,4 @@
-# 插件
+# 插件 <Badge type="tip" text="^1.9.0" />
 
 `vue-styled-components` 支持自定义插件。它允许你在 CSS 生成过程中插入钩子，进行定制和扩展功能。通过提供 `beforeBuild` 和 `afterBuild` 钩子，你可以在元素被编译成 CSS 之前进行修改，或者在编译后的 CSS 中进行调整。支持单个或多个回调函数。
 

@@ -1,4 +1,4 @@
-# Plugin
+# Plugin <Badge type="tip" text="^1.9.0" />
 
 `vue-styled-components` supports custom plugins. It allows you to hook into the CSS generation process, enabling customization and extending functionality. By providing `beforeBuild` and `afterBuild` hooks, you can modify elements before they are compiled into CSS and adjust the compiled CSS afterward. This system is flexible and supports both single and multiple callbacks.
 

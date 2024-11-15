@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/vue-styled-components/core/compare/v1.8.0...v1.9.0) (2024-11-15)
+
+
+### Features
+
+* **plugin:** supports custom plugin([#33](https://github.com/vue-styled-components/core/issues/33)) ([ac657cf](https://github.com/vue-styled-components/core/commit/ac657cf715031142f9975945a0c0ba0b23128d3f))
+
 # [1.8.0](https://github.com/vue-styled-components/core/compare/v1.7.3...v1.8.0) (2024-10-17)
 
 

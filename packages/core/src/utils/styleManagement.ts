@@ -1,5 +1,6 @@
 import { applyExpressions, ExpressionType } from '@/src/utils/index'
-import { compile, middleware, prefixer, serialize, stringify } from 'stylis'
+import { compile, Element, middleware, prefixer, serialize, stringify } from 'stylis'
+import { plugin } from '../plugins'
 
 const MAX_SIZE = 65536
 
@@ -54,7 +55,17 @@ export function injectStyle<T>(className: string, cssWithExpression: ExpressionT
   if (className !== '') {
     cssString = `.${className}{${appliedCss}}`
   }
-  const compiledCss = serialize(compile(cssString), middleware([prefixer, stringify]))
+  let compiledCss = serialize(
+    compile(cssString),
+    middleware([
+      (element: Element, index: number, children: Element[]) => {
+        return plugin.runBeforeBuild(element, index, children)
+      },
+      prefixer,
+      stringify,
+    ]),
+  )
+  compiledCss = plugin.runAfterBuild(compiledCss)
   insert(className, compiledCss)
 
   return tailwindClasses

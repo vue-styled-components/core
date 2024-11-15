@@ -83,6 +83,7 @@ function sidebarGuide() {
         { text: '嵌套CSS', link: 'nest-css' },
         { text: 'CSS私有前缀', link: 'auto-prefix' },
         { text: 'Tailwind CSS', link: 'tailwind-css' },
+        { text: '插件', link: 'plugin' },
       ],
     },
     {

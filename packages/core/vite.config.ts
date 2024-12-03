@@ -1,4 +1,5 @@
-/// <reference types="vitest" />
+/// <reference types="vitest/config" />
+/// <reference types="vite/client" />
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
 import dts from 'vite-plugin-dts'

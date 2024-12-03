@@ -24,7 +24,8 @@
       "dom.iterable"
     ],
     "types": [
-      "vitest"
+      "vitest/config",
+      "vite/client"
     ],
     "paths": {
       "@/*": [

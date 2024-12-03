@@ -50,7 +50,7 @@ describe('theme-provider', () => {
         },
       },
       slots: {
-        default: () => h(ThemeProvider, { theme: { primary: 'rgb(0, 0, 255)' } }, h(StyledComponent)),
+        default: () => h(ThemeProvider, { theme: { primary: 'rgb(0, 0, 255)' } }, () => h(StyledComponent)),
       },
     })
 

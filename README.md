@@ -28,11 +28,6 @@
   
 </div>
 
-> [!IMPORTANT]
-> The package has been moved to new npm org [@vue-styled-components/core](https://npmjs.org/package/@vue-styled-components/core)
-> and the old org has been deprecated.
-> Please use the new package instead.
-
 ## ✨Feature
 
 ✅ Style vue component or styled component

@@ -184,7 +184,7 @@ const StyledDiv = styled.div`
 
 <br>
 
-And thanks 
+## ❤ Thanks 
 
 - [styled-components](https://github.com/styled-components).
 - [stylis](https://github.com/thysultan/stylis)

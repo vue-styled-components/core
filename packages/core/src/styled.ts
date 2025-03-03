@@ -72,7 +72,7 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
     const componentName = generateComponentName(type)
     const commonClassName = generateClassName()
     const component = defineComponent(
-      (props, { slots }) => {
+      (props, { slots, attrs }) => {
         const internalAttrs = computed<Record<string, any>>(() => {
           if (typeof defaultAttrs === 'function') {
             return defaultAttrs(props)
@@ -134,10 +134,20 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
         // Return the render function
         return () => {
           const node = isVueComponent(target) ? h(target, { as: props.as }) : props.as ?? target
+
+          // Extract event handlers from attrs
+          const eventHandlers: Record<string, (...args: any[]) => any> = {}
+          Object.entries(attrs).forEach(([key, value]) => {
+            if (key.startsWith('on')) {
+              eventHandlers[key] = value as (...args: any[]) => any
+            }
+          })
+
           return h(
             node,
             {
               ...internalProps.value,
+              ...eventHandlers, // Ensure event handlers are passed correctly
             },
             slots,
           )

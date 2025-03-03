@@ -22,10 +22,8 @@
   [discord]: https://img.shields.io/badge/chat-on%20discord-7289da.svg?sanitize=true
   [discord-url]: https://discord.gg/UbJxnvt2UH
 
-
 [Changelog](./CHANGELOG.md) · English · [中文](./README.zh_CN.md)
- 
-  
+
 </div>
 
 ## ✨Feature
@@ -184,7 +182,7 @@ const StyledDiv = styled.div`
 
 <br>
 
-## ❤ Thanks 
+## ❤ Thanks
 
 - [styled-components](https://github.com/styled-components).
 - [stylis](https://github.com/thysultan/stylis)

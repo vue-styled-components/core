@@ -1,7 +1,7 @@
+import { resolve } from 'node:path'
 /// <reference types="vitest/config" />
 /// <reference types="vite/client" />
 import { defineConfig } from 'vite'
-import { resolve } from 'path'
 import dts from 'vite-plugin-dts'
 
 // https://vitejs.dev/config/

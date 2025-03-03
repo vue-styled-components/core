@@ -1,5 +1,6 @@
-import { defineComponent, h, PropType, provide, reactive, inject, watch } from 'vue'
+import type { PropType } from 'vue'
 import { assign, cloneDeep } from 'lodash-es'
+import { defineComponent, h, inject, provide, reactive, watch } from 'vue'
 
 export interface DefaultTheme {
   [key: string]: any

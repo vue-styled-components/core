@@ -11,7 +11,7 @@ The `@vue-styled-components/core` package uses the `stylis` library to add vendo
 Here's an example:
 
 ```js
-import { styled } from '@vue-styled-components/core';
+import { styled } from '@vue-styled-components/core'
 const StyledDiv = styled.div`
   display: flex;
 }`

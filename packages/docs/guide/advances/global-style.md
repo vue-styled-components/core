@@ -12,7 +12,7 @@ Such as:
 ```vue
 <script setup lang="ts">
   import { createGlobalStyle } from '@vue-styled-components/core'
-  
+
   const GlobalStyle = createGlobalStyle`
     .global-style-test {
       padding: 10px 20px;

@@ -1,6 +1,6 @@
-import { describe, it, expect, afterEach } from 'vitest'
+import { cleanup, render, waitFor } from '@testing-library/vue'
+import { afterEach, describe, expect, it } from 'vitest'
 import { styled, tw } from '../index'
-import { render, waitFor, cleanup } from '@testing-library/vue'
 
 describe('tw', () => {
   afterEach(() => {

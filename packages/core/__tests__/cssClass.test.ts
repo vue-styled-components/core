@@ -1,6 +1,6 @@
-import { describe, it, expect, afterEach } from 'vitest'
+import { cleanup, render } from '@testing-library/vue'
+import { afterEach, describe, expect, it } from 'vitest'
 import { cssClass, styled } from '../index'
-import { render, cleanup } from '@testing-library/vue'
 import { getStyle } from './utils'
 
 describe('css class', () => {
@@ -20,7 +20,7 @@ describe('css class', () => {
 
     const Component = styled.div.attrs({
       'data-testid': 'test',
-      class: result,
+      'class': result,
     })``
 
     const instance = render(Component)

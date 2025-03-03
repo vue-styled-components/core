@@ -74,7 +74,6 @@ const StyledInput = styled
 ```
 :::
 
-
 ## New way to pass props
 
 From `v1.7.0`, you can use the `props` option to pass props to the styled component.
@@ -100,11 +99,11 @@ const blur = () => (borderColor.value = 'darkred')
 </script>
 
 <template>
-  <StyledInput 
-    placeholder="Type something" 
-    :props="{ borderColor }" 
+  <StyledInput
+    placeholder="Type something"
+    :props="{ borderColor }"
     @input="input"
-    @focus="focus" 
-    @blur="blur" 
+    @focus="focus"
+    @blur="blur"
   />
 </template>

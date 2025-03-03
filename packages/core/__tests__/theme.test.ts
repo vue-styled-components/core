@@ -1,7 +1,7 @@
-import { describe, it, expect, afterEach } from 'vitest'
-import { render, cleanup, waitFor } from '@testing-library/vue'
-import { ThemeProvider, styled } from '../index'
+import { cleanup, render, waitFor } from '@testing-library/vue'
+import { afterEach, describe, expect, it } from 'vitest'
 import { h, reactive } from 'vue'
+import { styled, ThemeProvider } from '../index'
 import { getStyle } from './utils'
 
 describe('theme-provider', () => {
@@ -12,7 +12,7 @@ describe('theme-provider', () => {
 
   it('should render with theme', async () => {
     const StyledComponent = styled.p.attrs({ 'data-testid': 'test' })`
-      background: ${(props) => props.theme.primary};
+      background: ${props => props.theme.primary};
     `
     const theme = reactive({
       primary: 'rgb(255, 0, 0)',
@@ -40,7 +40,7 @@ describe('theme-provider', () => {
 
   it('should use the nestest theme', async () => {
     const StyledComponent = styled.p.attrs({ 'data-testid': 'test' })`
-      background: ${(props) => props.theme.primary};
+      background: ${props => props.theme.primary};
     `
 
     const instance = render(ThemeProvider, {

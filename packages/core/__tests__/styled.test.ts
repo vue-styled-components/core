@@ -1,8 +1,8 @@
-import { createGlobalStyle, isStyledComponent, styled } from '../index'
+import { cleanup, render } from '@testing-library/vue'
 import { afterEach, describe, expect, it } from 'vitest'
-import { render, cleanup } from '@testing-library/vue'
-import { getStyle } from './utils'
 import { h, ref } from 'vue'
+import { createGlobalStyle, isStyledComponent, styled } from '../index'
+import { getStyle } from './utils'
 
 describe('styled', () => {
   afterEach(() => {
@@ -72,16 +72,16 @@ describe('styled', () => {
   it('should inject attrs', async () => {
     const StyledComponent = styled.div.attrs({
       'data-testid': 'test',
-      color: 'rgb(0, 0, 255)',
+      'color': 'rgb(0, 0, 255)',
     })`
       height: 36px;
-      color: ${(props) => props.color};
+      color: ${props => props.color};
     `
     const instance = render(StyledComponent)
     const element = instance.getByTestId('test')
 
     expect(element).toBeDefined()
-    expect(element.dataset['testid']).eq('test')
+    expect(element.dataset.testid).eq('test')
 
     const style = getStyle(element)
     expect(style?.height).eq('36px')
@@ -89,16 +89,16 @@ describe('styled', () => {
 
     const StyledComponent2 = styled.div.attrs(() => ({
       'data-testid': 'test2',
-      color: 'rgb(255, 0, 0)',
+      'color': 'rgb(255, 0, 0)',
     }))`
       height: 36px;
-      color: ${(props) => props.color};
+      color: ${props => props.color};
     `
     const instance2 = render(StyledComponent2)
     const element2 = instance2.getByTestId('test2')
 
     expect(element2).toBeDefined()
-    expect(element2.dataset['testid']).eq('test2')
+    expect(element2.dataset.testid).eq('test2')
 
     const style2 = getStyle(element2)
     expect(style2?.height).eq('36px')
@@ -107,7 +107,7 @@ describe('styled', () => {
 
   it('should react to props change', async () => {
     const StyledComponent = styled('div', { color: String }).attrs({ 'data-testid': 'test' })`
-      color: ${(props) => props.color};
+      color: ${props => props.color};
     `
     const color = ref('rgb(255, 0, 0)')
     const instance = render(StyledComponent, {

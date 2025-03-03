@@ -1,6 +1,6 @@
-import { describe, it, expect, afterEach } from 'vitest'
+import { cleanup, render } from '@testing-library/vue'
+import { afterEach, describe, expect, it } from 'vitest'
 import { css, styled } from '../index'
-import { render, cleanup } from '@testing-library/vue'
 import { getStyle } from './utils'
 
 describe('css', () => {

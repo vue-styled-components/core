@@ -11,7 +11,7 @@ In Vue Styled Components, you can write CSS in the same way as `less` or `sass`.
 For example, you can write CSS like this:
 
 ```js
-import { styled } from '@vue-styled-components/core';
+import { styled } from '@vue-styled-components/core'
 const StyledDiv = styled.div`
   width: 100px;
   height: 100px;

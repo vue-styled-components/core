@@ -4,7 +4,7 @@ const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 const generatedNamesSet = new Set<string>()
 
-export const generateUniqueName = (): string => {
+export function generateUniqueName(): string {
   let uniqueName
   do {
     const timestamp = new Date().getTime()
@@ -18,7 +18,7 @@ export const generateUniqueName = (): string => {
 }
 
 /* 生成字母名的函数 */
-const generateAlphabeticName = (code: number): string => {
+function generateAlphabeticName(code: number): string {
   const lastDigit = chars[code % chars.length]
   return code > chars.length ? `${generateAlphabeticName(Math.floor(code / chars.length))}${lastDigit}` : lastDigit
 }

@@ -206,5 +206,3 @@ declare module '@vue-styled-components/core' {
 ```
 
 By defining and extending the `Theme` interface, TypeScript will recognize your custom theme properties, providing hints when you use `${props => props.theme.primary}` in your styled components.
-
-

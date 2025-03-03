@@ -28,7 +28,7 @@ The beforeBuild hook is called before any CSS is compiled. It provides access to
 ### Signature
 
 ```ts
-type beforeBuildCallback = (element: Element, index: number, children: Element[]) =>  void;
+type beforeBuildCallback = (element: Element, index: number, children: Element[]) => void
 ```
 
 ### Parameters:
@@ -48,10 +48,10 @@ plugin.register({
   beforeBuild: (element: Element, index: number, children: Element[]) => {
     // Change the element's CSS if it contains a specific value
     if (element.children === 'red') {
-      element.return = 'color: blue';
+      element.return = 'color: blue'
     }
   }
-});
+})
 ```
 
 ## `afterBuild` Hook
@@ -74,8 +74,7 @@ type afterBuildCallback = (css: string) => string ｜ void;
 plugin.register({
   afterBuild: (css: string) => {
     // Modify the compiled CSS before returning
-    return css.replace(/color:red/g, 'color:blue');
+    return css.replace(/color:red/g, 'color:blue')
   }
-});
-
+})
 ```

@@ -1,5 +1,5 @@
-import { DefineSetupFnComponent } from 'vue'
-import { TailwindObject } from '../helper'
+import type { DefineSetupFnComponent } from 'vue'
+import type { TailwindObject } from '../helper'
 
 export type ExpressionType<T = Record<string, any>> =
   | ((props: T) => string | number | ExpressionType | ExpressionType[])

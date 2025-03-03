@@ -1,4 +1,5 @@
-import { type ExpressionType, insertExpressions } from '../utils'
+import type { ExpressionType } from '../utils'
+import { insertExpressions } from '../utils'
 
 export function css<T = any>(
   strings: TemplateStringsArray,

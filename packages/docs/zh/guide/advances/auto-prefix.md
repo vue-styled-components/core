@@ -9,7 +9,7 @@ outline: deep
 `@vue-styled-components/core` 通过 `stylis` 来编译以及添加浏览器私有前缀。
 
 ```js
-import { styled } from '@vue-styled-components/core';
+import { styled } from '@vue-styled-components/core'
 const StyledDiv = styled.div`
   display: flex;
 }`

@@ -11,7 +11,7 @@ outline: deep
 如下：
 
 ```js
-import { styled } from '@vue-styled-components/core';
+import { styled } from '@vue-styled-components/core'
 const StyledDiv = styled.div`
   width: 100px;
   height: 100px;
@@ -38,7 +38,6 @@ const StyledDiv = styled.div`
 //     background-color: #fff;
 // }
 ```
-
 
 ## 使用组件作为选择器
 

@@ -1,5 +1,6 @@
+import type { ComponentInstance, DefineSetupFnComponent } from 'vue'
 import { isValidElementType } from '@/src/helper/is'
-import { ComponentInstance, defineComponent, DefineSetupFnComponent, h } from 'vue'
+import { defineComponent, h } from 'vue'
 
 export function withAttrs<T extends Record<string, unknown>>(
   target: string | ComponentInstance<any>,
@@ -13,5 +14,5 @@ export function withAttrs<T extends Record<string, unknown>>(
     )
   }
 
-  throw Error('The target is invalid.')
+  throw new Error('The target is invalid.')
 }

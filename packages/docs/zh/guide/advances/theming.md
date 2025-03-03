@@ -186,12 +186,12 @@ const Link = defineComponent(() => {
 
 ```ts
 // xxx.d.ts
-import '@vue-styled-components/core';
+import '@vue-styled-components/core'
 
-export {};
+export {}
 
 interface Theme {
-  primary: string;
+  primary: string
 }
 
 declare module '@vue-styled-components/core' {

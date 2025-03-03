@@ -1,32 +1,18 @@
 {
   "compilerOptions": {
-    "jsx": "preserve",
-    "jsxImportSource": "vue",
     // 目标 ECMAScript 版本
     "target": "esnext",
-    // 模块解析策略
-    "module": "esnext",
-    // 启用所有严格类型检查选项
-    "strict": true,
-    // 启用默认导出的 esModuleInterop
-    "esModuleInterop": true,
-    // 在文件名中强制使用一致的大小写
-    "forceConsistentCasingInFileNames": true,
-    // 模块解析策略
-    "moduleResolution": "Bundler",
-    // 允许导入 JSON 模块
-    "resolveJsonModule": true,
-    // 每个文件都作为单独的模块进行处理
-    "isolatedModules": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
     "lib": [
       "dom",
       "esnext",
       "dom.iterable"
     ],
-    "types": [
-      "vitest/config",
-      "vite/client"
-    ],
+    // 模块解析策略
+    "module": "esnext",
+    // 模块解析策略
+    "moduleResolution": "Bundler",
     "paths": {
       "@/*": [
         "./packages/core/*"
@@ -35,6 +21,20 @@
         "./packages/core/index"
       ]
     },
+    // 允许导入 JSON 模块
+    "resolveJsonModule": true,
+    "types": [
+      "vitest/config",
+      "vite/client"
+    ],
+    // 启用所有严格类型检查选项
+    "strict": true,
+    // 启用默认导出的 esModuleInterop
+    "esModuleInterop": true,
+    // 在文件名中强制使用一致的大小写
+    "forceConsistentCasingInFileNames": true,
+    // 每个文件都作为单独的模块进行处理
+    "isolatedModules": true,
     "skipLibCheck": true
   },
   // 需要编译的文件或目录
@@ -45,7 +45,7 @@
   // 排除的文件或目录
   "exclude": [
     "./*/node_modules",
-    "./*/dist",
+    "./*/dist"
   ],
   "compileOnSave": false
 }

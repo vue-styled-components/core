@@ -2,11 +2,9 @@
 
 `vue-styled-components` 支持自定义插件。它允许你在 CSS 生成过程中插入钩子，进行定制和扩展功能。通过提供 `beforeBuild` 和 `afterBuild` 钩子，你可以在元素被编译成 CSS 之前进行修改，或者在编译后的 CSS 中进行调整。支持单个或多个回调函数。
 
-
 ::: danger CAUTION
 如非必要，不建议使用此功能。因为其是在运行时执行的，可能影响性能。
 :::
-
 
 ## `register`
 
@@ -30,7 +28,7 @@ const plugin = register({
 ### 函数签名
 
 ```ts
-type beforeBuildCallback = (element: Element, index: number, children: Element[]) =>  void;
+type beforeBuildCallback = (element: Element, index: number, children: Element[]) => void
 ```
 
 ### 参数：
@@ -50,10 +48,10 @@ plugin.register({
   beforeBuild: (element: Element, index: number, children: Element[]) => {
     // 如果元素的内容包含特定的值，则更改其 CSS
     if (element.children === 'red') {
-      element.return = 'color: blue';
+      element.return = 'color: blue'
     }
   }
-});
+})
 ```
 
 ## `afterBuild` 钩子
@@ -76,7 +74,7 @@ type afterBuildCallback = (css: string) => string ｜ void;
 plugin.register({
   afterBuild: (css: string) => {
     // 在返回之前修改编译后的 CSS
-    return css.replace(/color:red/g, 'color:blue');
+    return css.replace(/color:red/g, 'color:blue')
   }
-});
+})
 ```

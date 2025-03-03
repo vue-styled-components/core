@@ -18,12 +18,12 @@ const InputWithValue = styled
   `
 
 const StyledInput = styled(InputWithValue, { canInput: Boolean })
-  .attrs(props => ({ 
-    disabled: !props.canInput, 
-    style: { 
-      background: !props.canInput ? '#f1f1f1' : '#fff', 
-      color: !props.canInput ? '#999' : '#000' 
-    } 
+  .attrs(props => ({
+    disabled: !props.canInput,
+    style: {
+      background: !props.canInput ? '#f1f1f1' : '#fff',
+      color: !props.canInput ? '#999' : '#000'
+    }
   }))`
     padding: 0 8px;
     border-radius: 4px;

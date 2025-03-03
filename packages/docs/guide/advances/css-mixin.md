@@ -14,7 +14,7 @@ Such as:
 ```vue
 <script setup lang="ts">
   import { styled, css } from '@vue-styled-components/core'
-  
+
   const commonCSS = css`
     padding: 10px 20px;
     border-radius: 8px;
@@ -84,7 +84,7 @@ You can also use `cssClass` to generate a common css class. The function will in
 ```vue
 <script setup lang="ts">
   import { css, cssClass } from '@vue-styled-components/core'
-  
+
   const commonCSS = css`
     padding: 10px 20px;
     border-radius: 8px;

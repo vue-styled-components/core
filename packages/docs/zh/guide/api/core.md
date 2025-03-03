@@ -77,7 +77,6 @@ const StyledDiv = styled.div`
 
 **用法**
 
-
 ```vue
 <script setup lang="ts">
   import { styled } from '@vue-styled-components/core'

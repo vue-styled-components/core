@@ -67,7 +67,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Setup Pnpm
         uses: pnpm/action-setup@v3
         with:
@@ -93,7 +93,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Setup Pnpm
         uses: pnpm/action-setup@v3
         with:
@@ -122,14 +122,14 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: Unit Test
           parallel: true
-    
+
   build:
     needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Setup Pnpm
         uses: pnpm/action-setup@v3
         with:
@@ -148,13 +148,13 @@ jobs:
 
       - name: Build
         run: pnpm build
-  
+
   finish:
-   needs: unit-test
-   runs-on: ubuntu-latest
-   steps:
-    - name: Coveralls Finished
-      uses: coverallsapp/github-action@v2
-      with:
-        parallel-finished: true
-        carryforward: "run-1,run-2"
+    needs: unit-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@v2
+        with:
+          parallel-finished: true
+          carryforward: 'run-1,run-2'

@@ -1,6 +1,6 @@
-import { DefaultTheme, defineConfig } from 'vitepress'
+import type { DefaultTheme } from 'vitepress'
+import { defineConfig } from 'vitepress'
 import { demoblockPlugin, demoblockVitePlugin } from 'vitepress-theme-demoblock'
-import { resolve } from 'path'
 
 export default defineConfig({
   base: '/',

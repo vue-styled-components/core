@@ -1,5 +1,7 @@
-import { applyExpressions, ExpressionType } from '@/src/utils/index'
-import { compile, Element, middleware, prefixer, serialize, stringify } from 'stylis'
+import type { ExpressionType } from '@/src/utils/index'
+import type { Element } from 'stylis'
+import { applyExpressions } from '@/src/utils/index'
+import { compile, middleware, prefixer, serialize, stringify } from 'stylis'
 import { plugin } from '../plugins'
 
 const MAX_SIZE = 65536

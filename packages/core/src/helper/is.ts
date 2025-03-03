@@ -1,4 +1,5 @@
-import domElements, { SupportedHTMLElements } from '@/src/constants/domElements'
+import type { SupportedHTMLElements } from '@/src/constants/domElements'
+import domElements from '@/src/constants/domElements'
 
 export function isTag(target: any): target is SupportedHTMLElements {
   return typeof target === 'string' && domElements.has(target as SupportedHTMLElements)

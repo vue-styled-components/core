@@ -1,6 +1,6 @@
-import { DefaultTheme } from '@/src/providers/theme'
+import type { DefaultTheme } from '@/src/providers/theme'
 import { inject } from 'vue'
 
-export const useTheme = () => {
+export function useTheme() {
   return inject<DefaultTheme>('$theme', {})
 }

@@ -1,10 +1,10 @@
-// https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
+// https://vitepress.dev/guide/custom-theme
+import { h } from 'vue'
+import { useComponents } from './useComponents'
 import './style.css'
 import 'vitepress-theme-demoblock/dist/theme/styles/index.css'
-import { useComponents } from './useComponents'
 
 export default {
   extends: DefaultTheme,
@@ -16,5 +16,5 @@ export default {
   enhanceApp(ctx) {
     DefaultTheme.enhanceApp(ctx)
     useComponents(ctx.app)
-  }
+  },
 } satisfies Theme

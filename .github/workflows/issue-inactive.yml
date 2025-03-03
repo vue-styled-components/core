@@ -2,7 +2,7 @@ name: Issue Check Inactive
 
 on:
   schedule:
-    - cron: "0 0 1 * *"
+    - cron: '0 0 1 * *'
 
 jobs:
   check-inactive:
@@ -11,5 +11,5 @@ jobs:
       - name: check-inactive
         uses: actions-cool/issues-helper@v2
         with:
-          actions: 'check-inactive'
+          actions: check-inactive
           inactive-day: 90

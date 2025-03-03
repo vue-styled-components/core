@@ -1,7 +1,18 @@
+import type { SupportedHTMLElements } from '@/src/constants/domElements'
+import type { ExpressionType } from '@/src/utils'
+import type {
+  ComponentObjectPropsOptions,
+  DefineSetupFnComponent,
+  ExtractPropTypes,
+  HTMLAttributes,
+} from 'vue'
+import type { DefaultTheme } from './providers/theme'
+import domElements from '@/src/constants/domElements'
+import { isStyledComponent, isValidElementType, isVueComponent } from '@/src/helper'
+import { generateClassName, generateComponentName, injectStyle, insertExpressions, removeStyle } from '@/src/utils'
 import {
-  type ComponentObjectPropsOptions,
-  type ExtractPropTypes,
-  type DefineSetupFnComponent,
+
+  computed,
   defineComponent,
   h,
   inject,
@@ -10,13 +21,7 @@ import {
   reactive,
   ref,
   watch,
-  HTMLAttributes,
-  computed,
 } from 'vue'
-import domElements, { type SupportedHTMLElements } from '@/src/constants/domElements'
-import { type ExpressionType, generateClassName, generateComponentName, insertExpressions, injectStyle, removeStyle } from '@/src/utils'
-import { isStyledComponent, isValidElementType, isVueComponent } from '@/src/helper'
-import type { DefaultTheme } from './providers/theme'
 
 export type BaseContext<T> = T & { theme: DefaultTheme }
 
@@ -32,16 +37,16 @@ interface StyledComponent<T extends object> {
       | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>
       | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>[]
     )[]
-  ): DefineSetupFnComponent<{ as?: string; props?: P } & ExtractPropTypes<PropsDefinition<T>> & HTMLAttributes>
+  ): DefineSetupFnComponent<{ as?: string, props?: P } & ExtractPropTypes<PropsDefinition<T>> & HTMLAttributes>
 
-  attrs<A = object>(
+  attrs: <A = object>(
     attrs: A | ((props: ExtractPropTypes<PropsDefinition<T>>) => A),
-  ): StyledComponent<A & ExtractPropTypes<PropsDefinition<T>>>
+  ) => StyledComponent<A & ExtractPropTypes<PropsDefinition<T>>>
 }
 
 function baseStyled<T extends object>(target: string | InstanceType<any>, propsDefinition?: PropsDefinition<T>): StyledComponent<T> {
   if (!isValidElementType(target)) {
-    throw Error('The element is invalid.')
+    throw new Error('The element is invalid.')
   }
   let defaultAttrs: unknown
   function styledComponent<P>(
@@ -155,7 +160,7 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
             required: false,
           },
           ...propsDefinition,
-        } as ComponentObjectPropsOptions<{ as?: string; props?: P } & ExtractPropTypes<PropsDefinition<T>>>,
+        } as ComponentObjectPropsOptions<{ as?: string, props?: P } & ExtractPropTypes<PropsDefinition<T>>>,
         inheritAttrs: true,
       },
     ) as any
@@ -178,4 +183,4 @@ domElements.forEach((domElement: SupportedHTMLElements) => {
   styled[domElement] = baseStyled(domElement)
 })
 
-export { styled, styled as default }
+export { styled as default, styled }

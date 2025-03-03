@@ -45,7 +45,6 @@ const blur = () => (borderColor.value = 'darkred')
 
 :::
 
-
 ## 使用 `attributes`
 
 :::demo
@@ -70,7 +69,6 @@ const StyledInput = styled
 </template>
 ```
 :::
-
 
 ## 新的 props 选项
 
@@ -97,12 +95,11 @@ const blur = () => (borderColor.value = 'darkred')
 </script>
 
 <template>
-  <StyledInput 
-    placeholder="Type something" 
-    :props="{ borderColor }" 
+  <StyledInput
+    placeholder="Type something"
+    :props="{ borderColor }"
     @input="input"
-    @focus="focus" 
-    @blur="blur" 
+    @focus="focus"
+    @blur="blur"
   />
 </template>
-

@@ -57,10 +57,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
       - name: Sync
         env:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git checkout main
           git pull --rebase origin beta

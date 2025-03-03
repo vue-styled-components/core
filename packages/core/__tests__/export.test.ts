@@ -1,6 +1,6 @@
+import type { ThemeProvider as TP } from '@/src/providers/theme'
 import { describe, expectTypeOf, it } from 'vitest'
-import { ThemeProvider as TP } from '@/src/providers/theme'
-import { styled, keyframes, createGlobalStyle, ThemeProvider } from '../index'
+import { createGlobalStyle, keyframes, styled, ThemeProvider } from '../index'
 
 describe('export', () => {
   it('should export properly functions', async () => {

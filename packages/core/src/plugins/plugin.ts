@@ -1,4 +1,4 @@
-import { Element } from 'stylis'
+import type { Element } from 'stylis'
 
 type beforeBuildCallback = (element: Element, index: number, children: Element[]) => string | void
 type afterBuildCallback = (compiledCss: string) => string | void
@@ -16,14 +16,16 @@ class Plugin {
     if (plugin.beforeBuild) {
       if (Array.isArray(plugin.beforeBuild)) {
         this.beforeBuildHooks.push(...plugin.beforeBuild)
-      } else {
+      }
+      else {
         this.beforeBuildHooks.push(plugin.beforeBuild)
       }
     }
     if (plugin.afterBuild) {
       if (Array.isArray(plugin.afterBuild)) {
         this.afterBuildHooks.push(...plugin.afterBuild)
-      } else {
+      }
+      else {
         this.afterBuildHooks.push(plugin.afterBuild)
       }
     }

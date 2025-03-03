@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest'
-import { styled, withAttrs } from '../index'
 import { render } from '@testing-library/vue'
+import { describe, expect, it } from 'vitest'
+import { styled, withAttrs } from '../index'
 import { getStyle } from './utils'
 
 describe('with attrs', () => {

@@ -1,6 +1,5 @@
 import type { Plugin } from 'vite'
-import { compileScript, parse } from '@vue/compiler-sfc'
-import { transformStyledSyntax } from './src/transform'
+import { transformStyledSyntax } from './src/ts-transformer'
 import { transformVueSFC } from './src/vue-transformer'
 
 export interface VueStyledComponentsTypescriptSyntaxOptions {
@@ -43,19 +42,8 @@ export default function vueStyledComponentsTypescriptSyntax(
       // 对.vue文件进行特殊处理
       if (id.endsWith('.vue')) {
         try {
-          // 使用@vue/compiler-sfc解析Vue文件
-          const { descriptor } = parse(code)
-
-          // 如果没有script块，则不需要转换
-          if (!descriptor.script && !descriptor.scriptSetup) {
-            return null
-          }
-
-          // 编译script，获取内容和位置信息
-          const scriptBlock = compileScript(descriptor, { id })
-
           // 调用专门的Vue SFC转换函数（基于AST实现）
-          return transformVueSFC(code, id, descriptor, scriptBlock)
+          return transformVueSFC(code, id)
         }
         catch (error) {
           console.error('处理Vue文件失败:', error)

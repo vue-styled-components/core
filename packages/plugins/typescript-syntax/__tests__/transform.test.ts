@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { transformStyledSyntax } from '../src/transform'
+import { transformStyledSyntax } from '../src/ts-transformer'
 
 describe('transformStyledSyntax', () => {
   it('should transform styled.tag<Props> to styled("tag", Props)', () => {

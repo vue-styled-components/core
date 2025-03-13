@@ -1,4 +1,4 @@
-import type { ImportedType, TypeInfo } from './types'
+import type { ImportedType, TypeInfo } from '../types/types'
 
 /**
  * 提取类型信息

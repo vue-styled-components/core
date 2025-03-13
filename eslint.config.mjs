@@ -22,6 +22,7 @@ export default antfu(
       'regexp/no-super-linear-backtracking': 'warn',
       'unicorn/prefer-number-properties': 'warn',
       'style/no-mixed-operators': 'warn',
+      'no-case-declarations': 'warn',
     },
   },
 )

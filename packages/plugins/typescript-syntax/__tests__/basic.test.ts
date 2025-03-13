@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { transformStyledSyntax } from '../src/transform'
+import { transformStyledSyntax } from '../src/ts-transformer'
 import { normalizeString } from './normalize'
 
 describe('基本语法转换', () => {

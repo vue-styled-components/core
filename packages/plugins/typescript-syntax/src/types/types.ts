@@ -16,6 +16,7 @@ export interface ImportedType {
 export interface TransformResult {
   code: string
   map: any
+  props?: string[]
 }
 
 export interface TypeParameterInfo {

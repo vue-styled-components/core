@@ -274,6 +274,5 @@ export function typeScriptToVueProp(typeText: string, isRequired: boolean = true
     return `{ type: Function, required: ${isRequired} }`
   }
 
-  // 默认为对象类型
-  return `{ type: Object, required: ${isRequired} }`
+  throw new Error(`无法处理类型: ${typeText}`)
 }

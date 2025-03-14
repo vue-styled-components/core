@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { transformStyledSyntax } from '../src/ts-transformer'
-import { normalizeString } from './normalize'
+import { extractPropsFromCode } from './normalize'
 
 describe('基本语法转换', () => {
   it('应该转换简单的 styled.tag<Props> 为 styled("tag", { primary: { type: Boolean, required: false } })', () => {
@@ -19,7 +19,11 @@ describe('基本语法转换', () => {
     const result = transformStyledSyntax(code, 'test.tsx')
 
     expect(result).not.toBeNull()
-    expect(result?.code).toContain(`styled('button', { primary: { type: Boolean, required: false } })`)
+
+    const props = extractPropsFromCode(result?.props?.[0], 'Button')
+    expect(props).toHaveProperty('primary')
+    expect(props.primary.type).toBe('Boolean')
+    expect(props.primary.required).toBe(false)
   })
 
   it('应该转换行内泛型定义', () => {
@@ -35,8 +39,14 @@ describe('基本语法转换', () => {
     const result = transformStyledSyntax(code, 'test.tsx')
 
     expect(result).not.toBeNull()
-    /* console.log(result?.code) */
-    expect(normalizeString(result?.code)).toContain(normalizeString(`styled('a', { active: { type: Boolean, required: true }, disabled: { type: Boolean, required: false } })`))
+
+    const props = extractPropsFromCode(result?.props?.[0], 'Link')
+    expect(props).toHaveProperty('active')
+    expect(props).toHaveProperty('disabled')
+    expect(props.active.type).toBe('Boolean')
+    expect(props.active.required).toBe(true)
+    expect(props.disabled.type).toBe('Boolean')
+    expect(props.disabled.required).toBe(false)
   })
 
   it('不应该转换没有泛型的样式组件', () => {
@@ -93,7 +103,17 @@ describe('基本语法转换', () => {
     const result = transformStyledSyntax(code, 'test.tsx')
 
     expect(result).not.toBeNull()
-    expect(result?.code).toContain(`styled('button', { primary: { type: Boolean, required: false } })`)
-    expect(result?.code).toContain(`styled('span', { size: { type: Number, required: false } })`)
+
+    // 检查第一个组件
+    const buttonProps = extractPropsFromCode(result?.props?.[0], 'Button')
+    expect(buttonProps).toHaveProperty('primary')
+    expect(buttonProps.primary.type).toBe('Boolean')
+    expect(buttonProps.primary.required).toBe(false)
+
+    // 检查第二个组件
+    const iconProps = extractPropsFromCode(result?.props?.[1], 'Icon')
+    expect(iconProps).toHaveProperty('size')
+    expect(iconProps.size.type).toBe('Number')
+    expect(iconProps.size.required).toBe(false)
   })
 })

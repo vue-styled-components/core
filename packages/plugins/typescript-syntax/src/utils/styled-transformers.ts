@@ -13,34 +13,150 @@ import { parseComplexType, splitTypeByOperator, typeScriptToVueProp } from './ty
 /**
  * 处理联合类型
  */
-export function handleUnionType(unionText: string): string {
+export function handleUnionType(unionText: string): string | undefined {
   try {
+    const { typeMap, typeAliasMap } = useContext()
+
     // 使用类型工具解析联合类型
     const { parts, isUnion } = parseComplexType(unionText)
 
     if (!isUnion || parts.length === 0) {
-      return '{ type: String, required: true }'
+      throw new Error(`无法处理联合类型: ${unionText}`)
     }
 
-    // 过滤掉 undefined 和 null
-    const validTypes = parts.filter((part) => {
-      const normalized = part.trim().toLowerCase()
-      return normalized !== 'undefined' && normalized !== 'null'
-    })
+    // 合并的属性集合
+    const mergedProps: Record<string, { type: string, required: boolean }> = {}
+    let hasObjectType = false
 
-    // 检查是否有可选类型（包含undefined或null）
-    const isOptional = parts.length > validTypes.length
+    // 处理每个部分
+    for (const part of parts) {
+      // 处理对象字面量
+      if (part.startsWith('{') && part.endsWith('}')) {
+        hasObjectType = true
+        try {
+          const objContent = part.slice(1, -1).trim()
+          const objProps = parseInlineProps(typeAliasMap, objContent)
 
-    if (validTypes.length === 0) {
-      return '{ type: null, required: false }'
+          // 合并属性
+          Object.entries(objProps).forEach(([key, value]) => {
+            // 如果属性已存在，保留required=true的版本
+            if (mergedProps[key]) {
+              if (value.required) {
+                mergedProps[key] = value
+              }
+            }
+            else {
+              mergedProps[key] = value
+            }
+          })
+        }
+        catch (e) {
+          handleError(
+            ErrorType.TYPE_PARSE_ERROR,
+            `解析联合类型的对象部分失败: ${part}`,
+            e,
+          )
+        }
+      }
+      // 处理泛型引用类型，如 Array<T> & { extra: string }
+      else if (part.match(/[A-Z]\w*<.+>/i)) {
+        const genericMatch = part.match(/([A-Z]\w*)<(.+)>/i)
+        if (genericMatch) {
+          const [, baseTypeName, genericParams] = genericMatch
+
+          // 检查是否是容器类型
+          if (['Array', 'Set', 'List'].includes(baseTypeName)) {
+            // 不合并属性，因为数组类型通常没有可合并的属性
+            continue
+          }
+
+          // 处理自定义泛型类型
+          if (typeMap.has(baseTypeName)) {
+            const typeContent = typeMap.get(baseTypeName) || ''
+
+            // 检查类型内容是否是对象类型
+            if (typeContent.startsWith('{') && typeContent.endsWith('}')) {
+              hasObjectType = true
+
+              try {
+                // 解析类型内容中的属性
+                const content = typeContent.slice(1, -1).trim()
+                const propMap = parsePropsFromTypeStr(content)
+
+                // 合并属性
+                Object.entries(propMap).forEach(([key, value]) => {
+                  if (!mergedProps[key] || value.required) {
+                    mergedProps[key] = value
+                  }
+                })
+
+                // 尝试解析并处理泛型参数
+                const params = genericParams.split(',').map(p => p.trim())
+                if (params.length > 0 && params[0] !== '') {
+                  // 处理泛型参数...
+                  // 这里可以添加更复杂的泛型参数处理逻辑
+                }
+              }
+              catch (e) {
+                handleError(
+                  ErrorType.TYPE_PARSE_ERROR,
+                  `解析泛型类型失败: ${part}`,
+                  e,
+                )
+              }
+            }
+          }
+        }
+      }
+      // 处理普通引用类型
+      else if (/^[A-Z_]\w*$/i.test(part)) {
+        if (typeMap.has(part)) {
+          const typeStr = typeMap.get(part) || ''
+          if (typeStr.startsWith('{') && typeStr.endsWith('}')) {
+            hasObjectType = true
+            try {
+              const content = typeStr.slice(1, -1).trim()
+              // 解析引用类型的属性
+              const propMap = parsePropsFromTypeStr(content)
+              // 合并属性
+              Object.entries(propMap).forEach(([key, value]) => {
+                try {
+                  if (mergedProps[key]) {
+                    if (value.required) {
+                      mergedProps[key] = value
+                    }
+                  }
+                  else {
+                    mergedProps[key] = value
+                  }
+                }
+                catch (e) {
+                  handleError(
+                    ErrorType.TYPE_PARSE_ERROR,
+                    `合并引用类型属性失败: ${key}`,
+                    e,
+                  )
+                }
+              })
+            }
+            catch (e) {
+              handleError(
+                ErrorType.TYPE_PARSE_ERROR,
+                `解析引用类型失败: ${part}`,
+                e,
+              )
+            }
+          }
+        }
+      }
     }
 
-    if (validTypes.length === 1) {
-      return typeScriptToVueProp(validTypes[0], !isOptional)
+    // 如果有对象类型，返回合并后的属性对象
+    if (hasObjectType && Object.keys(mergedProps).length > 0) {
+      return stringifyProps(mergedProps)
     }
 
-    // 创建Vue类型数组
-    return typeScriptToVueProp(unionText, !isOptional)
+    throw new Error(`无法处理联合类型: ${unionText}`)
   }
   catch (err) {
     handleError(
@@ -48,20 +164,21 @@ export function handleUnionType(unionText: string): string {
       `处理联合类型失败: ${unionText}`,
       err,
     )
-    return '{ type: String, required: true }'
   }
 }
 
 /**
  * 处理交叉类型 (A & B)
  */
-export function handleIntersectionType(typeAliasMap: Map<string, any>, typeMap: Map<string, string>, intersectionText: string): string {
+export function handleIntersectionType(intersectionText: string): string | undefined {
   try {
+    const { typeMap, typeAliasMap } = useContext()
+
     // 使用类型工具解析交叉类型
     const { parts, isIntersection } = parseComplexType(intersectionText)
 
     if (!isIntersection || parts.length === 0) {
-      return '{ type: Object, required: true }'
+      throw new Error(`无法处理交叉类型: ${intersectionText}`)
     }
 
     // 合并的属性集合
@@ -196,8 +313,7 @@ export function handleIntersectionType(typeAliasMap: Map<string, any>, typeMap: 
       return stringifyProps(mergedProps)
     }
 
-    // 默认返回Object类型
-    return '{ type: Object, required: true }'
+    throw new Error(`无法处理交叉类型: ${intersectionText}`)
   }
   catch (err) {
     handleError(
@@ -205,7 +321,6 @@ export function handleIntersectionType(typeAliasMap: Map<string, any>, typeMap: 
       `处理交叉类型失败: ${intersectionText}`,
       err,
     )
-    return '{ type: Object, required: true }'
   }
 }
 
@@ -327,7 +442,7 @@ export function handleObjectIntersectionType(
 /**
  * 处理类型参数中的复杂类型
  */
-export function processTypeParameters(tag: any, typeText: string): string {
+export function processTypeParameters(tag: any, typeText: string): string | undefined {
   try {
     logDebug(`处理类型参数: ${typeText}`)
 
@@ -344,34 +459,33 @@ export function processTypeParameters(tag: any, typeText: string): string {
 
       // 分析类型参数
       const typeInfo = analyzeTypeParameter(params)
-
       if (typeInfo.isReference) {
         typeName = typeInfo.name
         // 处理引用类型
         if (typeMap.has(typeName)) {
-          params = typeMap.get(typeName) || params
+          return typeMap.get(typeName)!
         }
         else if (typeInfo.typeParameters && typeInfo.typeParameters.length > 0) {
           // 处理带泛型参数的类型引用或类型组合
           if (typeInfo.typeParameters[0].composition) {
-            params = typeInfo.typeParameters[0].text
+            return typeInfo.typeParameters[0].text
           }
           else if (typeInfo.typeParameters[0].text) {
             // 递归处理泛型参数中的类型
-            const processedInnerParams = processInnerGenericParams(typeInfo.typeParameters[0].text, typeMap, typeAliasMap)
-            params = `${typeName}<${processedInnerParams}>`
+            const processedInnerParams = processInnerGenericParams(typeInfo.typeParameters[0].text)
+            return `${typeName}<${processedInnerParams}>`
           }
         }
       }
       else if (typeInfo.name === 'object') {
         // 处理对象类型，使用新的类型工具
-        params = typeScriptToVueProp(params)
+        return typeScriptToVueProp(params)
       }
       else if (params.includes('{') && params.includes('}')) {
         // 处理包含内联对象的复杂表达式
         if (params.startsWith('{') && params.endsWith('}')) {
           // 处理完整的内联对象
-          params = handleMultilineObject(typeAliasMap, params)
+          return handleMultilineObject(typeAliasMap, params)
         }
         else {
           // 处理包含内联对象但有其他内容的复杂表达式
@@ -385,7 +499,7 @@ export function processTypeParameters(tag: any, typeText: string): string {
             if (genericContent.startsWith('{') && genericContent.endsWith('}')) {
               const processedGenericContent = handleMultilineObject(typeAliasMap, genericContent)
               // 重新组合类型
-              params = processNestedGeneric(`${typeName}<${processedGenericContent}>`, typeMap, typeAliasMap)
+              return processNestedGeneric(`${typeName}<${processedGenericContent}>`, typeMap, typeAliasMap)
             }
           }
           // 处理标准的内联对象
@@ -399,14 +513,14 @@ export function processTypeParameters(tag: any, typeText: string): string {
                 // 判断类型表达式的性质
                 if (params.includes('&')) {
                   // 交叉类型
-                  params = handleObjectIntersectionType(typeMap, params, objProps)
+                  return handleObjectIntersectionType(typeMap, params, objProps)
                 }
                 else if (params.includes('|')) {
                   // 联合类型
-                  params = handleUnionType(params)
+                  return handleUnionType(params)
                 }
                 else {
-                  params = stringifyProps(objProps)
+                  return stringifyProps(objProps)
                 }
               }
               catch (e) {
@@ -420,22 +534,32 @@ export function processTypeParameters(tag: any, typeText: string): string {
           }
           else if (params.includes('&')) {
             // 处理不包含内联对象的交叉类型
-            params = handleIntersectionType(typeAliasMap, typeMap, params)
+            return handleIntersectionType(params)
           }
           else if (params.includes('|')) {
             // 处理联合类型
-            params = handleUnionType(params)
+            return handleUnionType(params)
           }
         }
       }
       // 处理可能包含别名类型的泛型参数
       else if (/[A-Z][a-zA-Z0-9]*<.+>/.test(params)) {
         // 解析嵌套泛型结构
-        params = processNestedGeneric(params, typeMap, typeAliasMap)
+        return processNestedGeneric(params, typeMap, typeAliasMap)
+      }
+      // 联合或交叉类型：Theme & WithLoading 或 Theme | WithLoading
+      else if (params.includes('|')) {
+        // 处理联合或交叉类型
+        const prop = handleUnionType(params)
+        console.log('prop', prop)
+        return prop
+      }
+      else if (params.includes('&')) {
+        // 处理交叉类型
+        return handleIntersectionType(params)
       }
     }
-
-    return params
+    throw new Error(`无法处理类型参数: ${params}`)
   }
   catch (err) {
     handleError(
@@ -457,9 +581,8 @@ export function processTypeParameters(tag: any, typeText: string): string {
  */
 export function processInnerGenericParams(
   paramText: string,
-  typeMap: Map<string, string>,
-  typeAliasMap: Map<string, any>,
 ): string {
+  const { typeMap, typeAliasMap } = useContext()
   // 首先尝试分割可能存在的多个参数
   const params = splitTypeByOperator(paramText, ',')
 
@@ -504,7 +627,7 @@ export function processInnerGenericParams(
     }
     // 处理交叉类型
     else if (param.includes('&')) {
-      return handleIntersectionType(typeAliasMap, typeMap, param)
+      return handleIntersectionType(param)
     }
 
     return param
@@ -547,7 +670,7 @@ export function processNestedGeneric(
     case 'observable':
       // 提取并处理内部类型
       const innerType = genericParams.slice(1, -1).trim()
-      const processedInner = processInnerGenericParams(innerType, typeMap, typeAliasMap)
+      const processedInner = processInnerGenericParams(innerType)
 
       // Promise通常解析为内部类型
       return processedInner || '{ type: Object, required: true }'
@@ -558,7 +681,7 @@ export function processNestedGeneric(
         try {
           // 处理内部泛型参数
           const innerParams = genericParams.slice(1, -1).trim()
-          const processedParams = processInnerGenericParams(innerParams, typeMap, typeAliasMap)
+          const processedParams = processInnerGenericParams(innerParams)
 
           // 尝试合并基础类型与参数
           const typeInfo = typeMap.get(baseType) || ''
@@ -594,8 +717,9 @@ export function transformStyledComponents(
   code: string,
   s: any, // MagicString
   offset: number = 0,
-): boolean {
+): { hasChanges: boolean, props?: string[] } {
   let hasChanges = false
+  const props: string[] = []
 
   // 处理styled组件
   traverse(ast, {
@@ -638,6 +762,9 @@ export function transformStyledComponents(
                   typeText,
                 )
 
+                if (!params)
+                  continue
+
                 // 查找成员表达式在源码中的位置
                 const exprStart = expression.start || 0
                 if (exprStart === 0)
@@ -650,6 +777,7 @@ export function transformStyledComponents(
                   `styled('${tagName}', ${params})`,
                 )
                 hasChanges = true
+                props.push(params)
               }
             }
           }
@@ -691,6 +819,8 @@ export function transformStyledComponents(
                   tag,
                   genericParams,
                 )
+                if (!finalParams)
+                  continue
 
                 // 替换 styled.tag<Props> 为 styled('tag', Props)
                 const nodeStart = tag.start || 0
@@ -702,6 +832,7 @@ export function transformStyledComponents(
                   offset + typeParamsEnd,
                   `styled('${tagName}', ${finalParams})`,
                 )
+                props.push(finalParams)
                 hasChanges = true
               }
             }
@@ -711,5 +842,5 @@ export function transformStyledComponents(
     },
   })
 
-  return hasChanges
+  return { hasChanges, props }
 }

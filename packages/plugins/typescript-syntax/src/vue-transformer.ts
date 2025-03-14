@@ -50,7 +50,6 @@ export function transformVueSFC(code: string, id: string): TransformResult | nul
 
     // 使用MagicString处理代码
     const s = new MagicString(code)
-    let hasChanges = false
 
     // 重置并获取类型上下文
     resetContext(id)
@@ -79,7 +78,7 @@ export function transformVueSFC(code: string, id: string): TransformResult | nul
     // 转换 styled 组件计时
     startTimer('transformVueStyled')
     // 使用公共函数处理styled组件转换
-    hasChanges = transformStyledComponents(ast, scriptContent, s, scriptStart)
+    const { hasChanges, props } = transformStyledComponents(ast, scriptContent, s, scriptStart)
     endTimer('transformVueStyled')
 
     // 如果没有变更，返回null
@@ -91,6 +90,7 @@ export function transformVueSFC(code: string, id: string): TransformResult | nul
     const result = {
       code: s.toString(),
       map: s.generateMap({ source: id, includeContent: true }),
+      props,
     }
 
     // 记录转换完成

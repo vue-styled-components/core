@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { transformStyledSyntax } from '../src/ts-transformer'
-import { normalizeString } from './normalize'
+import { extractPropsFromCode } from './normalize'
 
 describe('实际使用场景', () => {
   it('应该转换来自文档的示例代码', () => {
@@ -29,8 +29,15 @@ describe('实际使用场景', () => {
     const result = transformStyledSyntax(code, 'example.tsx')
 
     expect(result).not.toBeNull()
-    // console.log(result?.code)
-    expect(normalizeString(result?.code)).toContain(normalizeString(`styled('button', { primary: { type: Boolean, required: false }, size: { type: [String], required: false } })`))
+
+    const props = extractPropsFromCode(result?.props?.[0], 'Button')
+    expect(props).toHaveProperty('primary')
+    expect(props).toHaveProperty('size')
+
+    expect(props.primary.type).toBe('Boolean')
+    expect(props.primary.required).toBe(false)
+    expect(props.size.type).toEqual(['String'])
+    expect(props.size.required).toBe(false)
   })
 
   it('应该在实际项目代码中正确转换', () => {
@@ -240,14 +247,29 @@ describe('实际使用场景', () => {
     const result = transformStyledSyntax(code, 'Button.tsx')
 
     expect(result).not.toBeNull()
-    expect(normalizeString(result?.code)).toContain(normalizeString(`styled('button', { 
-      variant: { type: String, required: false }, 
-      size: { type: String, required: false }, 
-      fullWidth: { type: Boolean, required: false }, 
-      outlined: { type: Boolean, required: false }, 
-      rounded: { type: Boolean, required: false }, 
-      loading: { type: Boolean, required: false }, 
-      disabled: { type: Boolean, required: false } 
-    })`))
+
+    const props = extractPropsFromCode(result?.props?.[0], 'StyledButton')
+    expect(props).toHaveProperty('variant')
+    expect(props).toHaveProperty('size')
+    expect(props).toHaveProperty('fullWidth')
+    expect(props).toHaveProperty('outlined')
+    expect(props).toHaveProperty('rounded')
+    expect(props).toHaveProperty('loading')
+    expect(props).toHaveProperty('disabled')
+
+    expect(props.variant.type).toBe('String')
+    expect(props.variant.required).toBe(false)
+    expect(props.size.type).toBe('String')
+    expect(props.size.required).toBe(false)
+    expect(props.fullWidth.type).toBe('Boolean')
+    expect(props.fullWidth.required).toBe(false)
+    expect(props.outlined.type).toBe('Boolean')
+    expect(props.outlined.required).toBe(false)
+    expect(props.rounded.type).toBe('Boolean')
+    expect(props.rounded.required).toBe(false)
+    expect(props.loading.type).toBe('Boolean')
+    expect(props.loading.required).toBe(false)
+    expect(props.disabled.type).toBe('Boolean')
+    expect(props.disabled.required).toBe(false)
   })
 })

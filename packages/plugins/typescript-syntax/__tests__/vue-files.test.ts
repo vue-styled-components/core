@@ -1,6 +1,7 @@
 import type { Plugin } from 'vite'
 import { describe, expect, it } from 'vitest'
 import vueStyledComponentsTypescriptSyntax from '../index'
+import { extractPropsFromCode } from './normalize'
 
 describe('vue文件处理', () => {
   it('应该可以提取并转换Vue文件中的styled组件', async () => {
@@ -41,8 +42,11 @@ const StyledButton = styled.button<ButtonProps>\`
     // 应该有转换结果
     expect(result).not.toBeNull()
 
-    // 结果应该包含转换后的styled组件语法
-    expect(result?.code).toContain(`styled('button', { primary: { type: Boolean, required: false } })`)
+    // 使用对象比较来验证转换结果
+    const props = extractPropsFromCode(result?.props?.[0], 'StyledButton')
+    expect(props).toHaveProperty('primary')
+    expect(props.primary.type).toBe('Boolean')
+    expect(props.primary.required).toBe(false)
   })
 
   it('应该处理没有script块的Vue文件', async () => {

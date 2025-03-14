@@ -31,9 +31,6 @@ export function transformStyledSyntax(code: string, id: string): TransformResult
     // 使用 MagicString 进行精确替换
     const s = new MagicString(code)
 
-    // 是否有修改
-    let hasChanges = false
-
     // 重置并获取类型上下文
     resetContext(id)
     const typeContext = useContext(false, id)
@@ -61,7 +58,7 @@ export function transformStyledSyntax(code: string, id: string): TransformResult
     // 转换 styled 组件计时
     startTimer('transformStyled')
     // 使用公共函数处理styled组件转换
-    hasChanges = transformStyledComponents(ast, code, s, 0)
+    const { hasChanges, props } = transformStyledComponents(ast, code, s, 0)
     endTimer('transformStyled')
 
     // 如果没有变更，返回null
@@ -73,6 +70,7 @@ export function transformStyledSyntax(code: string, id: string): TransformResult
     const result = {
       code: s.toString(),
       map: s.generateMap({ source: id, includeContent: true }),
+      props,
     }
 
     // 记录转换完成

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { transformStyledSyntax } from '../src/ts-transformer'
+import { extractPropsFromCode } from './normalize'
 
 describe('transformStyledSyntax', () => {
   it('should transform styled.tag<Props> to styled("tag", Props)', () => {
@@ -20,7 +21,14 @@ describe('transformStyledSyntax', () => {
     const result = transformStyledSyntax(code, 'test.tsx')
 
     expect(result).not.toBeNull()
-    expect(result?.code).toContain(`styled('span', { color: { type: String, required: false }, size: { type: Number, required: false } })`)
+
+    const props = extractPropsFromCode(result?.props?.[0], 'Icon')
+    expect(props).toHaveProperty('color')
+    expect(props).toHaveProperty('size')
+    expect(props.color.type).toBe('String')
+    expect(props.color.required).toBe(false)
+    expect(props.size.type).toBe('Number')
+    expect(props.size.required).toBe(false)
   })
 
   it('should not transform code without styled components', () => {
@@ -78,7 +86,17 @@ describe('transformStyledSyntax', () => {
     const result = transformStyledSyntax(code, 'test.tsx')
 
     expect(result).not.toBeNull()
-    expect(result?.code).toContain(`styled('button', { primary: { type: Boolean, required: false } })`)
-    expect(result?.code).toContain(`styled('span', { size: { type: Number, required: false } })`)
+
+    // 检查第一个组件的props
+    const buttonProps = extractPropsFromCode(result?.props?.[0], 'Button')
+    expect(buttonProps).toHaveProperty('primary')
+    expect(buttonProps.primary.type).toBe('Boolean')
+    expect(buttonProps.primary.required).toBe(false)
+
+    // 检查第二个组件的props
+    const iconProps = extractPropsFromCode(result?.props?.[1], 'Icon')
+    expect(iconProps).toHaveProperty('size')
+    expect(iconProps.size.type).toBe('Number')
+    expect(iconProps.size.required).toBe(false)
   })
 })

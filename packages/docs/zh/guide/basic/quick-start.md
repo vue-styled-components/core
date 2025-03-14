@@ -6,6 +6,8 @@ outline: deep
 
 ## 安装
 
+### 核心库
+
 Npm
 
 ```shell
@@ -24,6 +26,43 @@ Pnpm
 pnpm i @vue-styled-components/core
 ```
 
+### Vite 插件
+
+
+
+Npm
+
+```shell
+npm i @vue-styled-components/plugin
+```
+
+Yarn
+
+```shell
+yarn add @vue-styled-components/plugin
+```
+
+Pnpm
+
+```shell
+pnpm i @vue-styled-components/plugin
+```
+
+Vite 配置
+
+```ts
+import vueStyledPlugin from "@vue-styled-components/plugin"
+// ...
+
+export default defineConfig({
+  // ...
+  plugins: [
+    vueStyledPlugin()
+    // ...
+  ]
+})
+```
+
 ## 开始使用
 
 :::demo
@@ -32,7 +71,7 @@ pnpm i @vue-styled-components/core
 <script setup lang="ts">
   import { styled } from '@vue-styled-components/core'
 
-  const StyledDiv = styled.div`
+  const StyledDiv = styled.div<{ color?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +80,7 @@ pnpm i @vue-styled-components/core
   background-color: #4c5a6d;
   font-size: 20px;
   font-weight: bold;
-  color: #fff;
+  color: ${props => props.color || '#fff'};
 `
 </script>
 

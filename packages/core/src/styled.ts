@@ -34,14 +34,17 @@ interface StyledComponent<T extends object> {
   <P>(
     styles: TemplateStringsArray,
     ...expressions: (
-      | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>
-      | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>[]
+      | ExpressionType<BaseContext<P & T>>
+      | ExpressionType<BaseContext<P & T>>[]
     )[]
-  ): DefineSetupFnComponent<{ as?: string, props?: P } & ExtractPropTypes<PropsDefinition<T>> & HTMLAttributes>
+  ): DefineSetupFnComponent<{ as?: string, props?: P } & ExtractPropTypes<PropsDefinition<T & P>> & HTMLAttributes>
 
   attrs: <A = object>(
-    attrs: A | ((props: ExtractPropTypes<PropsDefinition<T>>) => A),
+    attrs: object | ((props: PropsDefinition<T> & A) => object),
   ) => StyledComponent<A & ExtractPropTypes<PropsDefinition<T>>>
+
+  // 支持泛型参数的类型定义
+  <P extends object>(props: PropsDefinition<P>): StyledComponent<P & T>
 }
 
 function baseStyled<T extends object>(target: string | InstanceType<any>, propsDefinition?: PropsDefinition<T>): StyledComponent<T> {
@@ -50,17 +53,25 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
   }
   let defaultAttrs: unknown
   function styledComponent<P>(
-    styles: TemplateStringsArray,
+    stylesOrProps: TemplateStringsArray | PropsDefinition<P>,
     ...expressions: (
       | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>
       | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>[]
     )[]
   ) {
-    const cssStringsWithExpression = insertExpressions(styles, expressions)
+    // 处理泛型参数的情况，如 styled.div<Props>
+    if (!Array.isArray(stylesOrProps)) {
+      return baseStyled(target, { ...propsDefinition, ...stylesOrProps } as PropsDefinition<T & P>) as StyledComponent<T & P>
+    }
+
+    // 正常的样式模板字符串处理
+    const cssStringsWithExpression = insertExpressions(stylesOrProps as TemplateStringsArray, expressions)
     return createStyledComponent<P>(cssStringsWithExpression)
   }
 
-  styledComponent.attrs = function <A extends object>(attrs: A) {
+  styledComponent.attrs = function <A = object>(
+    attrs: object | ((props: ExtractPropTypes<PropsDefinition<T>> & A) => object),
+  ) {
     defaultAttrs = attrs
     return styledComponent
   }
@@ -174,10 +185,13 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
   return styledComponent as StyledComponent<T>
 }
 
-/** Append all the supported HTML elements to the styled properties */
-const styled = baseStyled as typeof baseStyled & {
-  [E in SupportedHTMLElements]: ReturnType<typeof baseStyled>
+// 为styled添加attrs方法的类型定义
+type StyledInterface = typeof baseStyled & {
+  [E in SupportedHTMLElements]: StyledComponent<object>
 }
+
+/** Append all the supported HTML elements to the styled properties */
+const styled = baseStyled as StyledInterface
 
 domElements.forEach((domElement: SupportedHTMLElements) => {
   styled[domElement] = baseStyled(domElement)

@@ -6,6 +6,8 @@ outline: deep
 
 ## Installation
 
+### Core
+
 Npm
 
 ```shell
@@ -23,6 +25,42 @@ Pnpm
 ```shell
 pnpm i @vue-styled-components/core
 ```
+
+### Vite Plugin
+
+Npm
+
+```shell
+npm i @vue-styled-components/plugin
+```
+
+Yarn
+
+```shell
+yarn add @vue-styled-components/plugin
+```
+
+Pnpm
+
+```shell
+pnpm i @vue-styled-components/plugin
+```
+
+Vite Config
+
+```ts
+import vueStyledPlugin from "@vue-styled-components/plugin"
+// ...
+
+export default defineConfig({
+  // ...
+  plugins: [
+    vueStyledPlugin()
+    // ...
+  ]
+})
+```
+
 
 ## Getting Started
 

@@ -25,10 +25,6 @@
   [Changelog](./CHANGELOG.md) · [English](./README.md) · 中文
 </div>
 
-> [!IMPORTANT]
-> 这个库已经迁移到新的npm组织 [@vue-styled-components/core](https://npmjs.org/package/@vue-styled-components/core)
-> 旧的npm组织 已经废弃，不再发布新版本
-
 ## ✨特性
 
 ✅ 样式化 Vue 组件或原生组件

@@ -1,5 +1,5 @@
 import type { TypeContext } from './type-context'
-import traverse from '@babel/traverse'
+import babelTraverse from '@babel/traverse'
 /**
  * 类型收集和处理的辅助函数
  */
@@ -7,6 +7,8 @@ import { traverseAst } from './ast-traverser'
 import { parsePropsFromTypeMap, useContext } from './type-context'
 import { extractTypeInfo } from './type-converter'
 import { formatPropTypeToJS } from './type-processors'
+
+const traverse = ((babelTraverse as any).default as typeof babelTraverse) || babelTraverse
 
 /**
  * 从 AST 中收集所有类型信息

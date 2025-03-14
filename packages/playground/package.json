@@ -1,5 +1,6 @@
 {
   "name": "@vue-styled-components/playground",
+  "type": "module",
   "scripts": {
     "dev": "vite"
   },

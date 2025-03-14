@@ -1,4 +1,4 @@
-import traverse from '@babel/traverse'
+import babelTraverse from '@babel/traverse'
 import t from '@babel/types'
 /**
  * Styled组件转换的共享函数
@@ -8,177 +8,109 @@ import { ErrorType, handleError, logDebug } from './error-handler'
 import { useContext } from './type-context'
 
 import { handleMultilineObject, parseInlineProps, stringifyProps } from './type-processors'
-import { parseComplexType, splitTypeByOperator, typeScriptToVueProp } from './type-utils'
+import { extractObjectContent, isObjectType, parseComplexType, splitTypeByOperator, typeScriptToVueProp } from './type-utils'
+
+const traverse = ((babelTraverse as any).default as typeof babelTraverse) || babelTraverse
 
 /**
  * 处理联合类型
  */
 export function handleUnionType(unionText: string): string | undefined {
-  try {
-    const { typeMap, typeAliasMap } = useContext()
-
-    // 使用类型工具解析联合类型
-    const { parts, isUnion } = parseComplexType(unionText)
-
-    if (!isUnion || parts.length === 0) {
-      throw new Error(`无法处理联合类型: ${unionText}`)
-    }
-
-    // 合并的属性集合
-    const mergedProps: Record<string, { type: string, required: boolean }> = {}
-    let hasObjectType = false
-
-    // 处理每个部分
-    for (const part of parts) {
-      // 处理对象字面量
-      if (part.startsWith('{') && part.endsWith('}')) {
-        hasObjectType = true
-        try {
-          const objContent = part.slice(1, -1).trim()
-          const objProps = parseInlineProps(typeAliasMap, objContent)
-
-          // 合并属性
-          Object.entries(objProps).forEach(([key, value]) => {
-            // 如果属性已存在，保留required=true的版本
-            if (mergedProps[key]) {
-              if (value.required) {
-                mergedProps[key] = value
-              }
-            }
-            else {
-              mergedProps[key] = value
-            }
-          })
-        }
-        catch (e) {
-          handleError(
-            ErrorType.TYPE_PARSE_ERROR,
-            `解析联合类型的对象部分失败: ${part}`,
-            e,
-          )
-        }
-      }
-      // 处理泛型引用类型，如 Array<T> & { extra: string }
-      else if (part.match(/[A-Z]\w*<.+>/i)) {
-        const genericMatch = part.match(/([A-Z]\w*)<(.+)>/i)
-        if (genericMatch) {
-          const [, baseTypeName, genericParams] = genericMatch
-
-          // 检查是否是容器类型
-          if (['Array', 'Set', 'List'].includes(baseTypeName)) {
-            // 不合并属性，因为数组类型通常没有可合并的属性
-            continue
-          }
-
-          // 处理自定义泛型类型
-          if (typeMap.has(baseTypeName)) {
-            const typeContent = typeMap.get(baseTypeName) || ''
-
-            // 检查类型内容是否是对象类型
-            if (typeContent.startsWith('{') && typeContent.endsWith('}')) {
-              hasObjectType = true
-
-              try {
-                // 解析类型内容中的属性
-                const content = typeContent.slice(1, -1).trim()
-                const propMap = parsePropsFromTypeStr(content)
-
-                // 合并属性
-                Object.entries(propMap).forEach(([key, value]) => {
-                  if (!mergedProps[key] || value.required) {
-                    mergedProps[key] = value
-                  }
-                })
-
-                // 尝试解析并处理泛型参数
-                const params = genericParams.split(',').map(p => p.trim())
-                if (params.length > 0 && params[0] !== '') {
-                  // 处理泛型参数...
-                  // 这里可以添加更复杂的泛型参数处理逻辑
-                }
-              }
-              catch (e) {
-                handleError(
-                  ErrorType.TYPE_PARSE_ERROR,
-                  `解析泛型类型失败: ${part}`,
-                  e,
-                )
-              }
-            }
-          }
-        }
-      }
-      // 处理普通引用类型
-      else if (/^[A-Z_]\w*$/i.test(part)) {
-        if (typeMap.has(part)) {
-          const typeStr = typeMap.get(part) || ''
-          if (typeStr.startsWith('{') && typeStr.endsWith('}')) {
-            hasObjectType = true
-            try {
-              const content = typeStr.slice(1, -1).trim()
-              // 解析引用类型的属性
-              const propMap = parsePropsFromTypeStr(content)
-              // 合并属性
-              Object.entries(propMap).forEach(([key, value]) => {
-                try {
-                  if (mergedProps[key]) {
-                    if (value.required) {
-                      mergedProps[key] = value
-                    }
-                  }
-                  else {
-                    mergedProps[key] = value
-                  }
-                }
-                catch (e) {
-                  handleError(
-                    ErrorType.TYPE_PARSE_ERROR,
-                    `合并引用类型属性失败: ${key}`,
-                    e,
-                  )
-                }
-              })
-            }
-            catch (e) {
-              handleError(
-                ErrorType.TYPE_PARSE_ERROR,
-                `解析引用类型失败: ${part}`,
-                e,
-              )
-            }
-          }
-        }
-      }
-    }
-
-    // 如果有对象类型，返回合并后的属性对象
-    if (hasObjectType && Object.keys(mergedProps).length > 0) {
-      return stringifyProps(mergedProps)
-    }
-
-    throw new Error(`无法处理联合类型: ${unionText}`)
-  }
-  catch (err) {
-    handleError(
-      ErrorType.TYPE_PARSE_ERROR,
-      `处理联合类型失败: ${unionText}`,
-      err,
-    )
-  }
+  return handleComplexType(unionText, 'union')
 }
 
 /**
  * 处理交叉类型 (A & B)
  */
 export function handleIntersectionType(intersectionText: string): string | undefined {
+  return handleComplexType(intersectionText, 'intersection')
+}
+
+/**
+ * 合并属性集合，处理required属性冲突
+ * 这个函数将源属性集合合并到目标属性集合中，如果属性重复，
+ * 保留required=true的版本，这样可以确保合并后的结果保持最严格的属性要求。
+ *
+ * 该函数用于：
+ * 1. 处理联合类型(handleUnionType)中的属性合并
+ * 2. 处理交叉类型(handleIntersectionType)中的属性合并
+ * 3. 处理对象交叉类型(handleObjectIntersectionType)中的属性合并
+ *
+ * @param target 目标属性集合
+ * @param source 源属性集合
+ */
+function mergeProps(
+  target: Record<string, { type: string, required: boolean }>,
+  source: Record<string, { type: string, required: boolean }>,
+): void {
+  Object.entries(source).forEach(([key, value]) => {
+    // 如果属性已存在，保留required=true的版本
+    if (target[key]) {
+      if (value.required) {
+        target[key] = value
+      }
+    }
+    else {
+      target[key] = value
+    }
+  })
+}
+
+/**
+ * 处理类型内容并提取属性
+ *
+ * @param typeContent 类型内容字符串
+ * @param genericParams 可选的泛型参数
+ * @returns 解析到的属性映射，如果处理失败则返回undefined
+ */
+function processTypeContent(typeContent: string, genericParams?: string): Record<string, { type: string, required: boolean }> | undefined {
+  try {
+    // 确保类型内容是对象类型
+    if (!isObjectType(typeContent)) {
+      return undefined
+    }
+
+    // 解析类型内容中的属性
+    const content = extractObjectContent(typeContent)
+    const propMap = parsePropsFromTypeStr(content)
+
+    // 如果提供了泛型参数，可以进一步处理
+    if (genericParams) {
+      const params = genericParams.split(',').map(p => p.trim())
+      if (params.length > 0 && params[0] !== '') {
+        // 这里可以添加针对泛型参数的处理逻辑
+        // 例如处理 Map<string, number> 中的 string 和 number
+      }
+    }
+
+    return propMap
+  }
+  catch (e) {
+    handleError(
+      ErrorType.TYPE_PARSE_ERROR,
+      `处理类型内容失败: ${typeContent.substring(0, 50)}${typeContent.length > 50 ? '...' : ''}`,
+      e,
+    )
+    return undefined
+  }
+}
+
+/**
+ * 处理复杂类型（联合或交叉类型）的通用函数
+ * @param typeText 类型文本
+ * @param typeKind 类型种类：'union'或'intersection'
+ * @returns 处理后的属性字符串
+ */
+function handleComplexType(typeText: string, typeKind: 'union' | 'intersection'): string | undefined {
   try {
     const { typeMap, typeAliasMap } = useContext()
 
-    // 使用类型工具解析交叉类型
-    const { parts, isIntersection } = parseComplexType(intersectionText)
+    // 使用类型工具解析复杂类型
+    const { parts, isUnion, isIntersection } = parseComplexType(typeText)
 
-    if (!isIntersection || parts.length === 0) {
-      throw new Error(`无法处理交叉类型: ${intersectionText}`)
+    // 根据类型种类验证解析结果
+    if ((typeKind === 'union' && !isUnion) || (typeKind === 'intersection' && !isIntersection) || parts.length === 0) {
+      throw new Error(`无法处理${typeKind === 'union' ? '联合' : '交叉'}类型: ${typeText}`)
     }
 
     // 合并的属性集合
@@ -188,29 +120,19 @@ export function handleIntersectionType(intersectionText: string): string | undef
     // 处理每个部分
     for (const part of parts) {
       // 处理对象字面量
-      if (part.startsWith('{') && part.endsWith('}')) {
+      if (isObjectType(part)) {
         hasObjectType = true
         try {
-          const objContent = part.slice(1, -1).trim()
+          const objContent = extractObjectContent(part)
           const objProps = parseInlineProps(typeAliasMap, objContent)
 
           // 合并属性
-          Object.entries(objProps).forEach(([key, value]) => {
-            // 如果属性已存在，保留required=true的版本
-            if (mergedProps[key]) {
-              if (value.required) {
-                mergedProps[key] = value
-              }
-            }
-            else {
-              mergedProps[key] = value
-            }
-          })
+          mergeProps(mergedProps, objProps)
         }
         catch (e) {
           handleError(
             ErrorType.TYPE_PARSE_ERROR,
-            `解析交叉类型的对象部分失败: ${part}`,
+            `解析${typeKind === 'union' ? '联合' : '交叉'}类型的对象部分失败: ${part}`,
             e,
           )
         }
@@ -232,34 +154,11 @@ export function handleIntersectionType(intersectionText: string): string | undef
             const typeContent = typeMap.get(baseTypeName) || ''
 
             // 检查类型内容是否是对象类型
-            if (typeContent.startsWith('{') && typeContent.endsWith('}')) {
-              hasObjectType = true
-
-              try {
-                // 解析类型内容中的属性
-                const content = typeContent.slice(1, -1).trim()
-                const propMap = parsePropsFromTypeStr(content)
-
-                // 合并属性
-                Object.entries(propMap).forEach(([key, value]) => {
-                  if (!mergedProps[key] || value.required) {
-                    mergedProps[key] = value
-                  }
-                })
-
-                // 尝试解析并处理泛型参数
-                const params = genericParams.split(',').map(p => p.trim())
-                if (params.length > 0 && params[0] !== '') {
-                  // 处理泛型参数...
-                  // 这里可以添加更复杂的泛型参数处理逻辑
-                }
-              }
-              catch (e) {
-                handleError(
-                  ErrorType.TYPE_PARSE_ERROR,
-                  `解析泛型类型失败: ${part}`,
-                  e,
-                )
+            if (isObjectType(typeContent)) {
+              const result = processTypeContent(typeContent, genericParams)
+              if (result) {
+                hasObjectType = true
+                mergeProps(mergedProps, result)
               }
             }
           }
@@ -269,32 +168,13 @@ export function handleIntersectionType(intersectionText: string): string | undef
       else if (/^[A-Z_]\w*$/i.test(part)) {
         if (typeMap.has(part)) {
           const typeStr = typeMap.get(part) || ''
-          if (typeStr.startsWith('{') && typeStr.endsWith('}')) {
+          if (isObjectType(typeStr)) {
             hasObjectType = true
             try {
-              const content = typeStr.slice(1, -1).trim()
-              // 解析引用类型的属性
-              const propMap = parsePropsFromTypeStr(content)
-              // 合并属性
-              Object.entries(propMap).forEach(([key, value]) => {
-                try {
-                  if (mergedProps[key]) {
-                    if (value.required) {
-                      mergedProps[key] = value
-                    }
-                  }
-                  else {
-                    mergedProps[key] = value
-                  }
-                }
-                catch (e) {
-                  handleError(
-                    ErrorType.TYPE_PARSE_ERROR,
-                    `合并引用类型属性失败: ${key}`,
-                    e,
-                  )
-                }
-              })
+              const result = processTypeContent(typeStr)
+              if (result) {
+                mergeProps(mergedProps, result)
+              }
             }
             catch (e) {
               handleError(
@@ -313,12 +193,12 @@ export function handleIntersectionType(intersectionText: string): string | undef
       return stringifyProps(mergedProps)
     }
 
-    throw new Error(`无法处理交叉类型: ${intersectionText}`)
+    throw new Error(`无法处理${typeKind === 'union' ? '联合' : '交叉'}类型: ${typeText}`)
   }
   catch (err) {
     handleError(
       ErrorType.TYPE_PARSE_ERROR,
-      `处理交叉类型失败: ${intersectionText}`,
+      `处理${typeKind === 'union' ? '联合' : '交叉'}类型失败: ${typeText}`,
       err,
     )
   }
@@ -326,32 +206,41 @@ export function handleIntersectionType(intersectionText: string): string | undef
 
 /**
  * 从类型字符串中解析属性定义
+ *
+ * @param content 类型定义字符串内容，通常是对象类型的内部内容
+ * @returns 属性名到属性类型和必要性的映射
  */
 function parsePropsFromTypeStr(content: string): Record<string, { type: string, required: boolean }> {
   const props: Record<string, { type: string, required: boolean }> = {}
 
-  const propRegex = /(\w+)\s*:\s*(\{[^{}]*\})/g
-  let match
+  try {
+    // 更健壮的属性匹配正则，支持更多格式
+    // 匹配形如 propName: { type: X, required: Y } 的模式
+    const propRegex = /(\w+)\s*:\s*(\{[^{}]*\})/g
+    let match
 
-  while ((match = propRegex.exec(content)) !== null) {
-    const [, propName, propValue] = match
-    if (propName && propValue) {
+    while ((match = propRegex.exec(content)) !== null) {
+      const [, propName, propValue] = match
+      if (!propName || !propValue)
+        continue
+
       try {
-        // 尝试解析属性值对象
+        // 尝试解析属性值对象，处理常见的构造函数名称和属性引用
         const cleanValue = propValue
           .replace(/\b(String|Number|Boolean|Array|Object|Function|Symbol|BigInt)\b/g, '"$1"')
           .replace(/(\w+):/g, '"$1":')
           .replace(/'/g, '"')
 
         try {
+          // 尝试使用JSON解析
           const propValueObj = JSON.parse(cleanValue)
           props[propName] = {
-            type: propValueObj.type || 'String',
-            required: propValueObj.required !== false,
+            type: propValueObj.type || 'String', // 默认为String类型
+            required: propValueObj.required !== false, // 默认为必需
           }
         }
         catch (parseError) {
-          // 解析失败时使用正则提取
+          // JSON解析失败时使用正则提取
           const typeMatch = propValue.match(/type\s*:\s*([^,}]+)/)
           const requiredMatch = propValue.match(/required\s*:\s*(true|false)/)
 
@@ -359,6 +248,14 @@ function parsePropsFromTypeStr(content: string): Record<string, { type: string, 
             props[propName] = {
               type: typeMatch[1].trim(),
               required: !(requiredMatch && requiredMatch[1] === 'false'),
+            }
+          }
+          else {
+            // 如果无法正确提取类型信息，使用默认值
+            logDebug(`无法解析属性类型，使用默认值: ${propName}`)
+            props[propName] = {
+              type: 'String',
+              required: true,
             }
           }
         }
@@ -372,12 +269,24 @@ function parsePropsFromTypeStr(content: string): Record<string, { type: string, 
       }
     }
   }
+  catch (e) {
+    handleError(
+      ErrorType.TYPE_PARSE_ERROR,
+      `解析属性字符串失败: ${content.substring(0, 50)}${content.length > 50 ? '...' : ''}`,
+      e,
+    )
+  }
 
   return props
 }
 
 /**
  * 处理对象与其他类型的交叉类型，如 {prop: string} & OtherType
+ *
+ * @param typeMap 类型映射
+ * @param intersectionText 交叉类型文本
+ * @param inlineProps 内联对象属性
+ * @returns 处理后的属性字符串
  */
 export function handleObjectIntersectionType(
   typeMap: Map<string, string>,
@@ -394,7 +303,7 @@ export function handleObjectIntersectionType(
     // 处理除内联对象外的其他类型
     for (const part of parts) {
       // 跳过内联对象部分，因为已经通过inlineProps参数传入
-      if (part.startsWith('{') && part.endsWith('}')) {
+      if (isObjectType(part)) {
         continue
       }
 
@@ -403,17 +312,13 @@ export function handleObjectIntersectionType(
       if (/^[A-Z_]\w*$/i.test(typeName) && typeMap.has(typeName)) {
         const typeStr = typeMap.get(typeName) || ''
 
-        if (typeStr.startsWith('{') && typeStr.endsWith('}')) {
+        if (isObjectType(typeStr)) {
           try {
-            // 解析引用类型的属性
-            const properties = parsePropsFromTypeStr(typeStr.slice(1, -1).trim())
-
-            // 合并属性
-            Object.entries(properties).forEach(([propName, value]) => {
-              if (!mergedProps[propName] || value.required) {
-                mergedProps[propName] = value
-              }
-            })
+            // 处理引用类型
+            const result = processTypeContent(typeStr)
+            if (result) {
+              mergeProps(mergedProps, result)
+            }
           }
           catch (e) {
             handleError(
@@ -435,6 +340,7 @@ export function handleObjectIntersectionType(
       `处理对象交叉类型失败: ${intersectionText}`,
       err,
     )
+    // 回退到只使用内联属性
     return stringifyProps(inlineProps)
   }
 }

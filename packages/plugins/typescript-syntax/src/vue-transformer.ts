@@ -1,18 +1,5 @@
 import type { TransformResult } from './types/types'
-import * as parser from '@babel/parser'
-import MagicString from 'magic-string'
-import {
-  collectTypesFromAST,
-  endTimer,
-  ErrorType,
-  handleError,
-  hasStyledComponents,
-  logDebug,
-  resetContext,
-  startTimer,
-  transformStyledComponents,
-  useContext,
-} from './utils'
+import { endTimer, ErrorType, handleError, startTimer, transformCore } from './utils'
 
 /**
  * 转换Vue SFC中的styled组件
@@ -28,6 +15,7 @@ export function transformVueSFC(code: string, id: string): TransformResult | nul
   try {
     // 仅处理Vue文件
     if (!id.endsWith('.vue')) {
+      endTimer('transformVueSFC')
       return null
     }
 
@@ -37,75 +25,39 @@ export function transformVueSFC(code: string, id: string): TransformResult | nul
     endTimer('extractScript')
 
     if (!scriptMatch || !scriptMatch[1]) {
+      endTimer('transformVueSFC')
       return null
     }
 
     const scriptContent = scriptMatch[1]
     const scriptStart = scriptMatch.index + scriptMatch[0].indexOf(scriptContent)
 
-    // 检查是否有styled组件
-    if (!hasStyledComponents(scriptContent)) {
-      return null
+    // 使用转换核心处理提取出的脚本内容
+    try {
+      return transformCore({
+        code: scriptContent,
+        id,
+        timerLabel: 'transformVueSFC',
+        contentStart: scriptStart,
+        logPrefix: 'Vue SFC',
+      })
     }
-
-    // 使用MagicString处理代码
-    const s = new MagicString(code)
-
-    // 重置并获取类型上下文
-    resetContext(id)
-    const typeContext = useContext(false, id)
-
-    // 解析脚本部分计时
-    startTimer('parseVueScript')
-    // 解析脚本部分
-    const ast = parser.parse(scriptContent, {
-      sourceType: 'module',
-      plugins: [
-        'jsx',
-        'typescript',
-        ['decorators', { decoratorsBeforeExport: true }],
-      ],
-      errorRecovery: true,
-    })
-    endTimer('parseVueScript')
-
-    // 收集类型信息计时
-    startTimer('collectVueTypes')
-    // 收集所有类型信息
-    collectTypesFromAST(ast, true)
-    endTimer('collectVueTypes')
-
-    // 转换 styled 组件计时
-    startTimer('transformVueStyled')
-    // 使用公共函数处理styled组件转换
-    const { hasChanges, props } = transformStyledComponents(ast, scriptContent, s, scriptStart)
-    endTimer('transformVueStyled')
-
-    // 如果没有变更，返回null
-    if (!hasChanges) {
+    catch (err) {
+      // 处理内部错误
+      handleError(
+        ErrorType.AST_TRANSFORM_ERROR,
+        `Vue SFC转换失败: ${id}`,
+        err,
+      )
       endTimer('transformVueSFC')
       return null
     }
-
-    const result = {
-      code: s.toString(),
-      map: s.generateMap({ source: id, includeContent: true }),
-      props,
-    }
-
-    // 记录转换完成
-    logDebug(`Vue SFC转换完成: ${id}, 脚本大小: ${scriptContent.length} 字节`)
-
-    // 结束整体转换计时
-    endTimer('transformVueSFC')
-
-    return result
   }
   catch (err) {
-    // 处理错误
+    // 处理外部错误
     handleError(
       ErrorType.AST_TRANSFORM_ERROR,
-      `Vue SFC转换失败: ${id}`,
+      `Vue SFC处理失败: ${id}`,
       err,
     )
 

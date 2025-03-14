@@ -135,34 +135,53 @@ export function getCacheStats(): { enabled: boolean, hits: number, misses: numbe
 
 /**
  * 从类型映射字符串中解析属性
+ *
  * @param typeMapStr 类型映射字符串，如 "{ prop1: { type: String, required: true }, prop2: {...} }"
+ * @returns 包含属性名到属性值映射的对象
  */
 export function parsePropsFromTypeMap(typeMapStr: string): Record<string, string> {
   const props: Record<string, string> = {}
 
-  // 移除花括号并解析内容
-  if (!typeMapStr.startsWith('{') || !typeMapStr.endsWith('}')) {
-    return props
-  }
-
-  const content = typeMapStr.slice(1, -1).trim()
-  if (!content)
-    return props
-
-  // 智能分割属性定义
-  let braceCount = 0
-  let start = 0
-
-  for (let i = 0; i < content.length; i++) {
-    if (content[i] === '{') {
-      braceCount++
+  try {
+    // 移除花括号并解析内容
+    if (!typeMapStr.startsWith('{') || !typeMapStr.endsWith('}')) {
+      return props
     }
-    else if (content[i] === '}') {
-      braceCount--
+
+    const content = typeMapStr.slice(1, -1).trim()
+    if (!content)
+      return props
+
+    // 智能分割属性定义，处理可能的嵌套属性
+    let braceCount = 0
+    let start = 0
+
+    for (let i = 0; i < content.length; i++) {
+      if (content[i] === '{') {
+        braceCount++
+      }
+      else if (content[i] === '}') {
+        braceCount--
+      }
+      // 只在顶层查找属性分隔符
+      else if (content[i] === ',' && braceCount === 0) {
+        // 找到属性分隔符，处理当前属性
+        const propDef = content.substring(start, i).trim()
+        const colonIdx = propDef.indexOf(':')
+
+        if (colonIdx !== -1) {
+          const propName = propDef.substring(0, colonIdx).trim()
+          const propValue = propDef.substring(colonIdx + 1).trim()
+          props[propName] = propValue
+        }
+
+        start = i + 1 // 更新下一个属性的起始位置
+      }
     }
-    else if (content[i] === ',' && braceCount === 0) {
-      // 找到属性分隔符，处理当前属性
-      const propDef = content.substring(start, i).trim()
+
+    // 处理最后一个属性
+    if (start < content.length) {
+      const propDef = content.substring(start).trim()
       const colonIdx = propDef.indexOf(':')
 
       if (colonIdx !== -1) {
@@ -170,21 +189,10 @@ export function parsePropsFromTypeMap(typeMapStr: string): Record<string, string
         const propValue = propDef.substring(colonIdx + 1).trim()
         props[propName] = propValue
       }
-
-      start = i + 1 // 更新下一个属性的起始位置
     }
   }
-
-  // 处理最后一个属性
-  if (start < content.length) {
-    const propDef = content.substring(start).trim()
-    const colonIdx = propDef.indexOf(':')
-
-    if (colonIdx !== -1) {
-      const propName = propDef.substring(0, colonIdx).trim()
-      const propValue = propDef.substring(colonIdx + 1).trim()
-      props[propName] = propValue
-    }
+  catch (error) {
+    console.error(`解析类型映射字符串失败: ${typeMapStr}`, error)
   }
 
   return props

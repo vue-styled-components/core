@@ -276,3 +276,63 @@ export function typeScriptToVueProp(typeText: string, isRequired: boolean = true
 
   throw new Error(`无法处理类型: ${typeText}`)
 }
+
+/**
+ * 检测类型字符串是否表示对象类型
+ * 对象类型包括：
+ * 1. 以花括号开始和结束的对象字面量
+ * 2. 类型名为'object'或'Object'的类型
+ * 3. 以'Record'、'Map'等开头的常见对象容器类型
+ *
+ * @param typeStr 要检测的类型字符串
+ * @returns 是否为对象类型
+ */
+export function isObjectType(typeStr: string): boolean {
+  if (!typeStr)
+    return false
+
+  const trimmed = typeStr.trim()
+
+  // 检查是否是对象字面量
+  if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+    return true
+  }
+
+  // 检查是否是对象类型名称
+  const lowerType = trimmed.toLowerCase()
+  if (lowerType === 'object') {
+    return true
+  }
+
+  // 检查是否是常见的对象容器类型
+  const objectContainers = ['record', 'map', 'dictionary', 'object']
+  if (objectContainers.some(container =>
+    lowerType.startsWith(`${container}<`) || lowerType === container)) {
+    return true
+  }
+
+  return false
+}
+
+/**
+ * 从对象类型字符串中提取内容
+ * 如果输入是对象字面量（以花括号开始和结束），则移除花括号并返回内容
+ * 否则返回原始字符串
+ *
+ * @param typeStr 对象类型字符串
+ * @returns 提取的内容
+ */
+export function extractObjectContent(typeStr: string): string {
+  if (!typeStr)
+    return ''
+
+  const trimmed = typeStr.trim()
+
+  // 如果是对象字面量，移除花括号
+  if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+    return trimmed.slice(1, -1).trim()
+  }
+
+  // 否则返回原始字符串
+  return trimmed
+}

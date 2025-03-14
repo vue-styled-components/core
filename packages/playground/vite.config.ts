@@ -10,7 +10,7 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.less'],
   },
   plugins: [
-    p(),
+    p() as any,
     vue({
       script: {
         defineModel: true,

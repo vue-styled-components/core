@@ -54,6 +54,9 @@ export {
   processNestedGeneric,
 } from './styled-transformers'
 
+// 导出 transform-core.ts 的函数
+export { transformCore } from './transform-core'
+
 export * from './type-collectors'
 
 export {

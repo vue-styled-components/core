@@ -1,3 +1,16 @@
+# [1.10.0](https://github.com/vue-styled-components/core/compare/v1.9.0...v1.10.0) (2025-03-14)
+
+
+### Bug Fixes
+
+* **plugin:** some usage not support ([2b66714](https://github.com/vue-styled-components/core/commit/2b6671434dba34980217038abfcbb392d651ada7))
+
+
+### Features
+
+* basic generic plugin ([a6de4c0](https://github.com/vue-styled-components/core/commit/a6de4c0f89cc25f95c41c0d4816fab5c44aeb95a))
+* support generic props ([fae497e](https://github.com/vue-styled-components/core/commit/fae497e460c5029367dd1d64cc6f5e255ffe6082))
+
 # [1.9.0](https://github.com/vue-styled-components/core/compare/v1.8.0...v1.9.0) (2024-11-15)
 
 

@@ -8,6 +8,7 @@ export default antfu(
       '**/dist/**',
       '**/build/**',
       '**/coverage/**',
+      '**/**/package.json',
     ],
   },
 )

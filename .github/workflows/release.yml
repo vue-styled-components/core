@@ -48,6 +48,167 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm release
 
+  deploy-benchmark-report:
+    needs: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Using pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9.3.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run benchmark tests
+        run: pnpm benchmark:worker
+
+      - name: Create Reports Directory
+        run: |
+          mkdir -p gh-pages-deploy/benchmark-reports
+          cp -r benchmark-reports/* gh-pages-deploy/benchmark-reports/
+
+          # 创建索引页面
+          cat > gh-pages-deploy/benchmark-reports/index.html << EOF
+          <!DOCTYPE html>
+          <html lang="zh-CN">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Vue Styled Components 性能基准测试报告</title>
+            <style>
+              body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                max-width: 1000px;
+                margin: 0 auto;
+                padding: 20px;
+                line-height: 1.6;
+              }
+              h1 { color: #2c3e50; }
+              .report-list {
+                list-style: none;
+                padding: 0;
+              }
+              .report-item {
+                margin-bottom: 10px;
+                padding: 15px;
+                border-radius: 8px;
+                background-color: #f8f9fa;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+              }
+              .report-link {
+                display: block;
+                color: #3498db;
+                font-weight: bold;
+                text-decoration: none;
+              }
+              .report-link:hover {
+                text-decoration: underline;
+              }
+              .report-date {
+                color: #7f8c8d;
+                font-size: 0.9em;
+                margin-top: 5px;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>Vue Styled Components 性能基准测试报告</h1>
+            <p>此页面列出了所有可用的性能基准测试报告。点击链接查看详细报告。</p>
+
+            <ul class="report-list" id="reportList">
+              <!-- 报告列表将通过JavaScript动态生成 -->
+              <li>正在加载报告列表...</li>
+            </ul>
+
+            <script>
+              // 动态加载并显示报告列表
+              async function loadReports() {
+                const reportList = document.getElementById('reportList');
+                reportList.innerHTML = '';
+
+                try {
+                  // 获取当前目录下的HTML文件列表
+                  const response = await fetch('.');
+                  const text = await response.text();
+                  const parser = new DOMParser();
+                  const doc = parser.parseFromString(text, 'text/html');
+                  const links = Array.from(doc.querySelectorAll('a'))
+                    .filter(a => a.href.endsWith('.html') && a.href !== 'index.html');
+
+                  // 按修改日期排序（最新的在前）
+                  links.sort((a, b) => {
+                    return b.href.localeCompare(a.href);
+                  });
+
+                  if (links.length === 0) {
+                    reportList.innerHTML = '<li>暂无可用报告</li>';
+                    return;
+                  }
+
+                  // 创建报告列表
+                  links.forEach(link => {
+                    const fileName = link.href.split('/').pop();
+                    // 从文件名中提取时间戳
+                    const dateMatch = fileName.match(/benchmark-report-(.*?)\.html/);
+                    let dateStr = '';
+
+                    if (dateMatch && dateMatch[1]) {
+                      // 将时间戳转换为更友好的格式
+                      const timestamp = dateMatch[1].replace(/T/g, ' ').replace(/-/g, ':');
+                      try {
+                        const date = new Date(timestamp);
+                        dateStr = date.toLocaleString('zh-CN');
+                      } catch(e) {
+                        dateStr = timestamp;
+                      }
+                    }
+
+                    const li = document.createElement('li');
+                    li.className = 'report-item';
+                    li.innerHTML = `
+                      <a href="${fileName}" class="report-link">性能测试报告 - ${dateStr || fileName}</a>
+                      <div class="report-date">生成于: ${dateStr || '未知时间'}</div>
+                    `;
+                    reportList.appendChild(li);
+                  });
+                } catch (error) {
+                  reportList.innerHTML = '<li>加载报告列表失败</li>';
+                  console.error('加载报告列表失败:', error);
+                }
+              }
+
+              // 页面加载后执行
+              document.addEventListener('DOMContentLoaded', loadReports);
+            </script>
+          </body>
+          </html>
+          EOF
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: gh-pages-deploy
+          target-folder: benchmark-reports
+          clean: false
+          clean-exclude: |
+            !benchmark-reports/**/*
+          token: ${{ secrets.GITHUB_TOKEN }}
+
   sync-beta:
     runs-on: ubuntu-latest
     needs: release

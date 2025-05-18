@@ -1,0 +1,11 @@
+{
+  "name": "worker-benchmark",
+  "version": "1.0.0",
+  "description": "性能测试工具，比较Web Worker和主线程在样式计算中的性能差异",
+  "private": true,
+  "main": "dist/worker-benchmark.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx worker-benchmark.ts"
+  }
+} 

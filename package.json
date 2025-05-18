@@ -13,7 +13,8 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "vue-tsc --noEmit",
     "prepare": "husky",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "benchmark:worker": "pnpm -F worker-benchmark start"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.4.0",
@@ -30,6 +31,7 @@
     "husky": "^9.0.11",
     "jsdom": "^25.0.1",
     "semantic-release": "^24.1.0",
+    "tsx": "^4.19.4",
     "typescript": "^5.7.2",
     "vite": "^6.1.6",
     "vite-plugin-dts": "^4.0.3",

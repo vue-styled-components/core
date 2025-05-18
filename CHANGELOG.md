@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/vue-styled-components/core/compare/v1.10.0...v1.11.0) (2025-05-18)
+
+
+### Features
+
+* using web worker to generate css ([fc8d79d](https://github.com/vue-styled-components/core/commit/fc8d79d3aa163863867ce4aa4b655589d907d2ff))
+
 # [1.10.0](https://github.com/vue-styled-components/core/compare/v1.9.0...v1.10.0) (2025-03-14)
 
 

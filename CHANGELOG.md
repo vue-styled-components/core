@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/vue-styled-components/core/compare/v1.11.0...v1.11.1) (2025-05-18)
+
+
+### Bug Fixes
+
+* **release:** update benchmark reports path in release workflow ([c75378e](https://github.com/vue-styled-components/core/commit/c75378ecc496cf1de58f81c0cb5883c475b704e7))
+
 # [1.11.0](https://github.com/vue-styled-components/core/compare/v1.10.0...v1.11.0) (2025-05-18)
 
 

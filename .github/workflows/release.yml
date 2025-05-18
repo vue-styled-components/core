@@ -80,7 +80,7 @@ jobs:
       - name: Create Reports Directory
         run: |
           mkdir -p gh-pages-deploy/benchmark-reports
-          cp -r benchmark-reports/* gh-pages-deploy/benchmark-reports/
+          cp -r worker-benchmark/benchmark-reports/* gh-pages-deploy/benchmark-reports/
 
           # 创建索引页面
           cat > gh-pages-deploy/benchmark-reports/index.html << EOF

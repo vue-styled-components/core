@@ -1,3 +1,10 @@
+## [1.11.2](https://github.com/vue-styled-components/core/compare/v1.11.1...v1.11.2) (2025-05-18)
+
+
+### Bug Fixes
+
+* **release:** create benchmark report page failed ([41fbe6c](https://github.com/vue-styled-components/core/commit/41fbe6c090760f23e7960d37fc19a9c6a15ddd5c))
+
 ## [1.11.1](https://github.com/vue-styled-components/core/compare/v1.11.0...v1.11.1) (2025-05-18)
 
 

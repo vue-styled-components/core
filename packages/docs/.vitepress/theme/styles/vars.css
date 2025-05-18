@@ -1,0 +1,31 @@
+/**
+ * 自定义主题变量
+ */
+
+:root {
+  /* 报告组件颜色 */
+  --report-bg-color: #f9f9f9;
+  --report-card-bg: #ffffff;
+  --report-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --report-border-radius: 8px;
+  --report-success-color: #27ae60;
+  --report-warning-color: #e74c3c;
+  --report-header-bg: #3498db;
+  --report-header-color: #ffffff;
+  --report-border-color: #e1e1e1;
+  --report-hover-color: #f5f5f5;
+}
+
+.dark {
+  /* 暗色主题下的报告组件颜色 */
+  --report-bg-color: #1a1a1a;
+  --report-card-bg: #2d2d2d;
+  --report-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --report-border-radius: 8px;
+  --report-success-color: #2ecc71;
+  --report-warning-color: #e74c3c;
+  --report-header-bg: #2980b9;
+  --report-header-color: #ffffff;
+  --report-border-color: #444444;
+  --report-hover-color: #383838;
+} 

@@ -32,6 +32,10 @@ function nav() {
       text: 'API',
       link: '/guide/api/core',
     },
+    {
+      text: 'Performance',
+      link: '/guide/performance/benchmark',
+    },
   ]
 }
 
@@ -60,6 +64,13 @@ function sidebarGuide() {
         { text: 'Auto Prefix', link: 'auto-prefix' },
         { text: 'Tailwind CSS', link: 'tailwind-css' },
         { text: 'Plugin', link: 'plugin' },
+      ],
+    },
+    {
+      text: 'Performance',
+      base: '/guide/performance/',
+      items: [
+        { text: 'Benchmark Report', link: 'benchmark' },
       ],
     },
     {

@@ -56,6 +56,10 @@ function nav() {
       text: 'API参考',
       link: '/zh/guide/api/core',
     },
+    {
+      text: '性能',
+      link: '/zh/guide/performance/benchmark',
+    },
   ]
 }
 
@@ -84,6 +88,13 @@ function sidebarGuide() {
         { text: 'CSS私有前缀', link: 'auto-prefix' },
         { text: 'Tailwind CSS', link: 'tailwind-css' },
         { text: '插件', link: 'plugin' },
+      ],
+    },
+    {
+      text: '性能',
+      base: '/zh/guide/performance/',
+      items: [
+        { text: '基准测试报告', link: 'benchmark' },
       ],
     },
     {

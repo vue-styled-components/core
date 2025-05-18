@@ -1,0 +1,63 @@
+{
+  "environment": "浏览器",
+  "workerAvailable": true,
+  "testResults": [
+    {
+      "scenarioName": "简单样式计算",
+      "iterations": 100,
+      "stylesCount": 5,
+      "workerDuration": 0.46618499999999585,
+      "mainThreadDuration": 0.11674500000003718,
+      "fasterMethod": "主线程",
+      "percentageDifference": 74.95736671063243,
+      "timestamp": "2025-05-18T12:51:47.278Z"
+    },
+    {
+      "scenarioName": "复杂样式计算",
+      "iterations": 50,
+      "stylesCount": 20,
+      "workerDuration": 0.03050800000005438,
+      "mainThreadDuration": 0.03947600000003604,
+      "fasterMethod": "Worker",
+      "percentageDifference": 29.39556837539554,
+      "timestamp": "2025-05-18T12:51:47.278Z"
+    },
+    {
+      "scenarioName": "大量样式计算",
+      "iterations": 10,
+      "stylesCount": 100,
+      "workerDuration": 0.011662000000001171,
+      "mainThreadDuration": 0.027031999999962864,
+      "fasterMethod": "Worker",
+      "percentageDifference": 131.79557537266464,
+      "timestamp": "2025-05-18T12:51:47.279Z"
+    },
+    {
+      "scenarioName": "混合样式计算",
+      "iterations": 20,
+      "stylesCount": 40,
+      "workerDuration": 0.013695999999981723,
+      "mainThreadDuration": 0.024738000000070315,
+      "fasterMethod": "Worker",
+      "percentageDifference": 80.62207944000677,
+      "timestamp": "2025-05-18T12:51:47.279Z"
+    },
+    {
+      "scenarioName": "阈值边界样式计算",
+      "iterations": 50,
+      "stylesCount": 10,
+      "workerDuration": 0.028624999999919964,
+      "mainThreadDuration": 0.028895000000034088,
+      "fasterMethod": "Worker",
+      "percentageDifference": 0.9432314414493659,
+      "timestamp": "2025-05-18T12:51:47.279Z"
+    }
+  ],
+  "generatedAt": "5/18/2025, 12:51:47 PM",
+  "fallbackTest": {
+    "duration": 0.029836999999929503,
+    "mainThreadDuration": 0.038404000000014094,
+    "difference": 0.00856700000008459,
+    "differencePercentage": 28.71
+  }
+}

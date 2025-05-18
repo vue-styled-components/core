@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Styled Components 性能基准测试报告</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+    h1 { color: #2c3e50; }
+    .report-list { list-style: none; padding: 0; }
+    .report-item { margin-bottom: 10px; padding: 15px; border-radius: 8px; background-color: #f8f9fa; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .report-link { display: block; color: #3498db; font-weight: bold; text-decoration: none; }
+    .report-link:hover { text-decoration: underline; }
+    .report-date { color: #7f8c8d; font-size: 0.9em; margin-top: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Vue Styled Components 性能基准测试报告</h1>
+  <p>此页面列出了所有可用的性能基准测试报告。点击链接查看详细报告。</p>
+  <ul class="report-list" id="reportList">
+    <li>正在加载报告列表...</li>
+  </ul>
+  <script>
+    async function loadReports() {
+      const reportList = document.getElementById("reportList");
+      reportList.innerHTML = "";
+      try {
+        const response = await fetch(".");
+        const text = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, "text/html");
+        const links = Array.from(doc.querySelectorAll("a")).filter(a => a.href.endsWith(".html") && a.href !== "index.html");
+        links.sort((a, b) => b.href.localeCompare(a.href));
+        if (links.length === 0) {
+          reportList.innerHTML = "<li>暂无可用报告</li>";
+          return;
+        }
+        links.forEach(link => {
+          const fileName = link.href.split("/").pop();
+          const dateMatch = fileName.match(/benchmark-report-(.*?)\.html/);
+          let dateStr = "";
+          if (dateMatch && dateMatch[1]) {
+            const timestamp = dateMatch[1].replace(/T/g, " ").replace(/-/g, ":");
+            try {
+              const date = new Date(timestamp);
+              dateStr = date.toLocaleString("zh-CN");
+            } catch(e) { dateStr = timestamp; }
+          }
+          const li = document.createElement("li");
+          li.className = "report-item";
+          li.innerHTML = `<a href="${fileName}" class="report-link">性能测试报告 - ${dateStr || fileName}</a><div class="report-date">生成于: ${dateStr || "未知时间"}</div>`;
+          reportList.appendChild(li);
+        });
+      } catch (error) {
+        reportList.innerHTML = "<li>加载报告列表失败</li>";
+        console.error("加载报告列表失败:", error);
+      }
+    }
+    document.addEventListener("DOMContentLoaded", loadReports);
+  </script>
+</body>
+</html>

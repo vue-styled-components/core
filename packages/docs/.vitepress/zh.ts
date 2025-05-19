@@ -90,13 +90,13 @@ function sidebarGuide() {
         { text: '插件', link: 'plugin' },
       ],
     },
-    {
-      text: '性能',
-      base: '/zh/guide/performance/',
-      items: [
-        { text: '基准测试报告', link: 'benchmark' },
-      ],
-    },
+    // {
+    //   text: '性能',
+    //   base: '/zh/guide/performance/',
+    //   items: [
+    //     { text: '基准测试报告', link: 'benchmark' },
+    //   ],
+    // },
     {
       text: 'API参考',
       base: '/zh/guide/api/',

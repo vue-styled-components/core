@@ -66,13 +66,13 @@ function sidebarGuide() {
         { text: 'Plugin', link: 'plugin' },
       ],
     },
-    {
-      text: 'Performance',
-      base: '/guide/performance/',
-      items: [
-        { text: 'Benchmark Report', link: 'benchmark' },
-      ],
-    },
+    // {
+    //   text: 'Performance',
+    //   base: '/guide/performance/',
+    //   items: [
+    //     { text: 'Benchmark Report', link: 'benchmark' },
+    //   ],
+    // },
     {
       text: 'API Reference',
       base: '/guide/api/',

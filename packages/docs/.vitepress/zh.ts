@@ -56,10 +56,10 @@ function nav() {
       text: 'API参考',
       link: '/zh/guide/api/core',
     },
-    {
-      text: '性能',
-      link: '/zh/guide/performance/benchmark',
-    },
+    // {
+    //   text: '性能',
+    //   link: '/zh/guide/performance/benchmark',
+    // },
   ]
 }
 

@@ -32,10 +32,10 @@ function nav() {
       text: 'API',
       link: '/guide/api/core',
     },
-    {
-      text: 'Performance',
-      link: '/guide/performance/benchmark',
-    },
+    // {
+    //   text: 'Performance',
+    //   link: '/guide/performance/benchmark',
+    // },
   ]
 }
 

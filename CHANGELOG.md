@@ -1,3 +1,10 @@
+## [1.11.3](https://github.com/vue-styled-components/core/compare/v1.11.2...v1.11.3) (2025-05-19)
+
+
+### Reverts
+
+* Revert "feat: using web worker to generate css" ([17c1eb5](https://github.com/vue-styled-components/core/commit/17c1eb5cad28edaf1660d01aa91899bef908a75f))
+
 ## [1.11.2](https://github.com/vue-styled-components/core/compare/v1.11.1...v1.11.2) (2025-05-18)
 
 

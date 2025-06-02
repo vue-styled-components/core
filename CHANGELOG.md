@@ -1,3 +1,10 @@
+# [1.12.0-beta.1](https://github.com/vue-styled-components/core/compare/v1.11.3...v1.12.0-beta.1) (2025-06-02)
+
+
+### Features
+
+* add style processing performance optimization ([ab84953](https://github.com/vue-styled-components/core/commit/ab84953b0d9ca2fdfc0452ba5fedde5d25933daf))
+
 ## [1.11.3](https://github.com/vue-styled-components/core/compare/v1.11.2...v1.11.3) (2025-05-19)
 
 

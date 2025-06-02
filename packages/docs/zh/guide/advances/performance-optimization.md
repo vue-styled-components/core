@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# 性能优化 <Badge type="tip" text="^1.2.0" />
+# 性能优化 <Badge type="tip" text="^1.12.0" />
 
 `vue-styled-components` 提供了全面的性能优化功能，包括样式缓存、批量更新和性能监控，帮助您构建高性能应用程序。
 

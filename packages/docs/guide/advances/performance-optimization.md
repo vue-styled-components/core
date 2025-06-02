@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Performance Optimization <Badge type="tip" text="^1.2.0" />
+# Performance Optimization <Badge type="tip" text="^1.12.0" />
 
 `vue-styled-components` provides comprehensive performance optimization features, including style caching, batch updates, and performance monitoring to help you build high-performance applications.
 

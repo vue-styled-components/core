@@ -155,17 +155,20 @@ describe('performance Optimization', () => {
       configureStyleProcessing({ enablePerformanceMonitoring: true })
     })
 
-    it('should track style calculations', () => {
+    it('should track style calculations', async () => {
       const endTimer = performanceMonitor.startStyleCalculation()
 
       // 模拟一些计算时间
-      setTimeout(() => {
-        endTimer()
+      await new Promise(resolve =>
+        setTimeout(() => {
+          endTimer()
+          resolve(true)
+        }, 10),
+      )
 
-        const metrics = performanceMonitor.getMetrics()
-        expect(metrics.totalStyleCalculations).toBe(1)
-        expect(metrics.averageCalculationTime).toBeGreaterThan(0)
-      }, 10)
+      const metrics = performanceMonitor.getMetrics()
+      expect(metrics.totalStyleCalculations).toBe(1)
+      expect(metrics.averageCalculationTime).toBeGreaterThan(0)
     })
 
     it('should track cache hits and misses', () => {

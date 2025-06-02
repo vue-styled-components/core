@@ -84,6 +84,7 @@ class PerformanceMonitor {
    * 记录计算时间
    */
   private recordCalculationTime(duration: number): void {
+    console.log('duration', duration)
     this.metrics.totalStyleCalculations++
     this.calculationTimes.push(duration)
 

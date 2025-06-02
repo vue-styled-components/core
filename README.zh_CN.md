@@ -27,33 +27,29 @@
 
 ## ✨特性
 
-✅ 样式化 Vue 组件或原生组件
+✅ **组件样式化** - 支持 Vue 组件、样式化组件和 HTML 元素的样式定制
 
-✅ 设置默认 Attributes
+✅ **Props 和属性** - 动态传递 props，设置默认属性，灵活覆盖属性
 
-✅ 传递 Props
+✅ **主题系统** - 内置主题提供器，支持嵌套主题配置
 
-✅ 支持主题化
+✅ **性能优化** - 智能缓存、批量更新和异步处理机制
 
-✅ 生成 keyframes
+✅ **CSS 功能** - 关键帧动画、全局样式、CSS mixins 和嵌套支持
 
-✅ 生成可复用 CSS 片段
+✅ **Tailwind 集成** - 无缝集成 Tailwind CSS 类名
 
-✅ 创建全局样式
+✅ **插件系统** - 可扩展的插件架构和钩子机制
 
-✅ 添加或覆盖 Attributes
+✅ **开发体验** - TypeScript 支持、性能监控和自动前缀
 
-✅ 支持嵌套 CSS 写法
-
-✅ 自动添加浏览器私有前缀
-
-...
+✅ **生产就绪** - 可配置缓存和批处理的性能优化
 
 ## 文档
 
 详细的介绍和使用方法，请参考[官方文档](https://vue-styled-components.com)
 
-## 快速开始
+## 🚀快速开始
 
 ### 📦安装
 
@@ -69,107 +65,19 @@ yarn add @vue-styled-components/core
 pnpm i @vue-styled-components/core
 ```
 
-### 💅基本使用
+### 💡使用指南
 
-```vue
-<script setup lang="ts">
-import { styled } from '@vue-styled-components/core';
-import OtherComponent from './VueComponent.vue';
+通过我们的完整文档和示例快速上手：
 
-const StyledDiv = styled('div')`
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
-  color: #000;
-`;
-const StyledStyledDiv = styled(StyledDiv)`
-  width: 100px;
-  height: 100px;
-  background-color: #000;
-  color: #fff;
-`;
-const StyledOtherComponent = styled(OtherComponent)`
-  width: 100px;
-  height: 100px;
-  background-color: red;
-  color: #fff;
-`;
-</script>
+**👉 [访问文档网站](https://vue-styled-components.com) 👈**
 
-<template>
-  <StyledDiv>Styled Div</StyledDiv>
-  <StyledStyledDiv>Styled Styled Div</StyledStyledDiv>
-  <StyledOtherComponent>Styled Other Vue Component</StyledOtherComponent>
-</template>
-```
-
-### 🔧Attributes 设置
-
-```vue
-<script setup lang="ts">
-import { styled } from '@vue-styled-components/core';
-
-const StyledDiv = styled.div.attrs({
-  class: 'styled-div'
-})`
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
-  color: #000;
-`;
-</script>
-
-<template>
-  <StyledDiv>Styled Div</StyledDiv>
-  <!-- <div class="styled-div">Styled Div</div> -->
-</template>
-```
-
-### 🕹️通过 Props 动态控制样式
-
-如果要在样式中传递 props，则必须在 styled 函数中定义这些属性。因为 Vue 组件需要显式声明 props，以便 Vue 知道应如何处理传递给组件的外部 props（请参阅 [Props Declaration](https://vuejs.org/guide/components/props.html#props-declaration)）
-
-```vue
-<script setup lang="ts">
-import { styled } from '@vue-styled-components/core';
-
-const StyledDiv = styled('div', {
-  color: String
-})`
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
-  color: ${(props) => props.color};
-`;
-</script>
-
-<template>
-  <StyledDiv color="red">Styled Div</StyledDiv>
-</template>
-```
-
-### 🧙主题
-
-```vue
-<script setup lang="ts">
-import { styled, ThemeProvider } from '@vue-styled-components/core';
-
-const StyledDiv = styled.div`
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
-  color: ${(props) => props.theme.color};
-`;
-</script>
-
-<template>
-  <ThemeProvider :theme="{ color: '#fff' }">
-    <StyledDiv>Styled Div</StyledDiv>
-  </ThemeProvider>
-</template>
-```
-
-**更多细节请查看 [官方文档](https://vue-styled-components.com)**
+文档包含：
+- 📚 完整的 API 参考
+- 🎯 分步教程指南
+- 💡 最佳实践和模式
+- 🔧 配置选项说明
+- 🎨 高级主题化指南
+- ⚡ 性能优化技巧
 
 ## 🧑‍🤝‍🧑贡献者
 

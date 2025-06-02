@@ -26,37 +26,33 @@
 
 </div>
 
-## ✨Feature
+## ✨Features
 
-✅ Style vue component or styled component
+✅ **Component Styling** - Style Vue components, styled components, and HTML elements
 
-✅ Set default attrs
+✅ **Props & Attrs** - Pass props, set default attributes, and override attrs dynamically
 
-✅ Passed props
+✅ **Theming System** - Built-in theme provider with nested theme support
 
-✅ Support theming
+✅ **Performance Optimized** - Smart caching, batch updates, and async processing
 
-✅ Generate keyframes
+✅ **CSS Features** - Keyframes, global styles, CSS mixins, and nesting support
 
-✅ Generate css mixin
+✅ **Tailwind Integration** - Seamless Tailwind CSS class integration
 
-✅ Create global style
+✅ **Plugin System** - Extensible plugin architecture with hooks
 
-✅ Add or override attrs
+✅ **Developer Experience** - TypeScript support, performance monitoring, and auto-prefixing
 
-✅ Support nesting css.
-
-✅ Auto-prefix css.
-
-...
+✅ **Production Ready** - Optimized for performance with configurable caching and batching
 
 ## 📖Documentation
 
 For detailed introduction and usage instructions, please refer to [the documentation website](https://vue-styled-components.com)
 
-## 🚀Getting Start
+## 🚀Quick Start
 
-### 📦Install
+### 📦Installation
 
 ```sh
 npm i @vue-styled-components/core
@@ -70,109 +66,19 @@ yarn add @vue-styled-components/core
 pnpm i @vue-styled-components/core
 ```
 
-### 💅Basic
+### 💡Usage
 
-```vue
-<script setup lang="ts">
-import { styled } from '@vue-styled-components/core';
-import OtherComponent from './VueComponent.vue';
+Get started quickly with our comprehensive documentation and examples:
 
-const StyledDiv = styled('div')`
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
-  color: #000;
-`;
-const StyledStyledDiv = styled(StyledDiv)`
-  width: 100px;
-  height: 100px;
-  background-color: #000;
-  color: #fff;
-`;
-const StyledOtherComponent = styled(OtherComponent)`
-  width: 100px;
-  height: 100px;
-  background-color: red;
-  color: #fff;
-`;
-</script>
+**👉 [Visit Documentation Website](https://vue-styled-components.com) 👈**
 
-<template>
-  <StyledDiv>Styled Div</StyledDiv>
-  <StyledStyledDiv>Styled Styled Div</StyledStyledDiv>
-  <StyledOtherComponent>Styled Other Vue Component</StyledOtherComponent>
-</template>
-```
-
-### 🔧Attrs Setting
-
-```vue
-<script setup lang="ts">
-import { styled } from '@vue-styled-components/core';
-
-const StyledDiv = styled.div.attrs({
-  class: 'styled-div'
-})`
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
-  color: #000;
-`;
-</script>
-
-<template>
-  <StyledDiv>Styled Div</StyledDiv>
-  <!-- <div class="styled-div">Styled Div</div> -->
-</template>
-```
-
-### 🕹️Control Dynamic Style by Props
-
-You must define the props in the `styled` function if you want to use them in the style. Because Vue components
-require explicit props declaration so that Vue knows what external props passed to the component should be treated as
-fallthrough attributes.(see [Props Declaration](https://vuejs.org/guide/components/props.html#props-declaration))
-
-```vue
-<script setup lang="ts">
-import { styled } from '@vue-styled-components/core';
-
-const StyledDiv = styled('div', {
-  color: String
-})`
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
-  color: ${(props) => props.color};
-`;
-</script>
-
-<template>
-  <StyledDiv color="red">Styled Div</StyledDiv>
-</template>
-```
-
-### 🧙Theming
-
-```vue
-<script setup lang="ts">
-import { styled, ThemeProvider } from '@vue-styled-components/core';
-
-const StyledDiv = styled.div`
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
-  color: ${(props) => props.theme.color};
-`;
-</script>
-
-<template>
-  <ThemeProvider :theme="{ color: '#fff' }">
-    <StyledDiv>Styled Div</StyledDiv>
-  </ThemeProvider>
-</template>
-```
-
-**More details see [docs site](https://v-vibe.github.io/vue-styled-components/)**
+The documentation includes:
+- 📚 Complete API reference
+- 🎯 Step-by-step tutorials
+- 💡 Best practices and patterns
+- 🔧 Configuration options
+- 🎨 Advanced theming guide
+- ⚡ Performance optimization tips
 
 ## 🧑‍🤝‍🧑Contributors
 

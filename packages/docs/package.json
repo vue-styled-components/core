@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node .vitepress/scripts/generate-reports-list.js && vitepress dev",
-    "build": "node .vitepress/scripts/generate-reports-list.js && vitepress build",
+    "dev": "vitepress dev",
+    "build": "vitepress build",
     "preview": "vitepress preview"
   },
   "dependencies": {

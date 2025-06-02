@@ -1,4 +1,7 @@
 export * from './applyExpressions'
+export * from './batchUpdater'
 export * from './generateName'
 export * from './insertExpressions'
+export * from './performanceMonitor'
+export * from './styleCache'
 export * from './styleManagement'

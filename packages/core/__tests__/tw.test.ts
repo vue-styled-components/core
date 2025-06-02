@@ -1,8 +1,12 @@
 import { cleanup, render, waitFor } from '@testing-library/vue'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { styled, tw } from '../index'
+import { presetBasicEnv } from './utils'
 
 describe('tw', () => {
+  beforeEach(() => {
+    presetBasicEnv()
+  })
   afterEach(() => {
     cleanup()
   })

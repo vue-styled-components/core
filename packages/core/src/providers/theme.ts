@@ -18,7 +18,7 @@ export const ThemeProvider = defineComponent(
     provide<DefaultTheme>('$theme', reactive(reactiveTheme))
 
     watch(
-      parentTheme,
+      [parentTheme, () => props.theme],
       (v) => {
         assign(reactiveTheme, mergeTheme(v))
       },

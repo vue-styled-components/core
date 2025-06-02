@@ -1,10 +1,13 @@
 import { cleanup, render } from '@testing-library/vue'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { h, ref } from 'vue'
 import { createGlobalStyle, isStyledComponent, styled } from '../index'
-import { getStyle } from './utils'
+import { getStyle, presetBasicEnv } from './utils'
 
 describe('styled', () => {
+  beforeEach(() => {
+    presetBasicEnv()
+  })
   afterEach(() => {
     // Reset env
     cleanup()

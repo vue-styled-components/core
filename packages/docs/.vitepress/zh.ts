@@ -88,6 +88,7 @@ function sidebarGuide() {
         { text: 'CSS私有前缀', link: 'auto-prefix' },
         { text: 'Tailwind CSS', link: 'tailwind-css' },
         { text: '插件', link: 'plugin' },
+        { text: '性能优化', link: 'performance-optimization' },
       ],
     },
     // {
@@ -104,6 +105,7 @@ function sidebarGuide() {
         { text: '核心', link: 'core' },
         { text: '辅助', link: 'helper' },
         { text: 'Hook', link: 'hook' },
+        { text: '性能', link: 'performance' },
       ],
     },
   ]

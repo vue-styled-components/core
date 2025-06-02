@@ -3,7 +3,6 @@ import type { ExpressionType } from '@/src/utils'
 import type {
   ComponentObjectPropsOptions,
   DefineSetupFnComponent,
-  ExtractPropTypes,
   HTMLAttributes,
 } from 'vue'
 import type { DefaultTheme } from './providers/theme'
@@ -11,7 +10,6 @@ import domElements from '@/src/constants/domElements'
 import { isStyledComponent, isValidElementType, isVueComponent } from '@/src/helper'
 import { generateClassName, generateComponentName, injectStyle, insertExpressions, removeStyle } from '@/src/utils'
 import {
-
   computed,
   defineComponent,
   h,
@@ -25,6 +23,23 @@ import {
 
 export type BaseContext<T> = T & { theme: DefaultTheme }
 
+// 构造函数到类型的映射
+type ConstructorToType<T> = T extends { type: infer U }
+  ? ConstructorToType<U>
+  : T extends StringConstructor
+    ? string
+    : T extends NumberConstructor
+      ? number
+      : T extends BooleanConstructor
+        ? boolean
+        : T extends DateConstructor
+          ? Date
+          : T extends ArrayConstructor
+            ? any[]
+            : T extends ObjectConstructor
+              ? object
+              : T
+
 export type PropsDefinition<T> = {
   [K in keyof T]: T[K]
 }
@@ -34,17 +49,40 @@ interface StyledComponent<T extends object> {
   <P>(
     styles: TemplateStringsArray,
     ...expressions: (
-      | ExpressionType<BaseContext<P & T>>
-      | ExpressionType<BaseContext<P & T>>[]
+      | ExpressionType<BaseContext<P & TransformProps<T>>>
+      | ExpressionType<BaseContext<P & TransformProps<T>>>[]
     )[]
-  ): DefineSetupFnComponent<{ as?: string, props?: P } & ExtractPropTypes<PropsDefinition<T & P>> & HTMLAttributes>
+  ): DefineSetupFnComponent<{ as?: string, props?: P } & TransformProps<T> & P & HTMLAttributes>
 
   attrs: <A = object>(
-    attrs: object | ((props: PropsDefinition<T> & A) => object),
-  ) => StyledComponent<A & ExtractPropTypes<PropsDefinition<T>>>
+    attrs: A | ((props: TransformProps<T> & A) => A),
+  ) => StyledComponent<A & T>
 
   // 支持泛型参数的类型定义
   <P extends object>(props: PropsDefinition<P>): StyledComponent<P & T>
+}
+
+// 类型辅助函数，用于在编译时转换 props 类型
+type TransformProps<T> = {
+  [K in keyof T as T[K] extends { required: true }
+    ? T[K] extends { default: any }
+      ? never
+      : K
+    : never
+  // eslint-disable-next-line unused-imports/no-unused-vars
+  ]: T[K] extends { type: infer U, required?: boolean, default?: infer D }
+    ? ConstructorToType<U>
+    : ConstructorToType<T[K]>
+} & {
+  [K in keyof T as T[K] extends { required: true }
+    ? T[K] extends { default: any }
+      ? K
+      : never
+    : K
+  // eslint-disable-next-line unused-imports/no-unused-vars
+  ]?: T[K] extends { type: infer U, required?: boolean, default?: infer D }
+    ? ConstructorToType<U>
+    : ConstructorToType<T[K]>
 }
 
 function baseStyled<T extends object>(target: string | InstanceType<any>, propsDefinition?: PropsDefinition<T>): StyledComponent<T> {
@@ -55,10 +93,10 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
   function styledComponent<P>(
     stylesOrProps: TemplateStringsArray | PropsDefinition<P>,
     ...expressions: (
-      | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>
-      | ExpressionType<BaseContext<P & ExtractPropTypes<PropsDefinition<T>>>>[]
+      | ExpressionType<BaseContext<P & TransformProps<T>>>
+      | ExpressionType<BaseContext<P & TransformProps<T>>>[]
     )[]
-  ) {
+  ): any {
     // 处理泛型参数的情况，如 styled.div<Props>
     if (!Array.isArray(stylesOrProps)) {
       return baseStyled(target, { ...propsDefinition, ...stylesOrProps } as PropsDefinition<T & P>) as StyledComponent<T & P>
@@ -70,7 +108,7 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
   }
 
   styledComponent.attrs = function <A = object>(
-    attrs: object | ((props: ExtractPropTypes<PropsDefinition<T>> & A) => object),
+    attrs: object | ((props: PropsDefinition<T> & A) => object),
   ) {
     defaultAttrs = attrs
     return styledComponent
@@ -171,7 +209,7 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
             required: false,
           },
           ...propsDefinition,
-        } as ComponentObjectPropsOptions<{ as?: string, props?: P } & ExtractPropTypes<PropsDefinition<T>>>,
+        } as ComponentObjectPropsOptions<{ as?: string, props?: P } & PropsDefinition<T>>,
         inheritAttrs: true,
       },
     ) as any

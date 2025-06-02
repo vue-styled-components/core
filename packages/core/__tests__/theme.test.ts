@@ -1,10 +1,13 @@
 import { cleanup, render, waitFor } from '@testing-library/vue'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { h, reactive } from 'vue'
 import { styled, ThemeProvider } from '../index'
-import { getStyle } from './utils'
+import { getStyle, presetBasicEnv } from './utils'
 
 describe('theme-provider', () => {
+  beforeEach(() => {
+    presetBasicEnv()
+  })
   afterEach(() => {
     // Reset env
     cleanup()

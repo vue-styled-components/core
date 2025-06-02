@@ -64,6 +64,7 @@ function sidebarGuide() {
         { text: 'Auto Prefix', link: 'auto-prefix' },
         { text: 'Tailwind CSS', link: 'tailwind-css' },
         { text: 'Plugin', link: 'plugin' },
+        { text: 'Performance Optimization', link: 'performance-optimization' },
       ],
     },
     // {
@@ -80,6 +81,7 @@ function sidebarGuide() {
         { text: 'Core', link: 'core' },
         { text: 'Helper', link: 'helper' },
         { text: 'Hook', link: 'hook' },
+        { text: 'Performance', link: 'performance' },
       ],
     },
   ]

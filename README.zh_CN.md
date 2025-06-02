@@ -87,4 +87,8 @@ pnpm i @vue-styled-components/core
 
 <br>
 
-另外，感谢 [styled-components](https://github.com/styled-components).
+
+## ❤ Thanks
+
+- [styled-components](https://github.com/styled-components).
+- [stylis](https://github.com/thysultan/stylis)

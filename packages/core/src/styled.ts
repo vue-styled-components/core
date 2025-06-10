@@ -44,8 +44,15 @@ export type PropsDefinition<T> = {
   [K in keyof T]: T[K]
 }
 
+// CSS样式对象类型
+type CSSStyleObject = Record<string, string | number>
+
+// 样式函数类型
+type StyleFunction<T> = (props: BaseContext<T>) => CSSStyleObject
+
 // 定义 styledComponent 类型
 interface StyledComponent<T extends object> {
+  // 支持模板字符串
   <P>(
     styles: TemplateStringsArray,
     ...expressions: (
@@ -54,12 +61,20 @@ interface StyledComponent<T extends object> {
     )[]
   ): DefineSetupFnComponent<{ as?: string, props?: P } & TransformProps<T> & P & HTMLAttributes>
 
+  // 支持CSS对象
+  <P>(
+    styles: CSSStyleObject | StyleFunction<P & TransformProps<T>>
+  ): DefineSetupFnComponent<{ as?: string, props?: P } & TransformProps<T> & P & HTMLAttributes>
+
   attrs: <A = object>(
     attrs: A | ((props: TransformProps<T> & A) => A),
   ) => StyledComponent<A & T>
 
   // 支持泛型参数的类型定义
   <P extends object>(props: PropsDefinition<P>): StyledComponent<P & T>
+
+  // 支持单独的props函数链式调用
+  props: <P extends object>(propsDefinition: PropsDefinition<P>) => StyledComponent<P & T>
 }
 
 // 类型辅助函数，用于在编译时转换 props 类型
@@ -91,15 +106,34 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
   }
   let defaultAttrs: unknown
   function styledComponent<P>(
-    stylesOrProps: TemplateStringsArray | PropsDefinition<P>,
+    stylesOrProps: TemplateStringsArray | PropsDefinition<P> | CSSStyleObject | StyleFunction<P & TransformProps<T>>,
     ...expressions: (
       | ExpressionType<BaseContext<P & TransformProps<T>>>
       | ExpressionType<BaseContext<P & TransformProps<T>>>[]
     )[]
   ): any {
-    // 处理泛型参数的情况，如 styled.div<Props>
+    // 处理样式函数
+    if (typeof stylesOrProps === 'function') {
+      const styleFunction = stylesOrProps as StyleFunction<BaseContext<P & TransformProps<T>>>
+      return createStyledComponentFromFunction<P>(styleFunction)
+    }
+
+    // 处理CSS对象或props定义
     if (!Array.isArray(stylesOrProps)) {
-      return baseStyled(target, { ...propsDefinition, ...stylesOrProps } as PropsDefinition<T & P>) as StyledComponent<T & P>
+      // 检查是否为props定义（包含type、required、default等属性）
+      const hasPropsDefinitionKeys = Object.values(stylesOrProps).some(value =>
+        value && typeof value === 'object' && ('type' in value || 'required' in value || 'default' in value),
+      )
+
+      if (!hasPropsDefinitionKeys) {
+        // 是CSS对象
+        const cssObject = stylesOrProps as CSSStyleObject
+        return createStyledComponentFromObject<P>(cssObject)
+      }
+      else {
+        // 是props定义
+        return baseStyled(target, { ...propsDefinition, ...stylesOrProps } as PropsDefinition<T & P>) as StyledComponent<T & P>
+      }
     }
 
     // 正常的样式模板字符串处理
@@ -112,6 +146,39 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
   ) {
     defaultAttrs = attrs
     return styledComponent
+  }
+
+  // 添加props方法支持链式调用
+  styledComponent.props = function <P extends object>(newPropsDefinition: PropsDefinition<P>) {
+    return baseStyled(target, { ...propsDefinition, ...newPropsDefinition } as PropsDefinition<T & P>) as StyledComponent<T & P>
+  }
+
+  // 将CSS对象转换为CSS字符串
+  function cssObjectToString(cssObject: CSSStyleObject): string {
+    return Object.entries(cssObject)
+      .map(([key, value]) => {
+        // 将驼峰命名转换为kebab-case
+        const kebabKey = key.replace(/([A-Z])/g, '-$1').toLowerCase()
+        return `${kebabKey}: ${value};`
+      })
+      .join(' ')
+  }
+
+  // 从CSS对象创建组件
+  function createStyledComponentFromObject<P>(cssObject: CSSStyleObject) {
+    const cssString = cssObjectToString(cssObject)
+    const cssWithExpression = [cssString] as ExpressionType<any>[]
+    return createStyledComponent<P>(cssWithExpression)
+  }
+
+  // 从样式函数创建组件
+  function createStyledComponentFromFunction<P>(styleFunction: StyleFunction<BaseContext<P & TransformProps<T>>>) {
+    // 创建一个表达式函数，在运行时调用样式函数
+    const cssWithExpression = [(props: BaseContext<P & TransformProps<T>>) => {
+      const cssObject = styleFunction(props)
+      return cssObjectToString(cssObject)
+    }] as ExpressionType<any>[]
+    return createStyledComponent<P>(cssWithExpression)
   }
 
   function createStyledComponent<P>(cssWithExpression: ExpressionType<any>[]) {

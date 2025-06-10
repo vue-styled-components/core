@@ -102,11 +102,14 @@ const TabButton = styled.button<{ active: boolean }>`
   }
 `
 
-const ContentArea = styled.div`
-  flex: 1;
-  padding: 2rem;
-  overflow-y: auto;
-`
+const ContentArea = styled.div.props({
+  color: 'red'
+})(({ color, theme }) => ({
+  flex: 1,
+  padding: '2rem',
+  color: color,
+  'overflow-y': 'auto',
+}))
 
 const ControlPanel = styled.div`
   background: rgba(255, 255, 255, 0.1);
@@ -222,7 +225,7 @@ const exportReport = () => {
           </div>
         </Sidebar>
         
-        <ContentArea>
+        <ContentArea color="red">
           <BasicTests v-if="activeTab === 'basic'" :debug-mode="debugMode" />
           <StressTests v-if="activeTab === 'stress'" :debug-mode="debugMode" />
           <ThemeTests v-if="activeTab === 'theme'" :debug-mode="debugMode" />

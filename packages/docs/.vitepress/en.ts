@@ -57,6 +57,7 @@ function sidebarGuide() {
       text: 'Advances',
       base: '/guide/advances/',
       items: [
+        { text: 'CSS Objects and Functions', link: 'css-objects-and-functions' },
         { text: 'Theming', link: 'theming' },
         { text: 'Global Styles', link: 'global-style' },
         { text: 'CSS Mixin', link: 'css-mixin' },

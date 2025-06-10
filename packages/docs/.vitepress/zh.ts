@@ -81,6 +81,7 @@ function sidebarGuide() {
       text: '进阶',
       base: '/zh/guide/advances/',
       items: [
+        { text: 'CSS对象和样式函数', link: 'css-objects-and-functions' },
         { text: '主题', link: 'theming' },
         { text: '全局样式', link: 'global-style' },
         { text: '样式复用', link: 'css-mixin' },

@@ -95,3 +95,99 @@ const StyledInput = styled('input', { canInput: Boolean })
   `
 </script>
 ```
+
+### CSS Objects
+
+**Augments**
+
+- CSS Object, `Record<string, string | number>`, `required`
+
+**Return**
+
+- Vue Component, `DefineSetupFnComponent`
+
+**Usage**
+
+```vue
+<script setup lang="ts">
+import { styled } from '@vue-styled-components/core'
+
+const StyledDiv = styled.div({
+  color: 'red',
+  fontSize: '16px',
+  backgroundColor: 'blue',
+  padding: '10px'
+})
+</script>
+
+<template>
+  <StyledDiv>CSS Object Styled Component</StyledDiv>
+</template>
+```
+
+### Style Functions
+
+**Augments**
+
+- Style Function, `(props: ComponentProps) => Record<string, string | number>`, `required`
+
+**Return**
+
+- Vue Component, `DefineSetupFnComponent`
+
+**Usage**
+
+```vue
+<script setup lang="ts">
+import { styled } from '@vue-styled-components/core'
+
+interface ButtonProps {
+  disabled: boolean
+  size: 'small' | 'medium' | 'large'
+}
+
+const StyledButton = styled.button<ButtonProps>(({ disabled, size }) => ({
+  color: disabled ? '#fff' : '#007bff',
+  padding: size === 'large' ? '12px 24px' : '8px 16px',
+  backgroundColor: disabled ? '#ccc' : '#f8f9fa'
+}))
+</script>
+
+<template>
+  <StyledButton :disabled="false" size="medium">
+    Dynamic Button
+  </StyledButton>
+</template>
+```
+
+### `.props()`
+
+**Augments**
+
+- Props Definition, `Record<string, any>`, `required`
+
+**Return**
+
+- Styled Factory with Props, used to chain with element methods
+
+**Usage**
+
+```vue
+<script setup lang="ts">
+import { styled } from '@vue-styled-components/core'
+
+const StyledInput = styled
+  .props({
+    borderColor: { type: String, default: '#ccc' },
+    size: { type: String, default: 'medium' }
+  })
+  .input(({ borderColor, size }) => ({
+    border: `1px solid ${borderColor}`,
+    padding: size === 'large' ? '12px' : '8px'
+  }))
+</script>
+
+<template>
+  <StyledInput borderColor="#007bff" size="large" />
+</template>
+```

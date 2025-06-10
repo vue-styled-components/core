@@ -1,3 +1,17 @@
+# [1.12.0](https://github.com/vue-styled-components/core/compare/v1.11.3...v1.12.0) (2025-06-10)
+
+
+### Bug Fixes
+
+* **css:** typedef issue([#50](https://github.com/vue-styled-components/core/issues/50)) ([e37e8fa](https://github.com/vue-styled-components/core/commit/e37e8faff45e1f3f9aa41f78645adb683f266018))
+* **css:** typedef issue([#50](https://github.com/vue-styled-components/core/issues/50)) ([a2e4861](https://github.com/vue-styled-components/core/commit/a2e48617e25b1f21c4e145afd4804196d40a21c0))
+
+
+### Features
+
+* add style processing performance optimization ([ab84953](https://github.com/vue-styled-components/core/commit/ab84953b0d9ca2fdfc0452ba5fedde5d25933daf))
+* **core:** supports CSS objects and style functions ([eef7117](https://github.com/vue-styled-components/core/commit/eef7117faae627f8297b195275fc769fb00bf744))
+
 # [1.12.0-beta.3](https://github.com/vue-styled-components/core/compare/v1.12.0-beta.2...v1.12.0-beta.3) (2025-06-10)
 
 

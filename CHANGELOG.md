@@ -1,3 +1,10 @@
+# [1.12.0-beta.3](https://github.com/vue-styled-components/core/compare/v1.12.0-beta.2...v1.12.0-beta.3) (2025-06-10)
+
+
+### Bug Fixes
+
+* **css:** typedef issue([#50](https://github.com/vue-styled-components/core/issues/50)) ([e37e8fa](https://github.com/vue-styled-components/core/commit/e37e8faff45e1f3f9aa41f78645adb683f266018))
+
 # [1.12.0-beta.2](https://github.com/vue-styled-components/core/compare/v1.12.0-beta.1...v1.12.0-beta.2) (2025-06-10)
 
 

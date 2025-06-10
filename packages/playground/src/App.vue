@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import styled, { ThemeProvider } from '@vue-styled-components/core'
+import styled, { css, ThemeProvider } from '../../core/dist'
 import { reactive, ref, computed, onMounted, onUnmounted } from 'vue'
 import PerformancePanel from './components/PerformancePanel.vue'
 import BasicTests from './components/BasicTests.vue'
@@ -78,12 +78,21 @@ const Sidebar = styled.aside`
   padding: 1rem;
 `
 
-const TabButton = styled.button<{ active: boolean }>`
+
+const cs = css`
   width: 100%;
   padding: 0.75rem 1rem;
   margin-bottom: 0.5rem;
   background: ${props => props.active ? 'rgba(255, 255, 255, 0.2)' : 'transparent'};
   color: white;
+`
+
+const TabButton = styled.button<{ active: boolean }>`
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  background: ${props => props.theme.active ? 'rgba(255, 255, 255, 0.2)' : 'transparent'};
+  color: ${props => props.theme.background};
   border: 1px solid ${props => props.active ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.1)'};
   border-radius: 8px;
   cursor: pointer;

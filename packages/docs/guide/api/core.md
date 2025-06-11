@@ -177,11 +177,11 @@ const StyledButton = styled.button<ButtonProps>(({ disabled, size }) => ({
 import { styled } from '@vue-styled-components/core'
 
 const StyledInput = styled
+  .input
   .props({
     borderColor: { type: String, default: '#ccc' },
     size: { type: String, default: 'medium' }
-  })
-  .input(({ borderColor, size }) => ({
+  })(({ borderColor, size }) => ({
     border: `1px solid ${borderColor}`,
     padding: size === 'large' ? '12px' : '8px'
   }))

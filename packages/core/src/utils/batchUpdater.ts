@@ -13,7 +13,6 @@ class BatchUpdater {
   private isUpdateScheduled = false
   private updateId = 0
   private renderedClasses = new Set<string>()
-  private firstRenderThreshold = 100 // 100ms内认为是首次渲染
 
   /**
    * 调度样式更新

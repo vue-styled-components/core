@@ -5,12 +5,15 @@ interface UpdateTask {
   className: string
   cssString: string
   priority: number
+  isFirstRender?: boolean
 }
 
 class BatchUpdater {
   private pendingUpdates = new Map<string, UpdateTask>()
   private isUpdateScheduled = false
   private updateId = 0
+  private renderedClasses = new Set<string>()
+  private firstRenderThreshold = 100 // 100ms内认为是首次渲染
 
   /**
    * 调度样式更新
@@ -22,9 +25,13 @@ class BatchUpdater {
   ): void {
     const config = getStyleConfig()
 
-    if (!config.enableBatchUpdates) {
-      // 如果未启用批量更新，立即执行
+    // 检测是否为首次渲染
+    const isFirstRender = !this.renderedClasses.has(className)
+
+    // 如果未启用批量更新或是首次渲染，立即执行
+    if (!config.enableBatchUpdates || isFirstRender) {
       this.executeUpdate(className, cssString)
+      this.renderedClasses.add(className)
       return
     }
 
@@ -43,6 +50,7 @@ class BatchUpdater {
       className,
       cssString,
       priority,
+      isFirstRender,
     })
 
     if (!this.isUpdateScheduled) {
@@ -85,13 +93,22 @@ class BatchUpdater {
       startTime = performance.now()
     }
 
-    // 按优先级排序更新任务
+    // 按优先级排序更新任务，首次渲染优先
     const tasks = Array.from(this.pendingUpdates.values())
-      .sort((a, b) => b.priority - a.priority)
+      .sort((a, b) => {
+        // 首次渲染的样式优先级最高
+        if (a.isFirstRender && !b.isFirstRender)
+          return -1
+        if (!a.isFirstRender && b.isFirstRender)
+          return 1
+        // 其次按优先级排序
+        return b.priority - a.priority
+      })
 
     // 执行所有更新
     for (const task of tasks) {
       this.executeUpdate(task.className, task.cssString)
+      this.renderedClasses.add(task.className)
     }
 
     if (config.enablePerformanceMonitoring && startTime !== undefined) {
@@ -147,6 +164,27 @@ class BatchUpdater {
   clear(): void {
     this.pendingUpdates.clear()
     this.isUpdateScheduled = false
+  }
+
+  /**
+   * 重置首次渲染状态（用于测试或页面刷新）
+   */
+  resetFirstRenderState(): void {
+    this.renderedClasses.clear()
+  }
+
+  /**
+   * 标记类名为已渲染（用于手动控制）
+   */
+  markAsRendered(className: string): void {
+    this.renderedClasses.add(className)
+  }
+
+  /**
+   * 检查是否为首次渲染
+   */
+  isFirstRender(className: string): boolean {
+    return !this.renderedClasses.has(className)
   }
 }
 

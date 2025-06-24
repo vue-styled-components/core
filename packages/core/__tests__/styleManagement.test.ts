@@ -27,6 +27,7 @@ describe('styleManagement', () => {
     resetStyleConfig()
     styleCache.clear()
     batchUpdater.clear()
+    batchUpdater.resetFirstRenderState()
     performanceMonitor.reset()
     vi.clearAllMocks()
   })
@@ -35,6 +36,7 @@ describe('styleManagement', () => {
     resetStyleConfig()
     styleCache.clear()
     batchUpdater.clear()
+    batchUpdater.resetFirstRenderState()
     performanceMonitor.reset()
     vi.restoreAllMocks()
   })
@@ -121,9 +123,11 @@ describe('styleManagement', () => {
     })
 
     it('should insert style directly when batch updates are disabled', () => {
-      configureStyleProcessing({ enableBatchUpdates: false })
+      configureStyleProcessing({
+        enableBatchUpdates: false,
+      })
 
-      const className = 'test-class'
+      const className = 'test-class-direct-insert'
       const cssWithExpression = ['color: red;']
       const context = { theme: {} }
 

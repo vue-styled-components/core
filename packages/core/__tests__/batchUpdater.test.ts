@@ -72,6 +72,11 @@ describe('batchUpdater', () => {
     })
 
     it('should batch multiple updates together', () => {
+      // 标记这些类为已渲染，这样它们就不会被立即执行
+      batchUpdater.markAsRendered('class1')
+      batchUpdater.markAsRendered('class2')
+      batchUpdater.markAsRendered('class3')
+
       batchUpdater.scheduleUpdate('class1', '.class1 { color: red; }')
       batchUpdater.scheduleUpdate('class2', '.class2 { color: blue; }')
       batchUpdater.scheduleUpdate('class3', '.class3 { color: green; }')
@@ -87,6 +92,10 @@ describe('batchUpdater', () => {
     })
 
     it('should replace duplicate class updates', () => {
+      // 标记类为已渲染，这样更新会被批量处理
+      batchUpdater.markAsRendered('test-class')
+      batchUpdater.markAsRendered('other-class')
+
       batchUpdater.scheduleUpdate('test-class', '.test { color: red; }')
       batchUpdater.scheduleUpdate('test-class', '.test { color: blue; }') // 应该替换前一个
       batchUpdater.scheduleUpdate('other-class', '.other { color: green; }')
@@ -102,6 +111,11 @@ describe('batchUpdater', () => {
     })
 
     it('should handle priority ordering', () => {
+      // 标记类为已渲染，这样更新会被批量处理
+      batchUpdater.markAsRendered('low-priority')
+      batchUpdater.markAsRendered('high-priority')
+      batchUpdater.markAsRendered('medium-priority')
+
       batchUpdater.scheduleUpdate('low-priority', '.low { color: red; }', 1)
       batchUpdater.scheduleUpdate('high-priority', '.high { color: blue; }', 10)
       batchUpdater.scheduleUpdate('medium-priority', '.medium { color: green; }', 5)
@@ -281,6 +295,10 @@ describe('batchUpdater', () => {
       vi.useFakeTimers()
       configureStyleProcessing({ enableBatchUpdates: true })
 
+      // 标记类为已渲染，这样更新会被批量处理
+      batchUpdater.markAsRendered('low')
+      batchUpdater.markAsRendered('high')
+
       batchUpdater.scheduleUpdate('low', '.low { color: red; }', -1)
       batchUpdater.scheduleUpdate('high', '.high { color: blue; }', 1)
 
@@ -317,6 +335,114 @@ describe('batchUpdater', () => {
       vi.runAllTimers()
 
       expect(mockInsertFunction).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('first render optimization', () => {
+    beforeEach(() => {
+      vi.useFakeTimers()
+      configureStyleProcessing({ enableBatchUpdates: true, batchDelay: 16 })
+      batchUpdater.resetFirstRenderState()
+    })
+
+    it('should execute first render styles immediately even with batch updates enabled', () => {
+      batchUpdater.scheduleUpdate('first-render-class', '.first { color: red; }')
+
+      // 首次渲染应该立即执行，不需要等待
+      expect(mockInsertFunction).toHaveBeenCalledWith('first-render-class', '.first { color: red; }')
+      expect(batchUpdater.getPendingCount()).toBe(0)
+    })
+
+    it('should batch subsequent updates for the same class', () => {
+      // 首次渲染
+      batchUpdater.scheduleUpdate('test-class', '.test { color: red; }')
+      expect(mockInsertFunction).toHaveBeenCalledTimes(1)
+
+      // 后续更新应该被批量处理
+      batchUpdater.scheduleUpdate('test-class', '.test { color: blue; }')
+      expect(mockInsertFunction).toHaveBeenCalledTimes(1) // 仍然是1次
+      expect(batchUpdater.getPendingCount()).toBe(1)
+
+      // 等待批量更新执行
+      vi.advanceTimersByTime(16)
+      vi.runAllTimers()
+
+      expect(mockInsertFunction).toHaveBeenCalledTimes(2)
+      expect(mockInsertFunction).toHaveBeenLastCalledWith('test-class', '.test { color: blue; }')
+    })
+
+    it('should prioritize first render styles in batch updates', () => {
+      // 先添加一个已渲染的类的更新
+      batchUpdater.markAsRendered('already-rendered')
+      batchUpdater.scheduleUpdate('already-rendered', '.already { color: green; }')
+
+      // 再添加一个首次渲染的类
+      batchUpdater.resetFirstRenderState()
+      batchUpdater.scheduleUpdate('first-render', '.first { color: red; }')
+
+      // 首次渲染应该立即执行
+      expect(mockInsertFunction).toHaveBeenCalledWith('first-render', '.first { color: red; }')
+
+      // 等待批量更新执行已渲染的类
+      vi.advanceTimersByTime(16)
+      vi.runAllTimers()
+
+      expect(mockInsertFunction).toHaveBeenCalledWith('already-rendered', '.already { color: green; }')
+    })
+
+    it('should track rendered classes correctly', () => {
+      expect(batchUpdater.isFirstRender('new-class')).toBe(true)
+
+      batchUpdater.scheduleUpdate('new-class', '.new { color: red; }')
+
+      expect(batchUpdater.isFirstRender('new-class')).toBe(false)
+    })
+
+    it('should allow manual marking of rendered classes', () => {
+      expect(batchUpdater.isFirstRender('manual-class')).toBe(true)
+
+      batchUpdater.markAsRendered('manual-class')
+
+      expect(batchUpdater.isFirstRender('manual-class')).toBe(false)
+
+      // 现在这个类的更新应该被批量处理
+      batchUpdater.scheduleUpdate('manual-class', '.manual { color: red; }')
+      expect(mockInsertFunction).not.toHaveBeenCalled()
+      expect(batchUpdater.getPendingCount()).toBe(1)
+    })
+
+    it('should reset first render state correctly', () => {
+      batchUpdater.scheduleUpdate('test-class', '.test { color: red; }')
+      expect(batchUpdater.isFirstRender('test-class')).toBe(false)
+
+      batchUpdater.resetFirstRenderState()
+      expect(batchUpdater.isFirstRender('test-class')).toBe(true)
+
+      // 重置后，相同类名的更新应该被视为首次渲染
+      batchUpdater.scheduleUpdate('test-class', '.test { color: blue; }')
+      expect(mockInsertFunction).toHaveBeenCalledWith('test-class', '.test { color: blue; }')
+    })
+
+    it('should handle multiple first render classes simultaneously', () => {
+      batchUpdater.scheduleUpdate('class1', '.class1 { color: red; }')
+      batchUpdater.scheduleUpdate('class2', '.class2 { color: blue; }')
+      batchUpdater.scheduleUpdate('class3', '.class3 { color: green; }')
+
+      // 所有首次渲染的类都应该立即执行
+      expect(mockInsertFunction).toHaveBeenCalledTimes(3)
+      expect(mockInsertFunction).toHaveBeenNthCalledWith(1, 'class1', '.class1 { color: red; }')
+      expect(mockInsertFunction).toHaveBeenNthCalledWith(2, 'class2', '.class2 { color: blue; }')
+      expect(mockInsertFunction).toHaveBeenNthCalledWith(3, 'class3', '.class3 { color: green; }')
+      expect(batchUpdater.getPendingCount()).toBe(0)
+    })
+
+    it('should respect batch updates disabled setting for first render', () => {
+      configureStyleProcessing({ enableBatchUpdates: false })
+
+      batchUpdater.scheduleUpdate('test-class', '.test { color: red; }')
+
+      expect(mockInsertFunction).toHaveBeenCalledWith('test-class', '.test { color: red; }')
+      expect(batchUpdater.getPendingCount()).toBe(0)
     })
   })
 })

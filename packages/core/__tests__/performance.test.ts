@@ -14,6 +14,7 @@ describe('performance Optimization', () => {
     resetStyleConfig()
     styleCache.clear()
     batchUpdater.clear()
+    batchUpdater.resetFirstRenderState()
     performanceMonitor.reset()
   })
 
@@ -110,6 +111,9 @@ describe('performance Optimization', () => {
       const mockInsert = vi.fn()
       batchUpdater.setInsertFunction(mockInsert)
 
+      // 标记为已渲染，避免首次渲染立即执行
+      batchUpdater.markAsRendered('test-class')
+
       batchUpdater.scheduleUpdate('test-class', '.test { color: red; }')
 
       expect(batchUpdater.getPendingCount()).toBe(1)
@@ -133,6 +137,9 @@ describe('performance Optimization', () => {
       const mockInsert = vi.fn()
       batchUpdater.setInsertFunction(mockInsert)
 
+      // 标记为已渲染，确保进入队列而不是立即执行
+      batchUpdater.markAsRendered('test-class')
+
       batchUpdater.scheduleUpdate('test-class', '.test { color: red; }')
       batchUpdater.flushSync()
 
@@ -142,6 +149,9 @@ describe('performance Optimization', () => {
 
     it('should replace duplicate class updates', () => {
       configureStyleProcessing({ enableBatchUpdates: true })
+
+      // 标记为已渲染，确保进入队列
+      batchUpdater.markAsRendered('test-class')
 
       batchUpdater.scheduleUpdate('test-class', '.test { color: red; }')
       batchUpdater.scheduleUpdate('test-class', '.test { color: blue; }')
@@ -230,6 +240,10 @@ describe('performance Optimization', () => {
 
       const mockInsert = vi.fn()
       batchUpdater.setInsertFunction(mockInsert)
+
+      // 标记类名为已渲染，避免首次渲染立即执行的影响
+      batchUpdater.markAsRendered('test-class')
+      batchUpdater.markAsRendered('test-class-2')
 
       // 第一次调用应该计算并缓存
       const expressions = ['color: red;']

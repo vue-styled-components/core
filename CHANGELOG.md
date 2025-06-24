@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/vue-styled-components/core/compare/v1.12.0...v1.13.0) (2025-06-24)
+
+
+### Features
+
+* **core:** enhance batchUpdater tests with first render optimizations and class rendering tracking ([4388803](https://github.com/vue-styled-components/core/commit/4388803ab778ee431fe66a46bf083927aba9c349))
+
 # [1.12.0](https://github.com/vue-styled-components/core/compare/v1.11.3...v1.12.0) (2025-06-10)
 
 

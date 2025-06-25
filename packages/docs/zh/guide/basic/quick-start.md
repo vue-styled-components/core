@@ -26,8 +26,7 @@ Pnpm
 pnpm i @vue-styled-components/core
 ```
 
-### Vite 插件
-
+<!-- ### Vite 插件
 
 
 Npm
@@ -61,7 +60,7 @@ export default defineConfig({
     // ...
   ]
 })
-```
+``` -->
 
 ## 开始使用
 

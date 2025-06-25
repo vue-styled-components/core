@@ -26,7 +26,7 @@ Pnpm
 pnpm i @vue-styled-components/core
 ```
 
-### Vite Plugin
+<!-- ### Vite Plugin
 
 Npm
 
@@ -59,7 +59,7 @@ export default defineConfig({
     // ...
   ]
 })
-```
+``` -->
 
 
 ## Getting Started

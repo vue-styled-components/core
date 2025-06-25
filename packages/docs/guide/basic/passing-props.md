@@ -49,13 +49,13 @@ fallthrough attributes.(see [Props Declaration](https://vuejs.org/guide/componen
 
 :::
 
-**So we provide a vite plugin to support the generic type props same as `styled-components`. You can install the plugin [`@vue-styled-components/plugin`](https://github.com/vue-styled-components/plugin) to allow the following usage:**
+<!-- **So we provide a vite plugin to support the generic type props same as `styled-components`. You can install the plugin [`@vue-styled-components/plugin`](https://github.com/vue-styled-components/plugin) to allow the following usage:**
 
 ```ts
 const StyledDiv = styled.div<color: string>`
   color: ${props => props.color}
 `
-```
+``` -->
 
 ## Use `attributes`
 

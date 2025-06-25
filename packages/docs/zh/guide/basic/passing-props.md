@@ -45,12 +45,12 @@ const blur = () => (borderColor.value = 'darkred')
 
 :::
 
-**所以我们提供了一个插件使得定义 props 与 `styled-components` 一样. 你可以安装插件 [`@vue-styled-components/plugin`](https://github.com/vue-styled-components/plugin) 以支持一下写法:**
+<!-- **所以我们提供了一个插件使得定义 props 与 `styled-components` 一样. 你可以安装插件 [`@vue-styled-components/plugin`](https://github.com/vue-styled-components/plugin) 以支持一下写法:**
 
 ```ts
 const StyledDiv = styled.div<color: string>`
   color: ${props => props.color}
-`
+``` -->
 
 ## 使用 `attributes`
 

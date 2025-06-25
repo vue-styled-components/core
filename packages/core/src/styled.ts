@@ -100,11 +100,11 @@ type TransformProps<T> = {
     : ConstructorToType<T[K]>
 }
 
-function baseStyled<T extends object>(target: string | InstanceType<any>, propsDefinition?: PropsDefinition<T>): StyledComponent<T> {
+function baseStyled<T extends object>(target: string | InstanceType<any>, propsDefinition?: PropsDefinition<T>, defaultAttrs?: unknown): StyledComponent<T> {
   if (!isValidElementType(target)) {
     throw new Error('The element is invalid.')
   }
-  let defaultAttrs: unknown
+
   function styledComponent<P>(
     stylesOrProps: TemplateStringsArray | PropsDefinition<P> | CSSStyleObject | StyleFunction<P & TransformProps<T>>,
     ...expressions: (
@@ -132,25 +132,25 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
       }
       else {
         // 是props定义
-        return baseStyled(target, { ...propsDefinition, ...stylesOrProps } as PropsDefinition<T & P>) as StyledComponent<T & P>
+        return baseStyled(target, { ...propsDefinition, ...stylesOrProps } as PropsDefinition<T & P>, defaultAttrs) as StyledComponent<T & P>
       }
     }
 
     // 正常的样式模板字符串处理
     const cssStringsWithExpression = insertExpressions(stylesOrProps as TemplateStringsArray, expressions)
-    return createStyledComponent<P>(cssStringsWithExpression)
+    return createStyledComponent<P>(cssStringsWithExpression, defaultAttrs)
   }
 
   styledComponent.attrs = function <A = object>(
     attrs: object | ((props: PropsDefinition<T> & A) => object),
   ) {
-    defaultAttrs = attrs
-    return styledComponent
+    // 创建一个新的 styled 组件实例，而不是修改当前实例的共享状态
+    return baseStyled(target, propsDefinition, attrs) as StyledComponent<A & T>
   }
 
   // 添加props方法支持链式调用
   styledComponent.props = function <P extends object>(newPropsDefinition: PropsDefinition<P>) {
-    return baseStyled(target, { ...propsDefinition, ...newPropsDefinition } as PropsDefinition<T & P>) as StyledComponent<T & P>
+    return baseStyled(target, { ...propsDefinition, ...newPropsDefinition } as PropsDefinition<T & P>, defaultAttrs) as StyledComponent<T & P>
   }
 
   // 将CSS对象转换为CSS字符串
@@ -168,7 +168,7 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
   function createStyledComponentFromObject<P>(cssObject: CSSStyleObject) {
     const cssString = cssObjectToString(cssObject)
     const cssWithExpression = [cssString] as ExpressionType<any>[]
-    return createStyledComponent<P>(cssWithExpression)
+    return createStyledComponent<P>(cssWithExpression, defaultAttrs)
   }
 
   // 从样式函数创建组件
@@ -178,10 +178,10 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
       const cssObject = styleFunction(props)
       return cssObjectToString(cssObject)
     }] as ExpressionType<any>[]
-    return createStyledComponent<P>(cssWithExpression)
+    return createStyledComponent<P>(cssWithExpression, defaultAttrs)
   }
 
-  function createStyledComponent<P>(cssWithExpression: ExpressionType<any>[]) {
+  function createStyledComponent<P>(cssWithExpression: ExpressionType<any>[], componentDefaultAttrs?: unknown) {
     let type: string = target
     if (isVueComponent(target)) {
       type = 'vue-component'
@@ -195,11 +195,11 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
     const component = defineComponent(
       (props, { slots }) => {
         const internalAttrs = computed<Record<string, any>>(() => {
-          if (typeof defaultAttrs === 'function') {
-            return defaultAttrs(props)
+          if (typeof componentDefaultAttrs === 'function') {
+            return componentDefaultAttrs(props)
           }
-          if (typeof defaultAttrs === 'object') {
-            return defaultAttrs
+          if (typeof componentDefaultAttrs === 'object') {
+            return componentDefaultAttrs
           }
           return {}
         })

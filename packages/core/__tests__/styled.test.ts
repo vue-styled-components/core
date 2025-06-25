@@ -108,6 +108,37 @@ describe('styled', () => {
     expect(style2?.color).eq('rgb(255, 0, 0)')
   })
 
+  it('should not mix attrs between different styled components', async () => {
+    // 创建第一个组件，设置特定的 attrs
+    const Component1 = styled.div.attrs({
+      'data-testid': 'component1',
+      'title': 'Component 1',
+    })`
+      color: red;
+    `
+
+    // 创建第二个组件，设置不同的 attrs
+    const Component2 = styled.div.attrs({
+      'data-testid': 'component2',
+      'title': 'Component 2',
+    })`
+      color: blue;
+    `
+
+    // 渲染两个组件
+    const instance1 = render(Component1)
+    const instance2 = render(Component2)
+
+    const element1 = instance1.getByTestId('component1')
+    const element2 = instance2.getByTestId('component2')
+
+    // 验证每个组件都有自己的 attrs，没有被混淆
+    expect(element1.title).eq('Component 1')
+    expect(element2.title).eq('Component 2')
+    expect(element1.dataset.testid).eq('component1')
+    expect(element2.dataset.testid).eq('component2')
+  })
+
   it('should react to props change', async () => {
     const StyledComponent = styled('div', { color: String }).attrs({ 'data-testid': 'test' })`
       color: ${props => props.color};

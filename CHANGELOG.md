@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/vue-styled-components/core/compare/v1.13.0...v1.13.1) (2025-06-25)
+
+
+### Bug Fixes
+
+* **styled:** isolate attrs state to prevent cross-component contamination ([ce3a825](https://github.com/vue-styled-components/core/commit/ce3a82556123cee0f87285bd92a42d8d9990f09d))
+
 # [1.13.0](https://github.com/vue-styled-components/core/compare/v1.12.0...v1.13.0) (2025-06-24)
 
 

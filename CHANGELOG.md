@@ -1,3 +1,10 @@
+## [1.13.2](https://github.com/vue-styled-components/core/compare/v1.13.1...v1.13.2) (2025-08-15)
+
+
+### Bug Fixes
+
+* **core:** transition animation of leaving not take effect(close [#52](https://github.com/vue-styled-components/core/issues/52)) ([73ac2e7](https://github.com/vue-styled-components/core/commit/73ac2e75d0d754ec6cf29118ffc1bb9751a82eb9))
+
 ## [1.13.1](https://github.com/vue-styled-components/core/compare/v1.13.0...v1.13.1) (2025-06-25)
 
 

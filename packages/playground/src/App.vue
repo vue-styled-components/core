@@ -7,6 +7,7 @@ import StressTests from './components/StressTests.vue'
 import ThemeTests from './components/ThemeTests.vue'
 import PropsTest from './components/PropsTest.vue'
 import DebugPanel from './components/DebugPanel.vue'
+import TransitionTest from './TransitionTest.vue'
 
 // 主题配置
 const theme = reactive({
@@ -176,6 +177,8 @@ const exportReport = () => {
 
 <template>
   <ThemeProvider :theme="theme">
+    <TransitionTest />
+
     <AppContainer>
       <Header>
         <h1>Vue Styled Components Playground</h1>

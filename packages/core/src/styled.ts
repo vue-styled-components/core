@@ -12,8 +12,10 @@ import { generateClassName, generateComponentName, injectStyle, insertExpression
 import {
   computed,
   defineComponent,
+  getCurrentInstance,
   h,
   inject,
+  nextTick,
   onMounted,
   onUnmounted,
   reactive,
@@ -98,6 +100,53 @@ type TransformProps<T> = {
   ]?: T[K] extends { type: infer U, required?: boolean, default?: infer D }
     ? ConstructorToType<U>
     : ConstructorToType<T[K]>
+}
+
+// {{ AURA-X: Add - 实现 transition 友好的样式移除函数. Approval: 寸止. }}
+function removeStyleWithTransition(className: string): void {
+  const instance = getCurrentInstance()
+  if (!instance) {
+    // 如果无法获取组件实例，直接移除样式
+    removeStyle(className)
+    return
+  }
+
+  nextTick(() => {
+    const el = instance.vnode.el as HTMLElement
+    if (!el) {
+      removeStyle(className)
+      return
+    }
+
+    // 检查元素是否有 transition 样式
+    const computedStyle = window.getComputedStyle(el)
+    const transitionDuration = computedStyle.transitionDuration
+    const transitionProperty = computedStyle.transitionProperty
+
+    // 如果没有 transition 或 transition 时间为 0，直接移除样式
+    if (!transitionDuration || transitionDuration === '0s' || transitionProperty === 'none') {
+      removeStyle(className)
+      return
+    }
+
+    // 监听 transitionend 事件
+    const handleTransitionEnd = (event: TransitionEvent) => {
+      // 确保事件来自当前元素
+      if (event.target === el) {
+        el.removeEventListener('transitionend', handleTransitionEnd)
+        removeStyle(className)
+      }
+    }
+
+    el.addEventListener('transitionend', handleTransitionEnd)
+
+    // 设置超时保护，防止 transitionend 事件未触发
+    const maxDuration = Number.parseFloat(transitionDuration) * 1000 + 100 // 添加 100ms 缓冲
+    setTimeout(() => {
+      el.removeEventListener('transitionend', handleTransitionEnd)
+      removeStyle(className)
+    }, maxDuration)
+  })
 }
 
 function baseStyled<T extends object>(target: string | InstanceType<any>, propsDefinition?: PropsDefinition<T>, defaultAttrs?: unknown): StyledComponent<T> {
@@ -249,7 +298,8 @@ function baseStyled<T extends object>(target: string | InstanceType<any>, propsD
         })
 
         onUnmounted(() => {
-          removeStyle(defaultClassName)
+          // {{ AURA-X: Modify - 实现 transition 友好的样式移除机制. Approval: 寸止. }}
+          removeStyleWithTransition(defaultClassName)
         })
 
         // Return the render function

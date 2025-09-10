@@ -1,3 +1,10 @@
+## [1.13.3](https://github.com/vue-styled-components/core/compare/v1.13.2...v1.13.3) (2025-09-10)
+
+
+### Bug Fixes
+
+* **styled:** improve element type check in removeStyleWithTransition function([#54](https://github.com/vue-styled-components/core/issues/54)) ([67c65af](https://github.com/vue-styled-components/core/commit/67c65afedb65c5d2a702fea3114b25a22f4ee687))
+
 ## [1.13.2](https://github.com/vue-styled-components/core/compare/v1.13.1...v1.13.2) (2025-08-15)
 
 

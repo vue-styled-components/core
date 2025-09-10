@@ -113,12 +113,11 @@ function removeStyleWithTransition(className: string): void {
 
   nextTick(() => {
     const el = instance.vnode.el as HTMLElement
-    if (!el) {
+    if (!el || !(el instanceof Element)) {
       removeStyle(className)
       return
     }
 
-    // 检查元素是否有 transition 样式
     const computedStyle = window.getComputedStyle(el)
     const transitionDuration = computedStyle.transitionDuration
     const transitionProperty = computedStyle.transitionProperty

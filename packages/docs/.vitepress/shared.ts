@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 import { demoblockPlugin, demoblockVitePlugin } from 'vitepress-theme-demoblock'
 
 export default defineConfig({
-  base: '/',
+  base: '/core/',
   title: 'Vue Styled Components',
   head: [
     ['link', { rel: 'icon', href: '/logo.png ' }],
